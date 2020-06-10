@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da0f80bc1987568e2eaf2865f4443584",
+    "content-hash": "e4564dc05f9be3049d1545a8303595ba",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -594,23 +594,24 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.5.2",
+            "version": "6.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "43ece0e75098b7ecd8d13918293029e555a50f82"
+                "reference": "aab4ebd862aa7d04f01a4b51849d657db56d882e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/43ece0e75098b7ecd8d13918293029e555a50f82",
-                "reference": "43ece0e75098b7ecd8d13918293029e555a50f82",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/aab4ebd862aa7d04f01a4b51849d657db56d882e",
+                "reference": "aab4ebd862aa7d04f01a4b51849d657db56d882e",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/promises": "^1.0",
                 "guzzlehttp/psr7": "^1.6.1",
-                "php": ">=5.5"
+                "php": ">=5.5",
+                "symfony/polyfill-intl-idn": "^1.11"
             },
             "require-dev": {
                 "ext-curl": "*",
@@ -618,7 +619,6 @@
                 "psr/log": "^1.1"
             },
             "suggest": {
-                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
@@ -657,7 +657,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2019-12-23T11:57:10+00:00"
+            "time": "2020-04-18T10:38:46+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -945,6 +945,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -991,6 +992,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -1639,6 +1641,49 @@
             "time": "2018-04-16T08:58:42+00:00"
         },
         {
+            "name": "netshell/paypal",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/net-shell/laravel-paypal.git",
+                "reference": "61cccff88b3fba4ab32bafc9542bf2e95c149b5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/net-shell/laravel-paypal/zipball/61cccff88b3fba4ab32bafc9542bf2e95c149b5b",
+                "reference": "61cccff88b3fba4ab32bafc9542bf2e95c149b5b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "illuminate/support": "~5.0",
+                "paypal/rest-api-sdk-php": "1.13.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Netshell\\Paypal": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Boyan Balkanski",
+                    "email": "balkanski@outlook.com"
+                }
+            ],
+            "description": "Laravel-Paypal is simple package help you process direct credit card payments, stored credit card payments and PayPal account payments with your Laravel 5 projects using paypal REST API SDK.",
+            "time": "2019-04-03T23:00:23+00:00"
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v4.3.0",
             "source": {
@@ -1865,6 +1910,56 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "paypal/rest-api-sdk-php",
+            "version": "1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
+                "reference": "192e217beed14c8e75624e821fdc8ec51e2a21f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/192e217beed14c8e75624e821fdc8ec51e2a21f5",
+                "reference": "192e217beed14c8e75624e821fdc8ec51e2a21f5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0",
+                "psr/log": "^1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PayPal": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
+                }
+            ],
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "http://paypal.github.io/PayPal-PHP-SDK/",
+            "keywords": [
+                "payments",
+                "paypal",
+                "rest",
+                "sdk"
+            ],
+            "abandoned": true,
+            "time": "2017-11-13T19:21:59+00:00"
         },
         {
             "name": "pragmarx/google2fa",
@@ -5703,7 +5798,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "netshell/paypal": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

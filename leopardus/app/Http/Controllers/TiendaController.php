@@ -15,16 +15,47 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ActivacionController;
 use Carbon\Carbon;
+use Paypal;
 use Illuminate\Support\Facades\Session;
-use CoinbaseCommerce\ApiClient;
-use CoinbaseCommerce\Resources\Charge;
-use App\Jobs\coinPaymentCallbackProccedJob;
-use CoinPayment;
+
+// use CoinbaseCommerce\ApiClient;
+// use CoinbaseCommerce\Resources\Charge;
+// use App\Jobs\coinPaymentCallbackProccedJob;
+// use CoinPayment;
 
 
 class TiendaController extends Controller
-
 {
+
+    private $_apiContext;
+ 
+    public function __construct()
+    {
+    	 $this->_apiContext = PayPal::ApiContext(
+            config('services.paypal.client_id'),
+            config('services.paypal.secret')
+        );
+ 
+    	//Aquí guarde una configuración para mis credenciales de Sandbox
+        $this->_apiContext->setConfig(array(
+            'mode' => 'sandbox',
+            'service.EndPoint' => 'https://api.sandbox.paypal.com',
+            'http.ConnectionTimeOut' => 10000,
+            'log.LogEnabled' => true,
+            'log.FileName' => storage_path('logs/paypal.log'),
+            'log.LogLevel' => 'FINE'
+        ));
+ 
+        // //Config live
+        // $this->_apiContext->setConfig(array(
+        //     'mode' => 'live',
+        //     'service.EndPoint' => 'https://api.paypal.com',
+        //     'http.ConnectionTimeOut' => 30,
+        //     'log.LogEnabled' => true,
+        //     'log.FileName' => storage_path('logs/paypal.log'),
+        //     'log.LogLevel' => 'FINE'
+        // ));
+    }
 
     /**
 
@@ -41,9 +72,9 @@ class TiendaController extends Controller
     //Historial de Comisiones para el usuario
 
     public function index(){
-        $apiKey = env('COINBASE_API_KEY');
-        $apiClientObj = ApiClient::init($apiKey);
-        $apiClientObj->setTimeout(6);
+        // $apiKey = env('COINBASE_API_KEY');
+        // $apiClientObj = ApiClient::init($apiKey);
+        // $apiClientObj->setTimeout(6);
         view()->share('title', 'Tienda');
         $productos = $this->getProductoWP();
         $moneda = Monedas::where('principal', 1)->get()->first();
@@ -124,23 +155,41 @@ class TiendaController extends Controller
         // $link_transaction1 = CoinPayment::url_payload($coinpayment);
         // return $link_transaction1;
         // $descricion = (empty($producto->post_content)) ? 'N/A' : $producto->post_content;
-        $chargerData = [
-            'description' => 'No Aplica',
-            'metadata' => $producto,
-            'pricing_type' => 'fixed_price',
-            'redirect_url' => route('tienda.estado', ['pendiente']),
-            'cancel_url' => route('tienda.estado', ['cancelada']),
-            'local_price' => [
-                'amount' => $producto->meta_value,
-                'currency' => 'USD'
-            ],
-            'name' => 'Producto '.$producto->post_title,
-            'payments' => [],
-            ];
+        // $chargerData = [
+        //     'description' => 'No Aplica',
+        //     'metadata' => $producto,
+        //     'pricing_type' => 'fixed_price',
+        //     'redirect_url' => route('tienda.estado', ['pendiente']),
+        //     'cancel_url' => route('tienda.estado', ['cancelada']),
+        //     'local_price' => [
+        //         'amount' => $producto->meta_value,
+        //         'currency' => 'USD'
+        //     ],
+        //     'name' => 'Producto '.$producto->post_title,
+        //     'payments' => [],
+        //     ];
         
-        $chargerObj = Charge::create($chargerData);
-        return $chargerObj;
+        // $chargerObj = Charge::create($chargerData);
+        // return $chargerObj;
+
+
     }
+
+     /*generación del invoice para paypal */
+     public function random($qtd){
+ 
+        $caracteres = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789'; 
+        $cantidad_de_caracteres = strlen($caracteres); 
+        $cantidad_de_caracteres--; 
+  
+        $num_random = NULL; 
+        for($x=1;$x<=$qtd;$x++){ 
+         $posicion = rand(0,$cantidad_de_caracteres); 
+         $num_random .= substr($caracteres,$posicion,1); 
+        } 
+  
+       return $num_random; 
+      } 
 
     public function saveCupon(Request $datos)
     {
@@ -233,11 +282,11 @@ class TiendaController extends Controller
         ]); 
         $settings = Settings::first();
         if ($validate) {
-            $verificarCode = DB::table($settings->prefijo_wp.'posts')->where('code_coinbase', $datos->code_coinbase)->first();
-            if (!empty($verificarCode)) {
-                $ruta = 'https://commerce.coinbase.com/charges/'.$datos->code_coinbase;
-                return redirect($ruta);
-            }else{
+            // $verificarCode = DB::table($settings->prefijo_wp.'posts')->where('code_coinbase', $datos->code_coinbase)->first();
+            // if (!empty($verificarCode)) {
+            //     $ruta = 'https://commerce.coinbase.com/charges/'.$datos->code_coinbase;
+            //     return redirect($ruta);
+            // }else{
                 $fecha = new Carbon();
                 $title = 'Orden&ndash;'.$fecha->now()->toFormattedDateString().' @ '.$fecha->now()->format('h:i A');
                 $tpmname = str_replace(' ', '-', $fecha->now()->toFormattedDateString());
@@ -266,8 +315,8 @@ class TiendaController extends Controller
                     'post_type' => 'shop_order',
                     'post_mime_type' => ' ',
                     'comment_count' => 1,
-                    'id_coinbase' => $datos->id_coinbase,
-                    'code_coinbase' => $datos->code_coinbase,
+                    // 'id_coinbase' => $datos->id_coinbase,
+                    // 'code_coinbase' => $datos->code_coinbase,
                 ]);
                 // if ($datos->tipo == 'Coinpayment') {
                 //     DB::table('cointpayment_log_trxes')->where('payment_id', $datos->idpayment)->update(['idcomprawp' => $id]);
@@ -295,13 +344,81 @@ class TiendaController extends Controller
                     //     $this->accionSolicitud($id, 'wc-completed');
                     // }
                 }
-                $ruta = 'https://commerce.coinbase.com/charges/'.$datos->code_coinbase;
+                $dataPaypal =  [
+                    'idorden' => $id,
+                    'titulo' => $datos->name,
+                    'monto' => $datos->precio,
+                ];
+                $ruta = $this->generateLinkPaypal($dataPaypal);
                 return redirect($ruta);
                 // if ($datos->tipo != 'Coinpayment') {
                 //     return redirect('tienda')->with('msj', 'Purchase '.$id.' Processed ');
                 // }
-            }
+            // }
         }
+    }
+
+    /**
+     * Permite crear el link para pagar con paypal
+     *
+     * @return void
+     */
+    public function generateLinkPaypal($orden)
+    {
+        $invoice = Auth::user()->ID.'-'.$orden['idorden'].'-'.$this->random(5);
+
+        $payer = PayPal::Payer();
+        $payer->setPaymentMethod('paypal');
+        
+        $item1 = PayPal::item();
+        $item1->setName($orden['titulo'])
+                ->setDescription($orden['titulo'])
+                ->setCurrency('USD')
+                ->setQuantity(1)
+                ->setPrice($orden['monto']);
+ 
+        $itemList = PayPal::itemList();
+        $itemList->setItems(array($item1));
+
+         // ### Cantidad
+        // Especificando la cantidad del pago
+        // Se pueden añadir detalles adicionales como 
+        // shipping, tax.
+        // Todo estó para que en paypal aparezca desglosado
+        // como si de un carrito de compra se tratará
+        $amount = PayPal::amount();
+        $amount->setCurrency('USD')
+            ->setTotal($orden['monto']);
+ 
+        // ### Transacción
+        // Para quién es el pago y quién lo está pagando. 
+        $transaction = PayPal::transaction();
+        $transaction->setAmount($amount)
+            ->setItemList($itemList)
+            ->setDescription("Descripción")
+            ->setInvoiceNumber($invoice);
+
+         // ### urls de redirección
+        // Rutas a las que será redirigido el comprador después de un pago 
+        // aprobado / cancelación
+ 
+        $redirectUrls = PayPal:: RedirectUrls();
+	    $redirectUrls->setReturnUrl(route('tienda.estado', ['pendiente']));
+        $redirectUrls->setCancelUrl(route('tienda.estado', ['cancelada']));
+        
+        // ### Pago
+        // Creamos el pago, para establecer la venta
+ 
+        $payment = PayPal::Payment();
+	    $payment->setIntent('sale');
+	    $payment->setPayer($payer);
+	    $payment->setRedirectUrls($redirectUrls);
+	    $payment->setTransactions(array($transaction));
+ 
+	    $response = $payment->create($this->_apiContext);
+	    $redirectUrl = $response->links[1]->href;
+	    
+	    return $redirectUrl;
     }
 
 

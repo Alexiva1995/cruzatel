@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="btn btn-info mt-1 text-white">
                                     <i class="feather icon-shopping-cart"></i>
-                                    <a class="view-in-cart">Comprar</a>
+                                    <a class="view-in-cart" onclick="detalles({{json_encode($item)}})">Comprar</a>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
 {{-- @include('tienda.modalCupon') --}}
 
 <script>
-    function detalles(product, id, code) {
+    function detalles(product) {
         $('#idproducto').val(product.ID)
         $('#img').attr('src', product.imagen)
         $('#title').html(product.post_title)
@@ -68,8 +68,8 @@
         $('#content').html(product.post_content)
         $('#price').html('$ ' + product.meta_value)
         $('#price2').val(product.meta_value)
-        $('#id_coinbase').val(id)
-        $('#code_coinbase').val(code)
+        // $('#id_coinbase').val(id)
+        // $('#code_coinbase').val(code)
         $('#myModal1').modal('show')
     }
 
