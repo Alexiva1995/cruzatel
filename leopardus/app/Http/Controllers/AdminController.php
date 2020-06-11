@@ -400,7 +400,9 @@ class AdminController extends Controller
 
         $settings = Settings::first();
 
-        $TodosUsuarios = $this->generarArregloUsuario(Auth::user()->ID);
+        $funcionesIndex = new IndexController();
+
+        $TodosUsuarios = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
 
         $compras = array();
 
@@ -426,7 +428,7 @@ class AdminController extends Controller
 
             foreach ($ordenes as $orden){
 
-                $compras = $this->getDetailsOrder($orden->post_id, $compras, '1', $user['nombre'], $fecha);
+                $compras = $this->getDetailsOrder($orden->post_id, $compras, '1', $user->display_name, $fecha);
 
             }
 
@@ -475,7 +477,9 @@ class AdminController extends Controller
      public function buscarnetworkorder(){
           // TITLE
           view()->share('title', 'Ordenes de Red');
-         $TodosUsuarios = $this->generarArregloUsuario(Auth::user()->ID);
+          $funcionesIndex = new IndexController();
+
+          $TodosUsuarios = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
          $settings = Settings::first();
         $compras = array();
 
@@ -493,7 +497,7 @@ class AdminController extends Controller
                             ->orderBy('post_id', 'DESC')
                             ->get();
             foreach ($ordenes as $orden){
-                $compras = $this->getDetailsOrder($orden->post_id, $compras, '1', $user['nombre'], $fecha);
+                $compras = $this->getDetailsOrder($orden->post_id, $compras, '1', $user->display_name, $fecha);
             }
         }
     }
@@ -535,31 +539,6 @@ class AdminController extends Controller
 
     }
 
-    /**
-     * obtengo los puntos de mi red
-     * 
-     * @access private
-     * @param int $iduser
-     * @return integer
-     */
-    private function puntosRed($iduser)
-    {
-        // $usuario = User::find($iduser);
-        // $resul = false;
-        // $todoUsuarios = $this->generarArregloUsuario($iduser);
-        // $inicio = Carbon::now()->startOfMonth();
-        // $fin = Carbon::now()->endOfMonth();
-        $totalgrupa = 0;
-        $lado1 = 0; $lado2 = 0;
-        // foreach ($todoUsuarios as $user) {
-            $lado1 = ( $lado1 + Wallet::where('iduser', $iduser)
-                                ->get()->sum('puntosI'));
-            $lado2 = ( $lado2 + Wallet::where('iduser', $iduser)
-                                ->get()->sum('puntosD'));
-        // }
-        $totalgrupa = ($lado1 + $lado2);
-        return $totalgrupa;
-    }
 
     // /**
     //  * Permite eliminar las ordenes del postmetas

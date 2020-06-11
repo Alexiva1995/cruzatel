@@ -71,10 +71,8 @@
                                 {{$product->visible}}
                             </td>
                             <td>
-                                @if ($product->ID > 5567)
                                 <a class="btn btn-info" onclick="editProduct({{json_encode($product)}})"> Editar</a>
                                 <a class="btn btn-danger" href="{{route('save.delete', [$product->ID])}}"> Borrar</a>
-                                @endif
                             </td>
                         </tr>
                         @endforeach
