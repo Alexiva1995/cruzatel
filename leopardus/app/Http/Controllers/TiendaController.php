@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Banks;
+use App\BanksOrden;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\View;
@@ -17,11 +18,10 @@ use App\Http\Controllers\ActivacionController;
 use Carbon\Carbon;
 use Paypal;
 use Illuminate\Support\Facades\Session;
-
 // use CoinbaseCommerce\ApiClient;
 // use CoinbaseCommerce\Resources\Charge;
 // use App\Jobs\coinPaymentCallbackProccedJob;
-// use CoinPayment;
+// use CoinPayment; 
 
 
 class TiendaController extends Controller
@@ -76,9 +76,10 @@ class TiendaController extends Controller
         // $apiClientObj = ApiClient::init($apiKey);
         // $apiClientObj->setTimeout(6);
         view()->share('title', 'Tienda');
+        $banks = Banks::all();
         $productos = $this->getProductoWP();
         $moneda = Monedas::where('principal', 1)->get()->first();
-        return view('tienda.index')->with(compact('productos', 'moneda'));
+        return view('tienda.index')->with(compact('productos', 'moneda', 'banks'));
     }
 
     /**
@@ -344,18 +345,45 @@ class TiendaController extends Controller
                     //     $this->accionSolicitud($id, 'wc-completed');
                     // }
                 }
-                $dataPaypal =  [
-                    'idorden' => $id,
-                    'titulo' => $datos->name,
-                    'monto' => $datos->precio,
-                ];
-                $ruta = $this->generateLinkPaypal($dataPaypal);
-                return redirect($ruta);
-                // if ($datos->tipo != 'Coinpayment') {
-                //     return redirect('tienda')->with('msj', 'Purchase '.$id.' Processed ');
-                // }
+                if ($datos->tipo == 'paypal') {
+                    $dataPaypal =  [
+                        'idorden' => $id,
+                        'titulo' => $datos->name,
+                        'monto' => $datos->precio,
+                    ];
+                    $ruta = $this->generateLinkPaypal($dataPaypal);
+                    return redirect($ruta);
+                }else{
+                    if ($datos->file('bauche')) {
+                        $imagen = $datos->file('bauche');
+                        $nombre_imagen = 'bauche_'.$id.'_'.time().'.'.$imagen->getClientOriginalExtension();
+                        $path = public_path() .'/bauches';
+                        $imagen->move($path,$nombre_imagen);
+                        $dataBank =  [
+                            'idorden' => $id,
+                            'iduser' => Auth::user()->ID,
+                            'producto' => $datos->name,
+                            'precio' => $datos->precio,
+                            'bauche' => $nombre_imagen,
+                            'status' => 0
+                        ];
+                        $this->saveOrden($dataBank);
+                        return redirect()->back()->with('msj', 'Compra orden '.$id);
+                    }
+                }
             // }
         }
+    }
+
+    /**
+     * Permite guardar la informacion del tranferencia bancaria
+     *
+     * @param array $data
+     * @return void
+     */
+    public function saveOrden($data)
+    {
+        BanksOrden::create($data);
     }
 
     /**
@@ -704,12 +732,12 @@ class TiendaController extends Controller
     public function accionSolicitud($id, $estado)
     {
         if ($estado == 'wc-completed') {
-            $settings = Settings::first();
-            $datoscompra = $this->getDatos($id);
-            $user = User::find($datoscompra['iduser']);
-            $admin = User::find(1);
+            // $settings = Settings::first();
+            // $datoscompra = $this->getDatos($id);
+            // $user = User::find($datoscompra['iduser']);
+            // $admin = User::find(1);
             // $coinpayment = DB::table($settings->prefijo_wp.'postmeta')->where([['post_id', '=', $id], ['meta_key', '=', '_payment_method_title']])->select('meta_value')->get()[0];
-            $file = DB::table($settings->prefijo_wp.'posts')->where('ID', $id)->select('guid')->first();
+            // $file = DB::table($settings->prefijo_wp.'posts')->where('ID', $id)->select('guid')->first();
             // if ($coinpayment->meta_value == 'Wallet') {
             //     $user->wallet_amount = ($user->wallet_amount - floatval($datoscompra['total']));
             //     $admin->wallet_amount = ($admin->wallet_amount + floatval($datoscompra['total']));
@@ -725,8 +753,8 @@ class TiendaController extends Controller
 
             // });
             
-            $activacion = new ActivacionController;
-            $activacion->activarUsuarios($datoscompra['iduser']);
+            // $activacion = new ActivacionController;
+            // $activacion->activarUsuarios($datoscompra['iduser']);
         }
         $this->actualizarBD($id, $estado);
         return redirect('tienda/solicitudes')->with('msj', 'Estado de la Solicitud Actualizada con Exito');

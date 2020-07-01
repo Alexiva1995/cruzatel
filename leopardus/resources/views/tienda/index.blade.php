@@ -11,6 +11,8 @@
     </div>
     <div class="card-content">
         <div class="card-body">
+            <button class="btn btn-info" data-toggle="modal" data-target="#myModalB">Datos para la Transferencias Bancarias</button>
+            <hr>
             <div class="row">
                 @foreach ($productos as $item)
                 <div class="col-md-4 col-sm-12">
@@ -57,17 +59,18 @@
 
 {{-- modales --}}
 @include('tienda.modalCompra')
+@include('tienda.modalBancos')
 {{-- @include('tienda.modalCupon') --}}
 
 <script>
     function detalles(product) {
-        $('#idproducto').val(product.ID)
+        $('.idproducto').val(product.ID)
         $('#img').attr('src', product.imagen)
         $('#title').html(product.post_title)
-        $('#title2').val(product.post_title)
+        $('.title2').val(product.post_title)
         $('#content').html(product.post_content)
         $('#price').html('$ ' + product.meta_value)
-        $('#price2').val(product.meta_value)
+        $('.price2').val(product.meta_value)
         // $('#id_coinbase').val(id)
         // $('#code_coinbase').val(code)
         $('#myModal1').modal('show')

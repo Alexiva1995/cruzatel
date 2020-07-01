@@ -7,7 +7,7 @@
 
 <div class="col-xs-12">
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Nuevo Producto
+        Nuevo Banco
     </button>
 </div>
 
@@ -21,25 +21,25 @@
                     <thead>
                         <tr>
                             <th class="text-center">
-                                Product ID
+                                ID Banco
                             </th>
                             <th class="text-center">
-                                Imagen
+                                DNI
+                            </th>
+                            <th class="text-center">
+                                Titular
                             </th>
                             <th class="text-center">
                                 Nombre
                             </th>
                             <th class="text-center">
-                                Descripcion
+                                Correo
                             </th>
                             <th class="text-center">
-                                Limite de Publicación
+                                Tipo de Cuenta
                             </th>
                             <th class="text-center">
-                                Precio
-                            </th>
-                            <th class="text-center">
-                                Visible en la tienda
+                                Número de Cuenta
                             </th>
                             <th>
                                 Acción
@@ -47,32 +47,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($banks as $bank)
                         <tr>
                             <td class="text-center">
-                                {{$product->ID}}
+                                {{$bank->id}}
                             </td>
                             <td class="text-center">
-                                <img src="{{$product->imagen}}" height="50">
+                                {{$bank->dni}}
                             </td>
                             <td class="text-center">
-                                {{$product->post_title}}
+                                {{$bank->titular}}
                             </td>
                             <td class="text-center">
-                                {{$product->post_content}}
+                                {{$bank->nombre}}
                             </td>
                             <td class="text-center">
-                                {{$product->limite}}
+                                {{$bank->correo}}
                             </td>
                             <td class="text-center">
-                                $ {{$product->meta_value}}
+                                {{$bank->tipo_cuenta}}
                             </td>
                             <td class="text-center">
-                                {{$product->visible}}
+                                {{$bank->numero_cuenta}}
                             </td>
                             <td>
-                                <a class="btn btn-info" onclick="editProduct({{json_encode($product)}})"> Editar</a>
-                                <a class="btn btn-danger" href="{{route('save.delete', [$product->ID])}}"> Borrar</a>
+                                <a class="btn btn-info" onclick="editProduct({{json_encode($bank)}})"> Editar</a>
+                                <a class="btn btn-danger" href="{{route('banks.delete', [$bank->id])}}"> Borrar</a>
                             </td>
                         </tr>
                         @endforeach
@@ -93,35 +93,31 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('save.product')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('banks.save')}}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="">Nombre del Producto</label>
-                        <input type="text" name="name" class="form-control">
+                        <label for="">Nombre del banco</label>
+                        <input type="text" name="nombre" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Descripcion</label>
-                        <textarea name="content" id="" cols="30" rows="10" class="form-control" required></textarea>
+                        <label for="">Titular de la cuenta</label>
+                        <input type="text" name="titular" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Limite de Publiciacion</label>
-                        <input type="text" name="limite" class="form-control" required>
+                        <label for="">DNI</label>
+                        <input type="text" name="dni" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Precio</label>
-                        <input type="text" class="form-control" name="price">
+                        <label for="">Correo</label>
+                        <input type="email" class="form-control" name="correo" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Visible en la tienda</label>
-                        <select class="form-control" name="visible" id="" required>
-                            <option value="" disabled selected>Seleccione una opción</option>
-                            <option value="Visible">Visible</option>
-                            <option value="No Visible">No Visible</option>
-                        </select>
+                        <label for="">Tipo de Cuenta</label>
+                        <input type="text" class="form-control" name="tipo_cuenta" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Imagen Producto</label>
-                        <input type="file" name="imagen" class="form-control" required accept="image/jpeg, image/png">
+                        <label for="">Numero de cuenta</label>
+                        <input type="number" class="form-control" name="numero_cuenta" required>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary">Guardar</button>
@@ -144,36 +140,32 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('edit.product')}}" method="post"  enctype="multipart/form-data">
+                <form action="{{route('banks.update')}}" method="post">
                     {{ csrf_field() }}
-                    <input type="hidden" name="idproduct" id="product">
+                    <input type="hidden" name="idbank" id="idbanco">
                     <div class="form-group">
-                        <label for="">Nombre del Producto</label>
-                        <input type="text" name="name" id="name" class="form-control">
+                        <label for="">Nombre del banco</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Descripcion</label>
-                        <textarea name="content" id="content" cols="30" rows="10" class="form-control" required></textarea>
+                        <label for="">Titular de la cuenta</label>
+                        <input type="text" name="titular" id="titular" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Limite de Publiciacion</label>
-                        <input type="text" name="limite" class="form-control" id="limite" required>
+                        <label for="">DNI</label>
+                        <input type="text" name="dni" id="dni" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Precio</label>
-                        <input type="text" class="form-control" id="price" name="price">
+                        <label for="">Correo</label>
+                        <input type="email" class="form-control" name="correo" id="correo" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Visible en la tienda</label>
-                        <select class="form-control" name="visible" id="visible" required>
-                            <option value="" disabled selected>Seleccione una opción</option>
-                            <option value="Visible">Visible</option>
-                            <option value="No Visible">No Visible</option>
-                        </select>
+                        <label for="">Tipo de Cuenta</label>
+                        <input type="text" class="form-control" name="tipo_cuenta" id="tipo_cuenta" required>
                     </div>
                     <div class="form-group">
-                        <label for="">Imagen Producto</label>
-                        <input type="file" name="imagen" class="form-control" accept="image/jpeg, image/png">
+                        <label for="">Numero de cuenta</label>
+                        <input type="number" class="form-control" name="numero_cuenta" id="numero_cuenta" required>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary">Guardar</button>
@@ -191,15 +183,13 @@
 
 <script>
     function editProduct(dataProduct) {
-        $('#price').val(dataProduct.meta_value)
-        $('#content').val(dataProduct.post_content)
-        $('#name').val(dataProduct.post_title)
-        $('#product').val(dataProduct.ID)
-        $('#limite').val(dataProduct.limite)
-        $('#type_file').val(dataProduct.type)
+        $('#idbanco').val(dataProduct.id)
+        $('#nombre').val(dataProduct.nombre)
+        $('#titular').val(dataProduct.titular)
+        $('#dni').val(dataProduct.dni)
+        $('#correo').val(dataProduct.correo)
+        $('#tipo_cuenta').val(dataProduct.tipo_cuenta)
+        $('#numero_cuenta').val(dataProduct.numero_cuenta)
         $('#myModalEdit').modal('show')
-        $('#nivel_pago').val(dataProduct.nivel_pago)
-        $('#porcentaje').val(dataProduct.porcentaje)
-        $('#visible').val(dataProduct.visible)
     }
 </script>

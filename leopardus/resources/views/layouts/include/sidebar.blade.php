@@ -99,18 +99,6 @@
 
                     <li class="nav-item">
 
-                        <a href="{{url('mioficina/tienda')}}" class="nav-link">
-
-                            
-
-                            <span class="title">Membresias</span>
-
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
                         <a href="{{route('listProduct')}}" class="nav-link">
 
                             
@@ -119,6 +107,58 @@
 
                         </a>
 
+                    </li>
+
+                    {{-- <li class="nav-item">
+
+                        <a href="{{route('tienda-solicitudes')}}" class="nav-link">
+
+                            
+
+                            <span class="title">Solicitudes</span>
+
+                        </a>
+
+                    </li> --}}
+
+                </ul>
+
+            </li>
+
+            {{-- FIN TIENDA INTERNA --}}
+
+
+            <li>
+                <a href="{{url('mioficina/tienda')}}" class="nav-link nav-toggle">
+                    <span class="title">Membresia</span>
+                </a>
+            </li>
+
+            
+            {{-- INICIO TIENDA INTERNA --}}
+
+            <li class="nav-item">
+
+                <a href="javascript:;" class="nav-link nav-toggle">
+
+                  
+
+                    <span class="title">Bancos</span>
+
+                    <span class="arrow"></span>
+
+                </a>
+
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="{{route('banks.index')}}" class="nav-link">
+                            <span class="title">Bancos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('banks.solitud')}}" class="nav-link">
+                            <span class="title">Solicitudes</span>
+                        </a>
                     </li>
 
                     {{-- <li class="nav-item">

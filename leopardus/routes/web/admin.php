@@ -93,6 +93,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']
       Route::get('/ciclografiph', 'PublicidadController@getInfoDiario')->name('publicidad.ciclo');
     });
 
+    // Bank
+    Route::group(['prefix' => 'banks'], function ()
+    {
+        Route::get('/', 'BanksController@index')->name('banks.index');
+        Route::post('/save', 'BanksController@save')->name('banks.save');
+        Route::post('/update', 'BanksController@update')->name('banks.update');
+        Route::get('{id}/delete', 'BanksController@delete')->name('banks.delete');
+        Route::get('/solicitudes', 'BanksController@solicitud')->name('banks.solitud');
+        Route::get('{id}/{estado}', 'BanksController@actionOrden')->name('banks.action');
+
+    });
+
     // Billetera
 
     Route::group(['prefix' => 'wallet'], function(){
