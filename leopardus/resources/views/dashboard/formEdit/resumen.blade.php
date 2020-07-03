@@ -82,7 +82,11 @@
             </div>
 
             <div class="modal-body">
-
+                <div class="col-md-12 alert alert-danger" id="error_avatar" style="display: none;">
+                    <ul>
+                        <li>El archivo supera el límite máximo (2MB)</li>
+                    </ul>
+                </div>
                 <div class="col-md-12 buq">
 
                     <form method="POST" action="{{ route('admin.user.actualizar', $data['principal']->ID) }}"
@@ -96,7 +100,7 @@
 
                             <label for="">Imagen del Usuario</label>
 
-                            <input class="form-control form-control-solid placeholder-no-fix" type="file" name="avatar"
+                            <input class="form-control form-control-solid placeholder-no-fix" type="file" name="avatar" id="avatar" onchange="checkSize();"
                                 required style="background-color:f7f7f7;">
 
                         </div>

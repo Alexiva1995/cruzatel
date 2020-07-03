@@ -282,22 +282,30 @@ class ActualizarController extends Controller
      */
     public function actualizar(Request $request, $id)
     {
-       $user = User::find($id);
+        $validate = $request->validate([
+            'avatar' => 'max:2048'
+        ]);
+        if ($validate) {
+            $user = User::find($id);
        
-        if ($request->file('avatar')) {
-            $imagen = $request->file('avatar');
-            $nombre_imagen = 'user_'.$id.'_'.time().'.'.$imagen->getClientOriginalExtension();
-            $path = public_path() .'/avatar';
-            // if ($user->avatar != 'avatar.png') {
-            //     unlink($path.'/'.$user->avatar);
-            // }
-            
-            $imagen->move($path,$nombre_imagen);
-            $user->avatar = $nombre_imagen;
-            $user->save();
-            return redirect()->back()->with('msj', 'La imagen ha sido actualizada');
-        }else{
-            return redirect()->back()->with('msj', 'Hubo un problema con la imagen');
+            if ($request->file('avatar')) {
+                $imagen = $request->file('avatar');
+                $nombre_imagen = 'user_'.$id.'_'.time().'.'.$imagen->getClientOriginalExtension();
+                $path = public_path() .'/avatar';
+                if ($user->avatar != 'avatar.png') {
+                    $imagenVieja = public_path().'/avatar/'.$nombre_imagen;
+                    if (@getimagesize($imagenVieja)) {
+                        unlink($imagenVieja);
+                    }
+                }
+                
+                $imagen->move($path,$nombre_imagen);
+                $user->avatar = $nombre_imagen;
+                $user->save();
+                return redirect()->back()->with('msj', 'La imagen ha sido actualizada');
+            }else{
+                return redirect()->back()->with('msj', 'Hubo un problema con la imagen');
+            }
         }
     }
 
