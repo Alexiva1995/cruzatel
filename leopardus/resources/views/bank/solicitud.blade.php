@@ -5,11 +5,11 @@
 @include('dashboard.componentView.alert')
 <br>
 
-<div class="col-xs-12">
+{{-- <div class="col-xs-12">
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         Nuevo Banco
     </button>
-</div>
+</div> --}}
 
 {{-- option datatable --}}
 @include('dashboard.componentView.optionDatatable')

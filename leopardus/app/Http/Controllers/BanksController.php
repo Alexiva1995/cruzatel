@@ -48,6 +48,12 @@ class BanksController extends Controller
         }
     }
 
+    /**
+     * Permite actualizar la informacion de los bancos
+     *
+     * @param Request $request
+     * @return void
+     */
     public function update(Request $request)
     {
         $validate = $request->validate([
@@ -108,6 +114,13 @@ class BanksController extends Controller
     }
 
 
+    /**
+     * Permite actualizar la orden de bauche
+     *
+     * @param integer $id
+     * @param string $estado
+     * @return void
+     */
     public function actionOrden($id, $estado)
     {
         $bankOrden = BanksOrden::find($id);
@@ -129,6 +142,5 @@ class BanksController extends Controller
             return redirect()->back()->with('msj', 'Ocurrio un error en al'.$estado);
         }
 
-        
     }
 }

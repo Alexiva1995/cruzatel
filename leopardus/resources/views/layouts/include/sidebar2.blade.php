@@ -52,9 +52,15 @@
             </li>
             {{-- RANKING --}}
             <li class="nav-item">
-                <a href="{{url('mioficina/tienda')}}" class="nav-link nav-toggle">
+                <a href="{{route('tienda-index', ['producto'])}}" class="nav-link nav-toggle">
                     <i class="feather icon-shopping-cart"></i>
                     <span class="title">E-commerce</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('tienda-index', ['membresia'])}}" class="nav-link nav-toggle">
+                    <i class="feather icon-shopping-cart"></i>
+                    <span class="title">Membresia</span>
                 </a>
             </li>
             {{--FIN RANKING --}}

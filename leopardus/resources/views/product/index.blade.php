@@ -36,6 +36,9 @@
                                 Limite de Publicación
                             </th>
                             <th class="text-center">
+                                Tipo
+                            </th>
+                            <th class="text-center">
                                 Precio
                             </th>
                             <th class="text-center">
@@ -65,13 +68,16 @@
                                 {{$product->limite}}
                             </td>
                             <td class="text-center">
+                                {{$product->tipo}}
+                            </td>
+                            <td class="text-center">
                                 $ {{$product->meta_value}}
                             </td>
                             <td class="text-center">
                                 {{$product->visible}}
                             </td>
                             <td>
-                                @if ($product->ID > 5567)
+                                @if ($product->tipo != 'membresia')
                                 <a class="btn btn-info" onclick="editProduct({{json_encode($product)}})"> Editar</a>
                                 <a class="btn btn-danger" href="{{route('save.delete', [$product->ID])}}"> Borrar</a>
                                 @endif
@@ -119,6 +125,14 @@
                             <option value="" disabled selected>Seleccione una opción</option>
                             <option value="Visible">Visible</option>
                             <option value="No Visible">No Visible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tipo (Producto o Membresia)</label>
+                        <select class="form-control" name="tipo" id="" required>
+                            <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="membresia">Membresia</option>
+                            <option value="producto">Producto</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -174,6 +188,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="">Tipo (Producto o Membresia)</label>
+                        <select class="form-control" name="tipo" id="tipo" required>
+                            <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="membresia">Membresia</option>
+                            <option value="producto">Producto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="">Imagen Producto</label>
                         <input type="file" name="imagen" class="form-control" accept="image/jpeg, image/png">
                     </div>
@@ -198,10 +220,10 @@
         $('#name').val(dataProduct.post_title)
         $('#product').val(dataProduct.ID)
         $('#limite').val(dataProduct.limite)
-        $('#type_file').val(dataProduct.type)
-        $('#myModalEdit').modal('show')
         $('#nivel_pago').val(dataProduct.nivel_pago)
         $('#porcentaje').val(dataProduct.porcentaje)
         $('#visible').val(dataProduct.visible)
+        $('#tipo').val(dataProduct.tipo)
+        $('#myModalEdit').modal('show')
     }
 </script>

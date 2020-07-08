@@ -71,13 +71,11 @@ class TiendaController extends Controller
 
     //Historial de Comisiones para el usuario
 
-    public function index(){
-        // $apiKey = env('COINBASE_API_KEY');
-        // $apiClientObj = ApiClient::init($apiKey);
-        // $apiClientObj->setTimeout(6);
-        view()->share('title', 'Tienda');
+    public function index($tipo){
+        $title = ($tipo == 'membresia') ? 'Membresia' : 'Tienda';
+        view()->share('title', $title);
         $banks = Banks::all();
-        $productos = $this->getProductoWP();
+        $productos = $this->getProductoWP($tipo);
         $moneda = Monedas::where('principal', 1)->get()->first();
         return view('tienda.index')->with(compact('productos', 'moneda', 'banks'));
     }
@@ -105,9 +103,12 @@ class TiendaController extends Controller
     }
 
     /**
-     * Obtiene los Productos de la tienda de wordpress
+     * Obtiene los productos de la tienda de wordpres
+     *
+     * @param string $tipo
+     * @return void
      */
-    public function getProductoWP()
+    public function getProductoWP($tipo)
     {   
         $settings = Settings::first();
         $result = DB::table($settings->prefijo_wp.'posts as wp')
@@ -115,7 +116,8 @@ class TiendaController extends Controller
                     ->where([
                         ['wpm.meta_key', '=', '_price'],
                         ['wp.post_type', '=', 'product'],
-                        ['wp.pinged', '=', 'Visible']
+                        ['wp.pinged', '=', 'Visible'],
+                        ['wp.to_ping', '=', $tipo]
                     ])
                     ->select('wp.ID', 'wp.post_title', 'wp.post_content', 'wp.guid', 'wpm.meta_value', 'wp.post_excerpt as imagen')
                     ->get();
