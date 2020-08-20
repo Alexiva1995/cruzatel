@@ -17,9 +17,9 @@ Route::prefix('mioficina')->group(function(){
 });
 
 Route::get('/', function(){
-    // $landing = 0;
-    return redirect()->route('index');
-    // return view('landing.index', compact('landing'));
+    $landing = 0;
+    // return redirect()->route('index');
+    return view('landing.index', compact('landing'));
 })->name('landing');
 
 Route::get('/producto/legal', function(){

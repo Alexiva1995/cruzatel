@@ -1,18 +1,18 @@
-<div class="card mb-3 no-border bg-trans" style="height:400px">
+<div class="card mb-3 no-border bg-trans d-flex justify-content-center" style="height:400px">
     <div class="row no-gutters">
         <div class="col-md-12 d-flex align-items-center">
             <div class="card-body">
-                <h1 class="text-alt-blue" style="font-weight: 900;">
-                    <strong>Nuestra Especialidad</strong>
+                <h1 class="text-white" style="font-weight: 900;">
+                    <strong>En este momento en algun <br> lugar del mundo...</strong>
                 </h1>
-                <h3 style="color: #00646b; font-weight: 600;">
-                    Es llevar tu vida y finanzas
-                </h3>
-                <h3 style="color: #002a38; font-weight: 700;">
+                <h5 class="text-white" style="font-weight: 600;">
+                    <small>¡Un lider se está afiliando para impulsar la idea del otro!</small>
+                </h5>
+                {{-- <h3 style="color: #002a38; font-weight: 700;">
                     AL SIGUIENTE NIVEL
-                </h3>
-                <a class="btn bg-alt-orange text-white" target="_blank" href="{{route('login')}}">
-                    <strong>INICIA AHORA</strong>
+                </h3> --}}
+                <a class="btn text-white pl-4 pr-4" href="javascript:;" style="background: #3A58A2; border-radius: 15px">
+                    <strong>¡AFILIATE AHORA MISMO!</strong>
                 </a>
             </div>
         </div>

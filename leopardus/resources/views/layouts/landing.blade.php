@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Level Up</title>
+    <title>Cruzatel</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     {{-- font Google --}}
     <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2:400,500,600,700,800&display=swap" rel="stylesheet"> 
@@ -20,7 +20,7 @@
 <body>
     {{-- header --}}
     @if ($landing == 0)
-    <div class="header-alt" style="background: url({{asset('assets/imgLanding/imagen-banner-principal.png')}})">
+    <div class="header-alt" style="background: url({{asset('assets/imgLanding/sider1.png')}})">
     @elseif($landing == 3)
     <div class="header-alt2" style="background: url({{asset('assets/fondo-registro-inicio-de-sesin-.jpg')}})">
     @else
@@ -29,13 +29,13 @@
         @include('layouts.include.headerLanding')
     </div>
     {{-- container --}}
-    @if ($landing != 1 || $landing != 3)
+    {{-- @if ($landing != 1 || $landing != 3)
     <div class="container">
         @yield('content')
     </div>
-    @endif
+    @endif --}}
     {{-- footer --}}
-    @include('layouts.include.footerLanding')
+    {{-- @include('layouts.include.footerLanding') --}}
 </body>
 {{-- js Boostrap y jquery y popper --}}
 <script src="{{asset('assets/scripts/jquery.min.js')}}"></script>
