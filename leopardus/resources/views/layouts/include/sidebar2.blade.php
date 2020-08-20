@@ -1,6 +1,6 @@
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
-    <div class="navbar-header" style="background-color: #00646d;">
-        <ul class="nav navbar-nav flex-row">
+    {{-- <div class="navbar-header" style="background-color: #00646d;">
+        <ul class="nav navbar-nav flex-row"> --}}
             {{-- <li class="nav-item mr-auto">
                 <a class="navbar-brand" href="">
                     <div class="brand-logo"
@@ -16,13 +16,13 @@
                         data-ticon="icon-disc"></i>
                 </a>
             </li> --}}
-            <a class="navbar-brand" href="" href="" style="width: 100%;margin: 0px;">
+            {{-- <a class="navbar-brand" href="" href="" style="width: 100%;margin: 0px;">
                 <div class="brand-logo2" style="width: 100%;">
                     <img src="https://comunidadlevelup.com/assets/imgLanding/logo.png" style="width: 100%;">
                 </div>
-            </a>
-        </ul>
-    </div>
+            </a> --}}
+        {{-- </ul>
+    </div> --}}
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">

@@ -1,43 +1,24 @@
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
 
-    <div class="navbar-header" style="background-color: #00646d;">
-
-        <ul class="nav navbar-nav flex-row">
-
+    {{-- <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row"> --}}
             {{-- <li class="nav-item mr-auto"> --}}
-
-            <a class="navbar-brand" href="" href="" style="width: 100%;margin: 0px; margin-top: 1rem;">
-
+            {{-- <a class="navbar-brand" href="" href="" style="width: 100%;margin: 0px; margin-top: 1rem;">
                 <div class="brand-logo2" style="width: 100%;">
-
                     <img src="https://comunidadlevelup.com/assets/imgLanding/logo.png" style="width: 100%;">
-                   
-
                 </div>
-
-            </a>
-
+            </a> --}}
             {{-- </li> --}}
-
-
-
             <!--    <li class="nav-item nav-toggle">
-
                 <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
-
                     <i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i>
-
                     <i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary"
-
                         data-ticon="icon-disc"></i>
-
                 </a>
-
             </li>-->
+        {{-- </ul>
 
-        </ul>
-
-    </div>
+    </div> --}}
 
     <div class="shadow-bottom"></div>
 
@@ -71,7 +52,7 @@
 
                 <a href="{{url('mioficina/admin')}}" class="nav-link nav-toggle">
 
-                   
+                    <i class="feather icon-home"></i>
 
                     <span class="title">Balance General</span>
 
@@ -87,7 +68,7 @@
 
                 <a href="javascript:;" class="nav-link nav-toggle">
 
-                  
+                    <i class="feather icon-shopping-cart"></i>
 
                     <span class="title">E-commerce</span>
 
@@ -108,19 +89,6 @@
                             <span class="title">E-commerce</span>
                         </a>
                     </li>
-
-                    {{-- <li class="nav-item">
-
-                        <a href="{{route('tienda-solicitudes')}}" class="nav-link">
-
-                            
-
-                            <span class="title">Solicitudes</span>
-
-                        </a>
-
-                    </li> --}}
-
                 </ul>
 
             </li>
@@ -130,6 +98,7 @@
 
             <li>
                 <a href="{{route('tienda-index', ['membresia'])}}" class="nav-link nav-toggle">
+                    <i class="feather icon-shopping-cart"></i>
                     <span class="title">Membresia</span>
                 </a>
             </li>
@@ -141,7 +110,7 @@
 
                 <a href="javascript:;" class="nav-link nav-toggle">
 
-                  
+                    <i class="feather icon-award"></i>
 
                     <span class="title">Bancos</span>
 
@@ -161,18 +130,6 @@
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
-
-                        <a href="{{route('tienda-solicitudes')}}" class="nav-link">
-
-                            
-
-                            <span class="title">Solicitudes</span>
-
-                        </a>
-
-                    </li> --}}
-
                 </ul>
 
             </li>
@@ -185,7 +142,7 @@
 
                 <a href="javascript:;" class="nav-link nav-toggle">
 
-                    
+                    <i class="feather icon-activity"></i>
 
                     <span class="title">Mi Negocio</span>
 
@@ -255,7 +212,7 @@
 
                 <a href="javascript:;" class="nav-link nav-toggle">
 
-                   
+                    <i class="feather icon-users"></i>
 
                     <span class="title">Mi Red</span>
 
@@ -317,37 +274,12 @@
 
             @endif
 
-            
-        {{--INICIO BILLETERA --}}
-        {{-- <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="feather icon-trending-up"></i>
-                <span class="title">Billetera</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/wallet/')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Retiros</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/wallet/puntos')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Mi Billetera Puntos</span>
-                    </a>
-                </li>
-            </ul>
-        </li> --}}
-        {{-- FIN BILLETERA --}}
-
             {{-- LISTA DE USUARIOS--}}
 
             <li>
 
                 <a href="{{url('mioficina/admin/userrecords')}}" class="nav-link nav-toggle">
-
+                    <i class="feather icon-users"></i>
                     <span class="title">Lista de Usuarios</span>
                 </a>
 
@@ -356,19 +288,11 @@
             <li>
 
                 <a href="{{route('publicidad')}}" class="nav-link nav-toggle">
+                    <i class="feather icon-share"></i>
                     <span class="title">Publicidad</span>
                 </a>
 
             </li>
-
-            {{-- <li>
-
-                <a href="{{route('admin.userinactive')}}" class="nav-link nav-toggle">
-
-                    <span class="title">Usuarios Inactivos</span>
-                </a>
-
-            </li> --}}
 
             {{-- FIN LISTA DE USUARIOS --}}
 
@@ -379,9 +303,8 @@
             <li>
 
                 <a href="javascript:;" class="nav-link nav-toggle">
-
-                   
-
+                    
+                    <i class="feather icon-clipboard"></i>
                     <span class="title">Informes</span>
 
                     <span class="arrow"></span>
@@ -440,37 +363,6 @@
 
             {{-- FIN TICKETS --}}
 
-            @if (Auth::user()->ID == 1)
-
-            {{-- <li class="nav-item">
-
-                <a href="{{ route('admin.user.edit') }}" class="nav-link nav-toggle">
-
-            
-
-            <span class="title">Editar Perfil</span>
-
-            </a>
-
-            </li> --}}
-
-            {{-- LISTA DE USUARIOS--}}
-
-            {{-- <li>
-
-                <a href="{{route('setting-change-porcent')}}" class="nav-link nav-toggle">
-
-                 
-
-                    <span class="title">Configuracion de Porcentajes</span>
-
-                </a>
-
-            </li> --}}
-
-            {{-- FIN LISTA DE USUARIOS --}}
-
-            @endif
 
             {{-- CERRAR SESIÓN --}}
 
@@ -478,7 +370,7 @@
 
                 <a href="{{ route('logout') }}"
 
-                    onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link" style="padding: 10px 15px 10px 10px;">
+                    onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link">
 
                     <i class="feather icon-log-out"></i>
 

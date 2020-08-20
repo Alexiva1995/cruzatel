@@ -44,7 +44,7 @@ class AdminController extends Controller
         $activacion->activarUsuarios(Auth::user()->ID);
         $data = [
             'activoBinario' => $funcionesIndex->statusBinary(Auth::user()->ID),
-            'progresoDiario' => 49,
+            'progresoDiario' => $publicidad->progresoDiario(Auth::user()->ID),
             'membresia' => [
                 'img' => 'https://comunidadlevelup.com/assets/imgLanding/logo.png',
                 'nombre' => 'Membresia Junior'

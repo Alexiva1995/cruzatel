@@ -295,14 +295,14 @@ class PublicidadController extends Controller
         $fechatmpSemana = Carbon::now();
         $semana = $fechatmpSemana->weekOfYear;
         $year = $fechatmpSemana->year;
-        $paquete = json_decode(Auth::user()->paquete);
+        $paquete = (!empty(Auth::user()->paquete)) ? json_decode(Auth::user()->paquete) : '';
         $completado = CicloPublicidad::where([
             ['iduser', '=', Auth::user()->ID],
             ['completado', '=', 0],
             ['semana', '=', $semana],
             ['year', '=', $year]
         ])->first();
-        if (!empty($completado)) {
+        if (!empty($completado) && $paquete != '') {
             $ciclo = json_decode($completado->ciclo);
             $cant = $ciclo[$arreDia[$fechatmpSemana->dayOfWeekIso]]['cant'];
             $ciclo[$arreDia[$fechatmpSemana->dayOfWeekIso]]['cant'] = ($cant + 1);
@@ -371,5 +371,42 @@ class PublicidadController extends Controller
             $arregloGrafica = [0, 0, 0, 0, 0, 0, 0];
         }
         return $arregloGrafica;
+    }
+
+    
+    public function progresoDiario($iduser) : float
+    {
+        try {
+            $progreso = 0;
+            $arreDia = [
+                1 => 'Lunes',
+                2 => 'Martes',
+                3 => 'Miercoles',
+                4 => 'Jueves',
+                5 => 'Viernes',
+                6 => 'Sabado',
+                7 => 'Domingo'
+            ];
+            $fechatmpSemana = Carbon::now();
+            $semana = $fechatmpSemana->weekOfYear;
+            $year = $fechatmpSemana->year;
+            $paquete = (!empty(Auth::user()->paquete)) ? json_decode(Auth::user()->paquete) : '';
+            $completado = CicloPublicidad::where([
+                ['iduser', '=', Auth::user()->ID],
+                ['completado', '=', 0],
+                ['semana', '=', $semana],
+                ['year', '=', $year]
+            ])->first();
+            if (!empty($completado) && $paquete != '') {
+                $ciclo = json_decode($completado->ciclo);
+                $cant = $ciclo[$arreDia[$fechatmpSemana->dayOfWeekIso]]['cant'];
+                if ($cant > 0) {
+                    $progreso = (($cant * 100) / (int) $paquete->limite);
+                }
+            }
+            return $progreso;
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 }

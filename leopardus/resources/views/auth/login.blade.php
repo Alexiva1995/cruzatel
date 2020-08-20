@@ -77,8 +77,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <a href="{{route('autenticacion.new-register')}}"
-                                        class="btn btn-outline-primary float-left btn-inline">Registro</a>
+                                    {{-- <a href="{{route('autenticacion.new-register')}}"
+                                        class="btn btn-outline-primary float-left btn-inline">Registro</a> --}}
                                     <button type="submit" class="btn btn-primary float-right btn-inline">Session</button>
                                 </form>
                                 {{-- reset password --}}

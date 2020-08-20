@@ -3,7 +3,7 @@
     <section class="mt-2 mb-2">
         <div class="row">
             {{-- Estado Binario --}}
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div
@@ -55,7 +55,7 @@
             </div>
             {{-- fin estado binario --}}
             {{-- Barra de progreso --}}
-            <div class="col-lg-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar bg-rgba-success p-50 m-0">
@@ -69,8 +69,7 @@
                     <div class="card-body">
                         <div class="progress progress-bar-primary progress-xl">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                aria-valuenow="{{$data['progresoDiario']}}" aria-valuemin="0" aria-valuemax="100"
-                                style="width:40%">
+                                value="{{$data['progresoDiario']}}" style="width:40%">
                                 {{$data['progresoDiario']}} %
                             </div>
                         </div>
@@ -79,7 +78,7 @@
             </div>
             {{-- fin barra de progreso --}}
             {{-- Membresia --}}
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar p-50 m-0">
@@ -100,7 +99,7 @@
     <section class="mt-2 mb-2">
         <div class="row">
             {{-- link de referido --}}
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1" onclick="copyToClipboard('copy')">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar bg-rgba-info p-50 m-0">
@@ -118,7 +117,7 @@
             </div>
             {{-- fin link de referido --}}
             {{-- puntos a la Izquierda --}}
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar bg-rgba-danger p-50 m-0">
@@ -133,7 +132,7 @@
             </div>
             {{-- fin puntos a la izquierda --}}
             {{-- puntos a la derecha --}}
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar bg-rgba-success p-50 m-0">
@@ -148,7 +147,7 @@
             </div>
             {{-- fin puntos a la derecha --}}
             {{-- billetera --}}
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
                 <div class="card h-100 mt-1 mb-1">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar bg-rgba-warning p-50 m-0">
