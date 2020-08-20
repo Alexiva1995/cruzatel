@@ -44,7 +44,7 @@ class ProductController extends Controller
                     ])
                     ->select(
                         'wp.ID', 'wp.post_title', 'wp.post_content', 'wpm.meta_value', 'wp.post_excerpt as imagen',
-                        'wp.post_password as limite', 'wp.to_ping as porcentaje', 'wp.pinged as visible', 'wp.to_ping as tipo')
+                        'wp.post_password as limite', 'wp.pinged as visible', 'wp.to_ping as tipo')
                     ->get();
         // foreach ($result as $element) {
         //     $element->type = json_decode($element->type);

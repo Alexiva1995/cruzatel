@@ -3,29 +3,24 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\User;
-use App\FichasInactiva;
 use Carbon\Carbon;
-use App\Http\Controllers\ActivacionController;
 use App\Http\Controllers\ComisionesController;
-use App\Http\Controllers\TiendaController;
-use App\Http\Controllers\RangoController;
 
-class BonoRentabilidad extends Command
+class payDaily extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'bono:rentabilidad';
+    protected $signature = 'pay:daily';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Permite pagar el bono de la rentabilidad mensualmente';
+    protected $description = 'Permite Pagar los pago diario cada media hora';
 
     /**
      * Create a new command instance.
@@ -46,9 +41,12 @@ class BonoRentabilidad extends Command
     {
         try {
             $comisiones = new ComisionesController;
-            $comisiones->rentabilidadMensual();
-
-            $this->info('Bono de Rentabilidad pagado '. Carbon::now());
+            $comisiones->bonoDirecto();
+            $this->info('Bono Directo Pagado Correctamente '.Carbon::now());
+            $comisiones->bonoXConsumo();
+            $this->info('Bono Por Consumo Pagado Correctamente '.Carbon::now());
+            $comisiones->recordPoint();
+            $this->info('Puntos Pagados Correctamente '.Carbon::now());
         } catch (\Throwable $th) {
             $this->info($th);
         }

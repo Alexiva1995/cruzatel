@@ -101,7 +101,7 @@
 
 <script>
     function detalles(product) {
-        $('#idproducto').val(product.ID)
+        $('#product_id').val(product.ID)
         //$('#img').attr('src', product.imagen)
         //$('#title').html(product.post_title)
         $('#product_name').val(product.post_title)

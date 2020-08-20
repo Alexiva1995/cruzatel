@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\User;
-use App\Wallet;
 use App\Settings;
 use App\Notification;
 
 
 use App\Http\Controllers\IndexController;
-
+use App\Http\Controllers\ActivacionController;
 use App\Http\Controllers\PublicidadController;
 
 class AdminController extends Controller
@@ -41,6 +40,8 @@ class AdminController extends Controller
 
         $funcionesIndex = new IndexController();
         $publicidad = new PublicidadController();
+        $activacion = new ActivacionController();
+        $activacion->activarUsuarios(Auth::user()->ID);
         $data = [
             'activoBinario' => $funcionesIndex->statusBinary(Auth::user()->ID),
             'progresoDiario' => 49,

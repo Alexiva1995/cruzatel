@@ -18,10 +18,7 @@ use App\Http\Controllers\ActivacionController;
 use Carbon\Carbon;
 use Paypal;
 use Illuminate\Support\Facades\Session;
-// use CoinbaseCommerce\ApiClient;
-// use CoinbaseCommerce\Resources\Charge;
-// use App\Jobs\coinPaymentCallbackProccedJob;
-// use CoinPayment; 
+
 
 
 class TiendaController extends Controller
@@ -117,7 +114,7 @@ class TiendaController extends Controller
                         ['wpm.meta_key', '=', '_price'],
                         ['wp.post_type', '=', 'product'],
                         ['wp.pinged', '=', 'Visible'],
-                        ['wp.to_ping', '=', $tipo]
+                        ['wp.to_ping', '=', strtolower($tipo)]
                     ])
                     ->select('wp.ID', 'wp.post_title', 'wp.post_content', 'wp.guid', 'wpm.meta_value', 'wp.post_excerpt as imagen')
                     ->get();
@@ -318,18 +315,7 @@ class TiendaController extends Controller
                     'post_type' => 'shop_order',
                     'post_mime_type' => ' ',
                     'comment_count' => 1,
-                    // 'id_coinbase' => $datos->id_coinbase,
-                    // 'code_coinbase' => $datos->code_coinbase,
                 ]);
-                // if ($datos->tipo == 'Coinpayment') {
-                //     DB::table('cointpayment_log_trxes')->where('payment_id', $datos->idpayment)->update(['idcomprawp' => $id]);
-                // }
-                // if ($datos->tipo == 'Cupon') {
-                //     $cupon = DB::table('cupones')->where([
-                //         ['cupon', '=', $datos->cupon],
-                //         ['status', '=', 0]
-                //     ])->update(['status' => 1, 'usuario_recibe' => Auth::user()->ID]);
-                // }
                 $data = [
                     '_order_key' => 'wc_order_'.base64_encode($fecha->now()),
                     'ip' => $datos->ip(),

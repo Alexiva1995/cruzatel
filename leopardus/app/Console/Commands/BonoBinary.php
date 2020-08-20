@@ -45,7 +45,10 @@ class BonoBinary extends Command
     {
         try {
             $comision = new ComisionesController;
-            $users = User::where('rol_id', '!=', 0)->get();
+            $users = User::where([
+                ['rol_id', '!=', 0],
+                ['status', '=', 1]
+            ])->get();
             foreach ($users as $user) {
                 // $comision->bonoLiderazgo($user->ID);
                 $comision->bonoPorPuntos($user->ID);
