@@ -180,12 +180,12 @@
                         </a>
                     </li> --}}
                     <li class="nav-item">
-                        <a href="{{route('referraltree', ['matriz'])}}" class="nav-link">
+                        <a href="{{route('referraltree', ['tree'])}}" class="nav-link">
                             <span class="title">Árbol Directo</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('referraltree', ['matriz'])}}" class="nav-link">
                             <span class="title">Árbol Binario</span>
                         </a>
                     </li>

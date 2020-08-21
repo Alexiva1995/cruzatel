@@ -5,7 +5,16 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'buscarnetworkorder', 'name1' => 'fecha1', 'name2' => 'fecha2', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
+@include('dashboard.componentView.formSearch', [
+	'route' => 'buscarnetworkorder',
+	'name1' => 'fecha1',
+	'name2' => 'fecha2',
+	'text1' => 'Fecha Desde',
+	'text2' => 'Fecha Hasta',
+	'type' => 'date',
+	'volver' => $data['volver'],
+	'ruta' => url('mioficina/admin/transactions/networkorders')
+])
 
 <div class="card">
 	<div class="card-content">
@@ -13,7 +22,7 @@
 			<div class="table-responsive">
 				<table id="mytable" class="table zero-configuration">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>Numero de Orden</th>
 							<th>Usuario</th>
 							<th>Fecha</th>
@@ -24,30 +33,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						@php
-						$cont = 0;
-						@endphp
-						@foreach ($compras as $compra)
-						@php
-						$cont++;
-						$cont2 = 0;
-						@endphp
-						<tr>
-							@foreach ($compra as $dato)
-							@php
-							$cont2++;
-							@endphp
-							@if ($cont2 == 3)
-							<td>{{ date('Y-m-d', strtotime($dato)) }}</td>
-							@elseif ($cont2 == 5)
-							<td>$ {{ $dato }}</td>
-							@elseif ($cont2 == 6)
-							<td> Nivel {{ $dato }}</td>
-							@else
-							<td> {{ $dato }}</td>
-							@endif
-
-							@endforeach
+						@foreach ($data['ordenes'] as $orden)
+						<tr class="text-center">
+							<td>{{$orden['idorden']}}</td>
+							<td>{{$orden['nombre']}}</td>
+							<td>{{date('d-m-Y', strtotime($orden['fecha_orden']))}}</td>
+							<td>{{$orden['productos']}}</td>
+							<td>{{$orden['total']}}</td>
+							<td>{{$orden['nivel']}}</td>
+							<td>{{$orden['estado']}}</td>
 						</tr>
 						@endforeach
 					</tbody>

@@ -5,8 +5,16 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'buscarnetwork', 'name1' => 'fecha1', 'name2' => 'fecha2', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
-
+@include('dashboard.componentView.formSearch', [
+	'route' => 'buscarnetwork',
+	'name1' => 'fecha1', 'name2' => 'fecha2',
+	'text1' => 'Fecha Desde',
+	'text2' => 'Fecha Hasta',
+	'type' => 'date',
+	'volver' => $data['volver'],
+	'ruta' => url('mioficina/admin/network/networkrecords')
+])
+{{-- 
 <div class="card">
     <div class="card-content">
         <div class="card-body">
@@ -31,7 +39,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 <div class="card">
@@ -40,7 +48,7 @@
 			<div class="table-responsive">
 				<table id="mytable" class="table zero-configuration">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>ID</th>
 							<th>Nombre</th>
 							<th>Correo</th>
@@ -52,23 +60,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($allReferido as $referido)
+						@foreach ($data['allReferido'] as $referido)
 						@php
 						$paquete = null;
 							$nombre = 'Sin Paquete';
-							if ($referido['status'] == 1) {
-								$paquete = json_decode($referido['paquete']);
+							if ($referido->status == 1) {
+								$paquete = json_decode($referido->paquete);
 								if (!empty($paquete)) {
 									$nombre = $paquete->nombre;
 								} 
 							}
 						@endphp
-						<tr>
-							<td>{{ $referido['ID'] }}</td>
+						<tr class="text-center">
+							<td>{{ $referido->ID }}</td>
 							<td>{{ $referido->display_name }}</td>
 							<td>{{ $referido->user_email }}</td>
 							<td>{{ $nombre }}</td>
-							@if ($referido['status'] == '0')
+							@if ($referido->status == 0)
 							<td>Inactive</td>
 							@else
 							<td>Active</td>
@@ -83,7 +91,7 @@
 								{{$referido['nivel']}}
 								@endif
 							</td>
-							<td>{{ date('d-m-Y', strtotime($referido['fecha'])) }}</td>
+							<td>{{ date('d-m-Y', strtotime($referido->created_at)) }}</td>
 						</tr>
 
 						@endforeach

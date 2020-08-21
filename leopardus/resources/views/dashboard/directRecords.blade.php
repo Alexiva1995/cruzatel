@@ -5,7 +5,15 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'buscardirectos', 'name1' => 'fecha1', 'name2' => 'fecha2', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
+@include('dashboard.componentView.formSearch', [
+	'route' => 'buscardirectos',
+	'name1' => 'fecha1', 'name2' => 'fecha2',
+	'text1' => 'Fecha Desde',
+	'text2' => 'Fecha Hasta',
+	'type' => 'date',
+	'volver' => $data['volver'],
+	'ruta' => url('mioficina/admin/network/directrecords')
+])
 
 <div class="card">
 	<div class="card-content">
@@ -13,7 +21,7 @@
 			<div class="table-responsive">
 				<table id="mytable" class="table zero-configuration">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>ID</th>
 							<th>Nombre</th>
 							<th>Correo</th>
@@ -28,7 +36,7 @@
 						$paquete = null;
 						$nombre = 'Sin Paquete';
 						@endphp
-						@foreach ($referidosDirectos as $referido)
+						@foreach ($data['referidosDirectos'] as $referido)
 						@php
 						$paquete = json_decode($referido->paquete);
 						if (!empty($paquete)) {
@@ -37,7 +45,7 @@
 						$cont++;
 						// $rol = DB::table('roles')->where('ID', $referido->rol_id)->select('name')->get()[0];
 						@endphp
-						<tr>
+						<tr class="text-center">
 							<td>{{ $referido->ID }}</td>
 							<td>{{ $referido->display_name }}</td>
 							<td>{{ $referido->user_email }}</td>

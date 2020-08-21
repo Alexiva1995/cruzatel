@@ -5,7 +5,16 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'buscardirectos', 'name1' => 'fecha1', 'name2' => 'fecha2', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
+@include('dashboard.componentView.formSearch', [
+	'route' => 'buscarbinaryrecord',
+	'name1' => 'fecha1', 'name2' => 'fecha2',
+	'text1' => 'Fecha Desde',
+	'text2' => 'Fecha Hasta',
+	'type' => 'date',
+	'volver' => $data['volver'],
+	'ruta' => url('mioficina/admin/network/binaryrecord')
+])
+
 
 
 <div class="card">
@@ -14,42 +23,52 @@
 			<div class="table-responsive">
 				<table id="mytable" class="table zero-configuration">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>ID</th>
 							<th>Nombre</th>
 							<th>Correo</th>
 							<th>Paquete</th>
-							<th>Estado</th>
+							<th>Estato</th>
+							<th>Auspiciador</th>
+							<th>Nivel Binario</th>
 							<th>Ingreso</th>
 						</tr>
 					</thead>
 					<tbody>
+						@foreach ($data['allReferido'] as $referido)
 						@php
-						$cont = 0;
 						$paquete = null;
-						$nombre = 'Sin Paquete';
+							$nombre = 'Sin Paquete';
+							if ($referido->status == 1) {
+								$paquete = json_decode($referido->paquete);
+								if (!empty($paquete)) {
+									$nombre = $paquete->nombre;
+								} 
+							}
 						@endphp
-						@foreach ($referidosDirectos as $referido)
-						@php
-						$paquete = json_decode($referido->paquete);
-						if (!empty($paquete)) {
-							$nombre = $paquete->nombre;
-						}
-						$cont++;
-						// $rol = DB::table('roles')->where('ID', $referido->rol_id)->select('name')->get()[0];
-						@endphp
-						<tr>
+						<tr class="text-center">
 							<td>{{ $referido->ID }}</td>
 							<td>{{ $referido->display_name }}</td>
 							<td>{{ $referido->user_email }}</td>
 							<td>{{ $nombre }}</td>
-							@if ($referido->status == '0')
+							@if ($referido->status == 0)
 							<td>Inactive</td>
 							@else
 							<td>Active</td>
 							@endif
+							<td>
+								{{$referido['patrocinador']}}
+							</td>
+							<td>
+								@if($referido['nivel'] == 1)
+								1
+								@else
+								{{$referido['nivel']}}
+								@endif
+							</td>
 							<td>{{ date('d-m-Y', strtotime($referido->created_at)) }}</td>
 						</tr>
+
 						@endforeach
 					</tbody>
 				</table>

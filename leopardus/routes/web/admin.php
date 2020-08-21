@@ -622,17 +622,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']
 
 
     Route::group(['prefix' => 'network'], function(){
-
-        Route::get('/directrecords', 'AdminController@direct_records')->name('directrecords');
-
-        Route::get('/networkrecords', 'AdminController@network_records')->name('networkrecords');
-
-         Route::post('/buscardirectos','AdminController@buscardirectos')->name('buscardirectos');
-
-          Route::post('/buscarnetwork','AdminController@buscarnetwork')->name('buscarnetwork');
-
-          Route::post('/buscarnetworknivel','AdminController@buscarnetworknivel')->name('buscarnetworknivel');
-
+      // Directos
+      Route::get('/directrecords', 'AdminController@direct_records')->name('directrecords');
+      Route::post('/buscardirectos','AdminController@buscardirectos')->name('buscardirectos');
+      // En Red
+      Route::get('/networkrecords', 'AdminController@network_records')->name('networkrecords');
+      Route::post('/buscarnetwork','AdminController@buscarnetwork')->name('buscarnetwork');
+      // Binarios
+      Route::get('binaryrecord', 'AdminController@recordUserBinary')->name('binaryrecord');
+      Route::post('buscarbinaryrecord', 'AdminController@recordUserBinaryBuscar')->name('buscarbinaryrecord');
            
 
         Route::get('/commissionsrecords', 'ComisionesController@ObtenerUsuarios')->name('commissionsrecords');

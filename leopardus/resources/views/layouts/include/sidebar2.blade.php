@@ -60,7 +60,7 @@
         {{--FIN RANKING --}}
         {{-- MARKETING --}}
         <li class="nav-item">
-            <a href="" class="nav-link nav-toggle">
+            <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="feather icon-shopping-cart"></i>
                 <span class="title">Marketing</span>
             </a>
@@ -81,13 +81,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('referraltree', ['matriz'])}}" class="nav-link">
+                    <a href="{{route('referraltree', ['tree'])}}" class="nav-link">
                         <i class="feather icon-circle"></i>
                         <span class="title">Árbol Directo</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('referraltree', ['matriz'])}}" class="nav-link">
                         <i class="feather icon-circle"></i>
                         <span class="title">Árbol Binario</span>
                     </a>
@@ -105,7 +105,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{url('mioficina/admin/network/binaryrecord')}}" class="nav-link">
                         <i class="feather icon-circle"></i>
                         <span class="title">Usuarios Binarios</span>
                     </a>
@@ -122,21 +122,9 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
-                    <a href="{{url('mioficina/admin/wallet/')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Billetera</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{url('mioficina/admin/wallet/cobros')}}" class="nav-link">
                         <i class="feather icon-circle"></i>
                         <span class="title">Historial de Retiro</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/wallet/puntos')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Historial de Puntos</span>
                     </a>
                 </li>
             </ul>
@@ -152,21 +140,32 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
-                    <a href="{{url('mioficina/admin/transactions/networkorders')}}" class="nav-link">
+                    <a href="{{url('mioficina/admin/transactions/personalorders')}}" class="nav-link">
                         <i class="feather icon-circle"></i>
-                        <span class="title">Ordenes de Red</span>
+                        <span class="title">Historial de Membresia</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('mioficina/admin/transactions/personalorders')}}" class="nav-link">
+                    <a href="{{url('mioficina/admin/transactions/networkorders')}}" class="nav-link">
                         <i class="feather icon-circle"></i>
-                        <span class="title">Ordenes Personales</span>
+                        <span class="title">Historial de Compras Membresia</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('mioficina/admin/wallet/puntos')}}" class="nav-link">
+                        <i class="feather icon-circle"></i>
+                        <span class="title">Historial de Puntos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('mioficina/admin/wallet/')}}" class="nav-link">
+                        <i class="feather icon-circle"></i>
+                        <span class="title">Historial de Comisiones</span>
                     </a>
                 </li>
             </ul>
         </li>
         {{--FIN TRANSACCIONES --}}
-
 
         <li>
             <a href="{{route('publicidad.user')}}" class="nav-link nav-toggle">
@@ -175,72 +174,18 @@
             </a>
         </li>
 
-        {{-- INFORMES --}}
-        {{-- <li>
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="feather icon-file-text"></i>
-                <span class="title">Informes</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/info/activacion')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Activacion</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/info/comisiones')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Comisiones</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/info/liquidacion')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">Liquidaciones</span>
-                    </a>
-                </li>
-            </ul>
-        </li> --}}
-
-        {{-- FIN GESTION DE PERFILES --}}
-        {{-- INICIO TICKETS --}}
-        {{-- <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="feather icon-message-square"></i>
-                <span class="title">Soporte</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="{{url('mioficina/admin/ticket/ticket')}}" class="nav-link">
-        <i class="feather icon-circle"></i>
-        <span class="title">Generar Tickets</span>
-        </a>
-        </li>
+        {{-- CERRAR SESIÓN --}}
         <li class="nav-item">
-            <a href="{{url('mioficina/admin/ticket/misticket')}}" class="nav-link">
-                <i class="feather icon-circle"></i>
-                <span class="title">Mis Tickets</span>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link">
+                <i class="feather icon-log-out"></i>
+                <span class="title">Cerrar Sesión</span>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
         </li>
-    </ul>
-    </li> --}}
-    {{-- FIN TICKETS --}}
-
-    {{-- CERRAR SESIÓN --}}
-    <li class="nav-item">
-        <a href="{{ route('logout') }}"
-            onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link">
-            <i class="feather icon-log-out"></i>
-            <span class="title">Cerrar Sesión</span>
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
-        </form>
-    </li>
-    {{-- FIN CERRAR SESIÓN --}}
+        {{-- FIN CERRAR SESIÓN --}}
     </ul>
 </div>
 </div>

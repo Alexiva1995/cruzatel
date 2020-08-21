@@ -51,6 +51,8 @@ class ComisionesController extends Controller
                     $idcomision = '10'.$compra['idcompra'];
                     if ($this->checkComision($idcomision, $sponsor->ID)) {
                         foreach ($compra['productos'] as $producto) {
+                            $concepto = 'Primera Compra sin Comision';
+                            $this->guardarComision($sponsor->ID, $idcomision, $producto['precio'], $referido->user_email, $sponsor->nivel, $concepto, 'referido');
                             $this->PuntosPaquetes($sponsor->ID, $producto['precio'], $referido->user_email, $side);
                         }
                     }
