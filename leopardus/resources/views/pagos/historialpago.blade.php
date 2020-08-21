@@ -5,8 +5,17 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'price-filtro', 'name1' => 'desde', 'name2' =>
-'hasta', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
+@include('dashboard.componentView.formSearch', [
+	'route' => 'price-filtro',
+	'name1' => 'desde',
+	'name2' => 'hasta',
+	'text1' => 'Fecha Desde',
+	'text2' => 'Fecha Hasta',
+	'type' => 'date',
+	'volver' => false,
+	'ruta'
+	'form' => 'historialpago'
+])
 
 @if (Session::has('msj'))
 <div class="alert alert-success">
@@ -30,11 +39,11 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="form-group col-12 col-md-6">
-					<label>Date From</label>
+					<label>Fecha Desde</label>
 					<h5>{{ date('d-m-Y', strtotime($fechas['desde'])) }}</h5>
 				</div>
 				<div class="form-group col-12 col-md-6">
-					<label>Date To</label>
+					<label>Fecha Hasta</label>
 					<h5>{{date('d-m-Y', strtotime($fechas['hasta']))}}</h5>
 				</div>
 			</div>
@@ -49,83 +58,83 @@
 			<div class="table-responsive">
 				<table id="mytable" class="table zero-configuration">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>
-								<center>#</center>
+								#
 							</th>
 							<th>
-								<center>Usuario</center>
+								Usuario
 							</th>
 							<th>
-								<center>Correo</center>
+								Correo
 							</th>
 							<th>
-								<center>Monto</center>
+								Monto
 							</th>
 							<th>
-								<center>Descuento</center>
+								Descuento
 							</th>
 							<th>
-								<center>Total</center>
+								Total
 							</th>
 							<th>
-								<center>Fecha</center>
+								Fecha
 							</th>
 							<th>
-								<center>Estado</center>
+								Estado
 							</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($pagos as $pago)
-						<tr>
+						<tr class="text-center">
 							<td>
-								<center>{{$pago->id}}</center>
+								{{$pago->id}}
 							</td>
 							<td>
-								<center>{{$pago->username}}</center>
+								{{$pago->username}}
 							</td>
 							<td>
-								<center>{{$pago->email}}</center>
+								{{$pago->email}}
 							</td>
 							<td>
-								<center>
+								
 									@if ($moneda->mostrar_a_d)
 									{{$moneda->simbolo}} {{$pago->monto}}
 									@else
 									{{$pago->monto}} {{$moneda->simbolo}}
 									@endif
-								</center>
+								
 							</td>
 							<td>
-								<center>
+								
 									@if ($moneda->mostrar_a_d)
 									{{$moneda->simbolo}} {{$pago->descuento}}
 									@else
 									{{$pago->descuento}} {{$moneda->simbolo}}
 									@endif
-								</center>
+								
 							</td>
 							<td>
-								<center>
+								
 									@if ($moneda->mostrar_a_d)
 									{{$moneda->simbolo}} {{($pago->monto + $pago->descuento)}}
 									@else
 									{{($pago->monto + $pago->descuento)}} {{$moneda->simbolo}}
 									@endif
-								</center>
+								
 							</td>
 							<td>
-								<center>{{$pago->fechapago}}</center>
+								{{$pago->fechapago}}
 							</td>
 							<td>
-								<center>
+								
 									@if ($pago->estado == 1)
 									Aprobado
 									@elseif ($pago->estado == 2)
 									Rechazado
 									@endif
-								</center>
+								
 							</td>
 						</tr>
 						@endforeach

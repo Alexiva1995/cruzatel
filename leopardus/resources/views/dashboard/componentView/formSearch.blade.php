@@ -9,6 +9,7 @@
             <form method="POST" action="{{ route($route) }}">
                 <div class="row">
                     {{ csrf_field() }}
+                    <input type="hidden" name="form" value="{{$form}}">
                     <div class="col-12 col-sm-6 col-md-4">
                         <label class="control-label " style="text-align: center; margin-top:4px;">{{$text1}}</label>
                         <input class="form-control form-control-solid placeholder-no-fix" type="{{$type}}"

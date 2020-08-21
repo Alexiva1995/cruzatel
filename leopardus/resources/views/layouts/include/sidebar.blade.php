@@ -77,8 +77,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('tienda-index', ['producto'])}}" class="nav-link nav-toggle">
-                            <span class="title">E-commerce</span>
+                        <a href="{{route('tienda-index', ['membresia'])}}" class="nav-link nav-toggle">
+                            <span class="title">Tienda</span>
                         </a>
                     </li>
                 </ul>
@@ -90,31 +90,25 @@
 
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="feather icon-activity"></i>
-                    <span class="title">Mi Negocio</span>
+                    <span class="title">Pedidos</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
                         <a href="{{url('mioficina/admin/transactions/networkorders')}}" class="nav-link">
-                            <span class="title">Ordenes de Red</span>
+                            <span class="title">Historial de pedidos</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{url('mioficina/admin/price/confirmar')}}" class="nav-link">
-                            <span class="title">Confirmar Pagos</span>
+                            <span class="title">Pagos Por Aprobar</span>
                         </a>
                     </li>
                 </ul>
             </li>
             {{-- FIN HISTORIAL DE PEDIDOS --}}
 
-            <li>
-                <a href="{{route('tienda-index', ['membresia'])}}" class="nav-link nav-toggle">
-                    <i class="feather icon-shopping-cart"></i>
-                    <span class="title">Membresia</span>
-                </a>
-            </li>
-            {{-- INICIO TIENDA INTERNA --}}
+            {{-- INICIO BANCO --}}
             <li class="nav-item">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="feather icon-award"></i>
@@ -134,35 +128,7 @@
                     </li>
                 </ul>
             </li>
-            {{-- FIN TIENDA INTERNA --}}
-
-            {{-- TRANSACCIONES --}}
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="feather icon-activity"></i>
-                    <span class="title">Mi Negocio</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="{{url('mioficina/admin/transactions/networkorders')}}" class="nav-link">
-                            <span class="title">Ordenes de Red</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url('mioficina/admin/transactions/personalorders')}}" class="nav-link">
-                            <span class="title">Ordenes Personales</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url('mioficina/admin/price/historial')}}" class="nav-link">
-                            <span class="title">Historial de Retiro</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            {{--FIN TRANSACCIONES --}}
+            {{-- FIN BANCO --}}
 
             {{-- RED DE USUARIO --}}
 
@@ -200,7 +166,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('mioficina/admin/network/networkrecords')}}" class="nav-link">
+                        <a href="{{url('mioficina/admin/network/binaryrecord')}}" class="nav-link">
                             <span class="title">Usuarios Binarios</span>
                         </a>
                     </li>

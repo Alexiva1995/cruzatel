@@ -12,7 +12,8 @@
 	'text2' => 'Fecha Hasta',
 	'type' => 'date',
 	'volver' => $data['volver'],
-	'ruta' => url('mioficina/admin/network/directrecords')
+	'ruta' => url('mioficina/admin/network/directrecords'),
+	'form' => ''
 ])
 
 <div class="card">

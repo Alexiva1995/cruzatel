@@ -5,8 +5,17 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'price-filtro', 'name1' => 'desde', 'name2' =>
-'hasta', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
+@include('dashboard.componentView.formSearch', [
+	'route' => 'price-filtro',
+	'name1' => 'desde',
+	'name2' => 'hasta',
+	'text1' => 'Fecha Desde',
+	'text2' => 'Fecha Hasta',
+	'type' => 'date',
+	'volver' => $data['volver'],
+	'form' => 'confirmarpago',
+	'ruta' => url('mioficina/admin/transactions/networkorders')
+])
 
 {{-- alertas --}}
 @include('dashboard.componentView.alert')
@@ -18,11 +27,11 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="form-group col-12 col-md-6">
-					<label>Date From</label>
+					<label>Fecha Desde</label>
 					<h5>{{ date('d-m-Y', strtotime($fechas['desde'])) }}</h5>
 				</div>
 				<div class="form-group col-12 col-md-6">
-					<label>Date To</label>
+					<label>Fecha Hasta</label>
 					<h5>{{date('d-m-Y', strtotime($fechas['hasta']))}}</h5>
 				</div>
 			</div>
@@ -41,67 +50,45 @@ $total = 0;
 				<table id="mytable" class="table zero-configuration">
 					<thead>
 						<tr>
-							<th>
-								<center>#</center>
-							</th>
-							<th>
-								<center>Usuario</center>
-							</th>
-							<th>
-								<center>Correo</center>
-							</th>
-							<th>
-								<center>Monto</center>
-							</th>
-							<th>
-								<center>Fecha</center>
-							</th>
-							<th>
-								<center>Wallet de Retiro</center>
-							</th>
-							<th>
-								<center>Metodo</center>
-							</th>
-							<th>
-								<center>Tipo de Metodo</center>
-							</th>
-							<th>
-								<center>Estado</center>
-							</th>
-							<th>
-								<center>Accion</center>
-							</th>
+							<th>#</th>
+							<th>Usuario</th>
+							<th>Correo</th>
+							<th>Monto</th>
+							<th>Fecha</th>
+							<th>Wallet de Retiro</th>
+							<th>Metodo</th>
+							<th>Tipo de Metodo</th>
+							<th>Estado</th>
+							<th>Accion</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($pagos as $pago)
+						@foreach($data['pagos'] as $pago)
 						@php
 						$total = ($total + $pago->monto);
 						@endphp
 						<tr>
 							<td>
-								<center>{{$pago->id}}</center>
+								{{$pago->id}}
 							</td>
 							<td>
-								<center>{{$pago->username}}</center>
+								{{$pago->username}}
 							</td>
 							<td>
-								<center>{{$pago->email}}</center>
+								{{$pago->email}}
 							</td>
 							<td>
-								<center>
 									@if ($moneda->mostrar_a_d)
 									{{$moneda->simbolo}} {{$pago->monto}}
 									@else
 									{{$pago->monto}} {{$moneda->simbolo}}
 									@endif
-								</center>
+								
 							</td>
 							<td>
-								<center>{{$pago->fechasoli}}</center>
+								{{$pago->fechasoli}}
 							</td>
 							<td>
-								<center>
 									@if ($pago->tipowallet == 0)
 									Point
 									@elseif($pago->tipowallet == 1)
@@ -109,28 +96,23 @@ $total = 0;
 									@else
 									Tantech
 									@endif
-								</center>
 							</td>
 							<td>
-								<center>{{$pago->metodo}}</center>
+								{{$pago->metodo}}
 							</td>
 							<td>
-								<center>{{$pago->tipopago}}</center>
+								{{$pago->tipopago}}
 							</td>
 							<td>
-								<center>
-									@if ($pago->estado == 0)
-									Pendiente
-									@endif
-								</center>
+								@if ($pago->estado == 0)
+								Pendiente
+								@endif
 							</td>
 							<td>
-								<center>
-									<a class="btn btn-info" href="{{route('price-aprobar', [$pago->id])}}"><i
-											class="fas fa-check"></i></a>
-									<a class="btn btn-danger" href="{{route('price-rechazar', [$pago->id])}}"><i
-											class="fas fa-ban"></i></a>
-								</center>
+								<a class="btn btn-info" href="{{route('price-aprobar', [$pago->id])}}"><i
+										class="fas fa-check"></i></a>
+								<a class="btn btn-danger" href="{{route('price-rechazar', [$pago->id])}}"><i
+										class="fas fa-ban"></i></a>
 							</td>
 						</tr>
 						@endforeach

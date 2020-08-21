@@ -13,7 +13,8 @@
 	'text2' => 'Fecha Hasta',
 	'type' => 'date',
 	'volver' => $data['volver'],
-	'ruta' => url('mioficina/admin/transactions/personalorders')
+	'ruta' => url('mioficina/admin/transactions/personalorders'),
+	'form' => ''
 ])
 
 <div class="card">

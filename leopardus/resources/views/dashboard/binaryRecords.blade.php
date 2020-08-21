@@ -12,7 +12,8 @@
 	'text2' => 'Fecha Hasta',
 	'type' => 'date',
 	'volver' => $data['volver'],
-	'ruta' => url('mioficina/admin/network/binaryrecord')
+	'ruta' => url('mioficina/admin/network/binaryrecord'),
+	'form' => ''
 ])
 
 

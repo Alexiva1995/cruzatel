@@ -14,7 +14,8 @@
 	'text2' =>
 	'Fecha Hasta',
 	'type' => 'date',
-	'volver' => $data['volver']
+	'volver' => $data['volver'],
+	'form' => ''
 ])
 
 
