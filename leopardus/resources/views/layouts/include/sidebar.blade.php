@@ -54,7 +54,7 @@
 
                     <i class="feather icon-home"></i>
 
-                    <span class="title">Balance General</span>
+                    <span class="title">Dashboard</span>
 
                 </a>
 
@@ -63,19 +63,12 @@
             @if (Auth::user()->ID == 1)
 
             {{-- INICIO TIENDA INTERNA --}}
-
             <li class="nav-item">
-
                 <a href="javascript:;" class="nav-link nav-toggle">
-
                     <i class="feather icon-shopping-cart"></i>
-
                     <span class="title">E-commerce</span>
-
                     <span class="arrow"></span>
-
                 </a>
-
                 <ul class="sub-menu">
                     <li class="nav-item">
                         <a href="{{route('listProduct')}}" class="nav-link">
@@ -83,18 +76,37 @@
                             <span class="title">Productos</span>
                         </a>
                     </li>
-
                     <li>
                         <a href="{{route('tienda-index', ['producto'])}}" class="nav-link nav-toggle">
                             <span class="title">E-commerce</span>
                         </a>
                     </li>
                 </ul>
-
             </li>
-
             {{-- FIN TIENDA INTERNA --}}
 
+            {{-- HISTORIAL DE PEDIDOS --}}
+            <li class="nav-item">
+
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="feather icon-activity"></i>
+                    <span class="title">Mi Negocio</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="{{url('mioficina/admin/transactions/networkorders')}}" class="nav-link">
+                            <span class="title">Ordenes de Red</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('mioficina/admin/price/confirmar')}}" class="nav-link">
+                            <span class="title">Confirmar Pagos</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            {{-- FIN HISTORIAL DE PEDIDOS --}}
 
             <li>
                 <a href="{{route('tienda-index', ['membresia'])}}" class="nav-link nav-toggle">
@@ -102,22 +114,13 @@
                     <span class="title">Membresia</span>
                 </a>
             </li>
-
-            
             {{-- INICIO TIENDA INTERNA --}}
-
             <li class="nav-item">
-
                 <a href="javascript:;" class="nav-link nav-toggle">
-
                     <i class="feather icon-award"></i>
-
                     <span class="title">Bancos</span>
-
                     <span class="arrow"></span>
-
                 </a>
-
                 <ul class="sub-menu">
                     <li class="nav-item">
                         <a href="{{route('banks.index')}}" class="nav-link">
@@ -129,79 +132,34 @@
                             <span class="title">Solicitudes</span>
                         </a>
                     </li>
-
                 </ul>
-
             </li>
-
             {{-- FIN TIENDA INTERNA --}}
 
             {{-- TRANSACCIONES --}}
-
             <li class="nav-item">
-
                 <a href="javascript:;" class="nav-link nav-toggle">
-
                     <i class="feather icon-activity"></i>
-
                     <span class="title">Mi Negocio</span>
-
                     <span class="arrow"></span>
-
                 </a>
-
                 <ul class="sub-menu">
-
                     <li class="nav-item">
-
                         <a href="{{url('mioficina/admin/transactions/networkorders')}}" class="nav-link">
-
-                           
-
                             <span class="title">Ordenes de Red</span>
-
                         </a>
-
                     </li>
-
                     <li class="nav-item">
-
                         <a href="{{url('mioficina/admin/transactions/personalorders')}}" class="nav-link">
-
-                            
-
                             <span class="title">Ordenes Personales</span>
-
                         </a>
-
                     </li>
-
                     <li class="nav-item">
-
                         <a href="{{url('mioficina/admin/price/historial')}}" class="nav-link">
-
-                            
-
                             <span class="title">Historial de Retiro</span>
-
                         </a>
-
                     </li>
-
-                    <li class="nav-item">
-
-                        <a href="{{url('mioficina/admin/price/confirmar')}}" class="nav-link">
-
-                            
-
-                            <span class="title">Confirmar Pagos</span>
-
-                        </a>
-
-                    </li>
-
                 </ul>
-
             </li>
 
             {{--FIN TRANSACCIONES --}}
@@ -209,108 +167,92 @@
             {{-- RED DE USUARIO --}}
 
             <li class="nav-item">
-
                 <a href="javascript:;" class="nav-link nav-toggle">
-
                     <i class="feather icon-users"></i>
-
                     <span class="title">Mi Red</span>
-
                     <span class="arrow"></span>
-
                 </a>
-
                 <ul class="sub-menu">
-
-                    <li class="nav-item">
-
+                    {{-- <li class="nav-item">
                         <a href="{{route('autenticacion.new-register').'?referred_id='.Auth::user()->ID}}"
-
                             class="nav-link">
-
-                           
-
                             <span class="title">Nuevo Usuario</span>
-
                         </a>
-
-                    </li>
-
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{route('referraltree', ['matriz'])}}" class="nav-link">
-                            <span class="title">Árbol de Usuarios</span>
+                            <span class="title">Árbol Directo</span>
                         </a>
                     </li>
-
                     <li class="nav-item">
-
+                        <a href="" class="nav-link">
+                            <span class="title">Árbol Binario</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{url('mioficina/admin/network/directrecords')}}" class="nav-link">
-
-                            
-
                             <span class="title">Lista de Directos</span>
-
                         </a>
-
                     </li>
-
                     <li class="nav-item">
-
                         <a href="{{url('mioficina/admin/network/networkrecords')}}" class="nav-link">
-
-                            
-
                             <span class="title">Usuarios en Red</span>
-
                         </a>
-
                     </li>
-
+                    <li class="nav-item">
+                        <a href="{{url('mioficina/admin/network/networkrecords')}}" class="nav-link">
+                            <span class="title">Usuarios Binarios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('mioficina/admin/userrecords')}}" class="nav-link">
+                            <span class="title">Administracion de Usuario</span>
+                        </a>
+                    </li>
                 </ul>
-
             </li>
-
             {{-- FIN RED DE USUARIO --}}
-
             @endif
 
             {{-- LISTA DE USUARIOS--}}
 
-            <li>
-
+            {{-- <li>
                 <a href="{{url('mioficina/admin/userrecords')}}" class="nav-link nav-toggle">
                     <i class="feather icon-users"></i>
                     <span class="title">Lista de Usuarios</span>
                 </a>
-
-            </li>
+            </li> --}}
 
             <li>
-
-                <a href="{{route('publicidad')}}" class="nav-link nav-toggle">
+                <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="feather icon-share"></i>
                     <span class="title">Publicidad</span>
+                    <span class="arrow"></span>
                 </a>
-
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="{{route('publicidad')}}" class="nav-link">
+                            <span class="title">Subir Publicidad</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <span class="title">Historial de Publicidad por usuario</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             {{-- FIN LISTA DE USUARIOS --}}
 
             @if (Auth::user()->ID == 1)
-
             {{-- INFORMES --}}
-
-            <li>
-
+            {{-- <li>
                 <a href="javascript:;" class="nav-link nav-toggle">
-                    
                     <i class="feather icon-clipboard"></i>
                     <span class="title">Informes</span>
-
                     <span class="arrow"></span>
-
                 </a>
-
                 <ul class="sub-menu">
                     <li class="nav-item">
                         <a href="{{url('mioficina/admin/info/perfil')}}" class="nav-link">
@@ -322,11 +264,6 @@
                             <span class="title">Ventas</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{url('mioficina/admin/info/rango')}}" class="nav-link">
-                            <span class="title">Rangos</span>
-                        </a>
-                    </li> --}}
                     <li class="nav-item">
                         <a href="{{url('mioficina/admin/info/pagos')}}" class="nav-link">
                             <span class="title">Pagos</span>
@@ -343,7 +280,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             {{-- FIN GESTION DE PERFILES --}}
             @endif
             {{-- INICIO TICKETS --}}
