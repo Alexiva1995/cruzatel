@@ -75,6 +75,24 @@ Route::group(['prefix' => 'tienda', 'middleware' => ['auth', 'licencia', 'guest'
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']], function() {
 
+  
+  Route::group(['prefix' => 'liquidacion'], function ()
+  {
+    // Liquidaciones Pendientes
+    Route::get('/', 'LiquidationController@index')->name('liquidacion');
+    Route::get('/{iduser}/detalles', 'LiquidationController@detalles')->name('liquidacion.detalles');
+    Route::post('liquidationFiltro', 'LiquidationController@indexFiltro')->name('liquidation.filtro');
+    Route::post('generarliquidacion', 'LiquidationController@liduidarUser')->name('liquidacion.generar');
+    Route::post('procesarcomisiones', 'LiquidationController@procesarComisiones')->name('liquidacion.procesar.comision');
+    Route::get('/liquidacionPendientes', 'LiquidationController@liquidacionPendientes')->name('liquidacion.pendientes');
+    Route::get('/liquidacioninversion', 'LiquidationController@liquidacionesInversion')->name('liquidacion.inversion');
+    Route::post('/liquidarinversiones', 'LiquidationController@liquidarInversiones')->name('liquidacion.liquidacion.inversiones');
+    Route::get('/liquidacionrealizadas', 'LiquidationController@liquidacionesRealizada')->name('liquidacion.realizadas');
+    Route::post('/updateLiquidacion', 'LiquidationController@updateLiquidation')->name('liquidacion.update');
+
+    Route::get('rentabilidad', 'ComisionesController@getRentabilidad')->name('prueba.rentabilidad');
+  });
+
   Route::post('changeside', 'HomeController@changeSide')->name('change.side');
 
     // Actualiza todos la informacion para los usuarios

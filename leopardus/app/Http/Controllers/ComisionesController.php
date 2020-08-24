@@ -121,7 +121,7 @@ class ComisionesController extends Controller
             $comision->tipo_comision = $tipo_comision;
             $comision->referred_email = $referred_email;
             $comision->referred_level = $referred_level;
-            $comision->status = true;
+            $comision->status = ($concepto == 'Primera Compra sin Comision')? true : false;
 
             if ($concepto != 'Primera Compra sin Comision') {
                 $user = User::find($iduser);
