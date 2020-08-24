@@ -204,26 +204,43 @@ class WalletController extends Controller
     
     public function historial()
     {
+		view()->share('title', 'Historial de Comisiones');
+
 		$moneda = Monedas::where('principal', 1)->get()->first();
        
 		$billetera = DB::table('walletlog')
-						->where('iduser', '=', Auth::user()->ID )
-						->where('tipotransacion', '=', 0 )
+						->where([
+							['tipotransacion', '=', 2],
+							['debito', '!=', 0]
+						])
 						->get();
+		$data = [
+			'billetera' => $billetera,
+			'volver' => false
+		];
 
-     return view('wallet.historial', compact('billetera', 'moneda')); 
+     return view('wallet.historial', compact('data', 'moneda')); 
     }
     
      public function historial_fechas(Request $request)
     {
+		view()->share('title', 'Historial de Comisiones- Desde: '.$request->primero.' Hasta: '.$request->segundo);
+
         $moneda = Monedas::where('principal', 1)->get()->first();
 		$billetera = Wallet::whereDate("created_at",">=",$request->primero)
 				->whereDate("created_at","<=",$request->segundo)
-				->where('tipotransacion', '=', 0 )
-				->where('iduser', '=', Auth::user()->ID )
-				->get(); 
+				->where([
+					['tipotransacion', '=', 2],
+					['debito', '!=', 0]
+				])
+				->get();
+		
+		$data = [
+			'billetera' => $billetera,
+			'volver' => false
+		];
              
- 		return view('wallet.historial', compact('billetera', 'moneda')); 
+ 		return view('wallet.historial', compact('data', 'moneda')); 
     }
 	
 	/**
@@ -258,12 +275,12 @@ class WalletController extends Controller
     public function cobros_fechas(Request $request)
     {
 		// TITLE
-		view()->share('title', 'Historial de Retiro - Desde:'.$request->primero.' Hasta: '.$request->segundo);
+		view()->share('title', 'Historial de Retiro - Desde: '.$request->primero.' Hasta: '.$request->segundo);
 
 		$moneda = Monedas::where('principal', 1)->get()->first();
 		$billetera = Wallet::whereDate("created_at",">=",$request->primero)
 					->whereDate("created_at","<=",$request->segundo)
-					->where('tipotransacion', '=', 1 )
+					->where('tipotransacion', '=', 2)
 					->where('iduser', '=', Auth::user()->ID )
 					->get();
 

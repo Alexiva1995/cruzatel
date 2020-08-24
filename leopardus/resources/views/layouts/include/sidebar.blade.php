@@ -210,7 +210,7 @@
                 <span class="title">Liquidaciones</span>
                 <span class="arrow"></span>
             </a>
-            <ul class="sub-menu" >
+            <ul class="sub-menu">
                 <li class="nav-item">
                     <a href="{{route('liquidacion')}}" class="nav-link">
                         {{-- <i class="feather icon-circle"></i> --}}
@@ -219,14 +219,6 @@
                         </span>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{route('liquidacion.inversion')}}" class="nav-link">
-                        <i class="feather icon-circle"></i>
-                        <span class="title">
-                            <small>Liquidación Inversiones</small>
-                        </span>
-                    </a>
-                </li> --}}
                 <li class="nav-item">
                     <a href="{{route('liquidacion.pendientes')}}" class="nav-link">
                         {{-- <i class="feather icon-circle"></i> --}}
@@ -239,7 +231,15 @@
                     <a href="{{route('liquidacion.realizadas')}}" class="nav-link">
                         {{-- <i class="feather icon-circle"></i> --}}
                         <span class="title">
-                            <small>Liquidaciones Realizadas</small>
+                            <small>Historial de Liquidaciones</small>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('wallet-historial')}}" class="nav-link">
+                        {{-- <i class="feather icon-circle"></i> --}}
+                        <span class="title">
+                            <small>Historial de Comisiones</small>
                         </span>
                     </a>
                 </li>
