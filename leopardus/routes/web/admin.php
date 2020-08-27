@@ -109,6 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']
       Route::get('/user', 'PublicidadController@indexUser')->name('publicidad.user');
       Route::post('/compartido', 'PublicidadController@compartido')->name('publicidad.compartido');
       Route::get('/ciclografiph', 'PublicidadController@getInfoDiario')->name('publicidad.ciclo');
+      Route::get('Historial', 'PublicidadController@historialPublicidad')->name('publicidad.historial');
     });
 
     // Bank

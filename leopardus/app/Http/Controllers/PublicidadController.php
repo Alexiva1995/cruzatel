@@ -8,6 +8,7 @@ use App\Publicidad;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use function GuzzleHttp\json_decode;
@@ -408,5 +409,23 @@ class PublicidadController extends Controller
         } catch (\Throwable $th) {
             dd($th);
         }
+    }
+
+    /**
+     * Lleva a la vista de Historial de publicidad
+     *
+     * @return void
+     */
+    public function historialPublicidad()
+    {
+        // TITLE
+    view()->share('title', 'Historial de Publicidad');
+        $historial = DB::table('check_publicidad as cp')
+                        ->join('wp_users as wpu', 'cp.iduser', 'wpu.ID')
+                        ->join('publicidad as p', 'cp.idpublicidad', 'p.id')
+                        ->select('cp.*', 'wpu.display_name', 'p.titulo')
+                        ->get();
+        
+        return view('publicidad.historial', compact('historial'));
     }
 }
