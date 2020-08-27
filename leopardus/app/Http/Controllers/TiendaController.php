@@ -69,7 +69,7 @@ class TiendaController extends Controller
     //Historial de Comisiones para el usuario
 
     public function index($tipo){
-        $title = ($tipo == 'membresia') ? 'Membresia' : 'Tienda';
+        $title = ($tipo == 'membresia') ? 'Membresia' : 'Marketplace';
         view()->share('title', $title);
         $banks = Banks::all();
         $productos = $this->getProductoWP($tipo);

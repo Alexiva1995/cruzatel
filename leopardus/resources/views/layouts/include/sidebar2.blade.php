@@ -60,9 +60,9 @@
         {{--FIN RANKING --}}
         {{-- MARKETING --}}
         <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
+            <a href="{{route('tienda-index', ['producto'])}}" class="nav-link nav-toggle">
                 <i class="feather icon-shopping-cart"></i>
-                <span class="title">Marketing</span>
+                <span class="title">Marketplace</span>
             </a>
         </li>
         {{-- FIN MARKETING --}}
