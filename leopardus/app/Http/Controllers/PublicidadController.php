@@ -374,7 +374,12 @@ class PublicidadController extends Controller
         return $arregloGrafica;
     }
 
-    
+    /**
+     * Permite obtener mi progreso diario
+     *
+     * @param integer $iduser
+     * @return float
+     */
     public function progresoDiario($iduser) : float
     {
         try {
@@ -393,14 +398,15 @@ class PublicidadController extends Controller
             $year = $fechatmpSemana->year;
             $paquete = (!empty(Auth::user()->paquete)) ? json_decode(Auth::user()->paquete) : '';
             $completado = CicloPublicidad::where([
-                ['iduser', '=', Auth::user()->ID],
+                ['iduser', '=', $iduser],
                 ['completado', '=', 0],
                 ['semana', '=', $semana],
                 ['year', '=', $year]
             ])->first();
             if (!empty($completado) && $paquete != '') {
                 $ciclo = json_decode($completado->ciclo);
-                $cant = $ciclo[$arreDia[$fechatmpSemana->dayOfWeekIso]]['cant'];
+                $dia = $arreDia[$fechatmpSemana->dayOfWeekIso];
+                $cant = $ciclo->$dia->cant;
                 if ($cant > 0) {
                     $progreso = (($cant * 100) / (int) $paquete->limite);
                 }
