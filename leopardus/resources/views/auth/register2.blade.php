@@ -39,213 +39,188 @@ $referred = DB::table($settings->prefijo_wp.'users')
 
 @endif
 
+<style>
+    .card-alt {
+        background: #3A58A2 0% 0% no-repeat padding-box !important;
+        border-radius: 25px !important;
+        opacity: 1 !important;
+    }
+
+    .input-alt {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border-radius: 25px;
+        opacity: 1;
+        text-align: left;
+        letter-spacing: 0px;
+        color: #434343;
+    }
+
+    .bg-white {
+        background: #ffffff !important;
+    }
+
+    .btn-alt {
+        background: #5CBDEB 0% 0% no-repeat padding-box !important;
+        border-radius: 25px !important;
+    }
+
+    .form-label-group>input:not(:active):not(:placeholder-shown)~label {
+        color: #ffffff !important;
+    }
+</style>
+
 <section class="row flexbox-container">
     <div class="col-xl-8 col-10 d-flex justify-content-center">
-        <div class="card bg-authentication rounded-0 mb-0">
+        <div class="card bg-authentication rounded-0 mb-0 card-alt col-8 col-sm-6 col-lg-5">
             <div class="row m-0">
-                <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
-                    {{-- <img src="{{asset('assets/imgLanding/logo2.png')}}" alt="branding logo" width="350"> --}}
-                    <img src="{{asset('assets/imgLanding/logo2.png')}}" alt="branding logo" width="300">
-                    {{-- <img src="../../../app-assets/images/pages/register.jpg" alt="branding logo"> --}}
-                </div>
-                <div class="col-lg-6 col-12 p-0">
-                    <div class="card rounded-0 mb-0 p-2">
-                        <div class="card-header pt-50 pb-1">
-                            <div class="card-title">
-                                <h4 class="mb-0">Nuevo Usuario</h4>
-                            </div>
+                {{-- <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
+                    <img src="{{asset('assets/imgLanding/logo2.png')}}" alt="branding logo" width="350">
+                <img src="{{asset('assets/imgLanding/logo2.png')}}" alt="branding logo" width="300">
+                <img src="../../../app-assets/images/pages/register.jpg" alt="branding logo">
+            </div> --}}
+            <div class="col-12 p-0">
+                <div class="card rounded-0 mb-0 p-2 card-alt pb-0">
+                    <div class="card-header pt-50 pb-0 mb-2">
+                        <div class="card-title">
+                            <h4 class="mb-0 text-white">Registrarse</h4>
                         </div>
-                        @if ($referred != null)
-                        <p class="px-2">Referido de : <strong>{{ $referred->display_name }}</strong> </p>
-                        @endif
+                    </div>
+                    @if ($referred != null)
+                    <p class="px-2">Referido de : <strong>{{ $referred->display_name }}</strong> </p>
+                    @endif
 
-                        {{-- alertas --}}
-                        <div class="col-12">
-                            @include('dashboard.componentView.alert')
-                        </div>
+                    {{-- alertas --}}
+                    <div class="col-12">
+                        @include('dashboard.componentView.alert')
+                    </div>
 
-                        {{-- <p >Fill the below form to create a new account.</p> --}}
-                        <div class="card-content">
-                            <div class="card-body pt-0">
+                    {{-- <p >Fill the below form to create a new account.</p> --}}
+                    <div class="card-content">
+                        <div class="card-body pt-0">
 
-                                <form method="POST" action="{{ route('autenticacion.save-register') }}">
-                                    {{ csrf_field() }}
+                            <form method="POST" action="{{ route('autenticacion.save-register') }}">
+                                {{ csrf_field() }}
 
-                                    @foreach($campos as $campo)
-                                    @if($campo->tipo == 'select')
-                                    <div class="form-label-group input-alt">
+                                @foreach($campos as $campo)
+                                @if($campo->tipo == 'select')
+                                <div class="form-label-group input-alt">
 
-                                        <select class="form-control " name="{{$campo->nameinput}}"
-                                            required="{{($campo->requerido == 1) ? 'true' : 'false'}}">
-                                            <option value="" disabled selected>{{$campo->label}}
-                                                {{($campo->requerido == 1) ? '(*)' : ''}}</option>
-                                            @foreach($valoresSelect as $valores)
-                                            @if ($valores['idselect'] == $campo->id)
-                                            <option value="{{$valores['valor']}}">{{$valores['valor']}}</option>
-                                            @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @elseif($campo->tipo == 'number')
-                                    <div class="form-label-group input-alt">
-                                        <label class="" for=""></label>
-                                        <input class="form-control " step="1" type="{{$campo->tipo}}"
-                                            placeholder="'{{$campo->label}} {{($campo->requerido == 1) ? '(*)' : ''}}'"
-                                            name="{{$campo->nameinput}}"
-                                            min="{{(!empty($campo->min)) ? $campo->min : ''}}"
-                                            max="{{(!empty($campo->max)) ? $campo->max : ''}}"
-                                            required="{{($campo->requerido == 1) ? 'true' : 'false'}}"
-                                            value="{{old($campo->nameinput)}}">
-                                    </div>
-                                    @else
-                                    @if($campo->input_edad == 1)
-                                    <div class="form-label-group input-alt">
-
-                                        <input class="form-control " type="{{$campo->tipo}}"
-                                            placeholder="'{{$campo->label}} {{($campo->requerido == 1) ? '(*)' : ''}}'"
-                                            name="{{$campo->nameinput}}" value="{{old($campo->nameinput)}}"
-                                            onblur="validarEdad(this.value)"
-                                            required="{{($campo->requerido == 1) ? 'true' : 'false'}}">
-                                    </div>
-                                    @else
-                                    <div class="form-label-group input-alt">
-
-                                        <input class="form-control "
-                                            placeholder="{{$campo->label}} {{($campo->requerido == 1) ? '(*)' : ''}}"
-                                            type="{{$campo->tipo}}" name="{{$campo->nameinput}}"
-                                            value="{{old($campo->nameinput)}}"
-                                            minlength="{{(!empty($campo->min)) ? $campo->min : ''}}"
-                                            maxlength="{{(!empty($campo->max)) ? $campo->max : ''}}"
-                                            required="{{($campo->requerido == 1) ? 'true' : 'false'}}">
-                                    </div>
-                                    @endif
-                                    @endif
-                                    @endforeach
-
-
-                                    <div class="form-label-group input-alt">
-
-
-                                        <input
-                                            class="form-control form-control-solid placeholder-no-fix form-label-group"
-                                            placeholder="Correo (*)" type="text" autocomplete="off" name="user_email"
-                                            required style="background-color:f7f7f7;" oncopy="return false"
-                                            onpaste="return false" />
-                                    </div>
-
-
-
-                                    <div class="form-label-group input-alt">
-
-                                        <input
-                                            class="form-control form-control-solid placeholder-no-fix form-label-group"
-                                            placeholder="Confirmacion de Correo (*)" type="text" autocomplete="off"
-                                            name="user_email_confirmation" required style="background-color:f7f7f7;"
-                                            oncopy="return false" onpaste="return false" />
-                                    </div>
-
-
-                                    <div class="form-label-group input-alt">
-
-                                        <input
-                                            class="form-control form-control-solid placeholder-no-fix form-label-group"
-                                            type="password" autocomplete="off" name="password"
-                                            placeholder="Clave (*)" required style="background-color:f7f7f7;"
-                                            oncopy="return false" onpaste="return false" />
-                                    </div>
-
-                                    <div class="form-label-group input-alt">
-
-                                        <input
-                                            class="form-control form-control-solid placeholder-no-fix form-label-group"
-                                            type="password" autocomplete="off" name="password_confirmation"
-                                            placeholder="Confirmacion de Clave (*)" required
-                                            style="background-color:f7f7f7;" oncopy="return false"
-                                            onpaste="return false" />
-                                    </div>
-
-                                    <input type="hidden" name="ladomatrix" value="{{request()->lado}}">
-
-                                    @if (request()->referred_id == null)
-                                    {{-- <div class="col-xs-12 form-label-group input-alt">
-            <div class="alert alert-info">
-                <button class="close" data-close="alert"></button>
-                <span>
-                    If you don't know what your Sponsor's ID is, please register the first User
-                </span>
-            </div>
-            <label class="control-label " style="text-align: center;">Sponsor ID</label>
-            <select name="referred_id" style="background-color:f7f7f7;"
-                class="form-control form-control-solid placeholder-no-fix form-label-group" required>
-                <option value="" disabled selected>Select a Sponsor User</option>
-                @foreach ($patrocinadores as $user)
-                <option value="{{$user->ID}}">{{$user->display_name}}</option>
-                                    @endforeach
+                                    <select class="form-control input-alt" name="{{$campo->nameinput}}"
+                                        required="{{($campo->requerido == 1) ? 'true' : 'false'}}">
+                                        <option value="" disabled selected>{{$campo->label}}
+                                            {{($campo->requerido == 1) ? '(*)' : ''}}</option>
+                                        @foreach($valoresSelect as $valores)
+                                        @if ($valores['idselect'] == $campo->id)
+                                        <option value="{{$valores['valor']}}">{{$valores['valor']}}</option>
+                                        @endif
+                                        @endforeach
                                     </select>
-                            </div> --}}
-                            <input type="hidden" name="referred_id" value="" />
-                            @else
-                            <input type="hidden" name="referred_id" value="{{ request()->referred_id }}" />
-                            @endif
-
-                            @if (empty(request()->tipouser))
-                            <input type="hidden" name="tipouser" value="Normal" />
-                            @else
-                            <input type="hidden" name="tipouser" value="{{ request()->tipouser }}" />
-                            @endif
-
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <fieldset class="checkbox">
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" {{ old('terms') ? 'checked' : '' }} name="terms">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">
-                                                Acepta terminos y condiciones
-                                                <a href="{{asset('assets/terminosycondiciones.pdf')}}" download> Descargar terminos y condiciones</a>
-                                            </span>
-                                        </div>
-                                    </fieldset>
                                 </div>
-                            </div>
-                            <a href="{{route('login')}}"
-                                class="btn btn-outline-primary float-left btn-inline mb-50">Login</a>
-                            <button type="submit" class="btn btn-primary float-right btn-inline mb-50">Registrar</a>
+                                @elseif($campo->tipo == 'number')
+                                <div class="form-label-group input-alt">
+                                    <label class="" for=""></label>
+                                    <input class="form-control input-alt" step="1" type="{{$campo->tipo}}"
+                                        placeholder="'{{$campo->label}} {{($campo->requerido == 1) ? '(*)' : ''}}'"
+                                        name="{{$campo->nameinput}}" min="{{(!empty($campo->min)) ? $campo->min : ''}}"
+                                        max="{{(!empty($campo->max)) ? $campo->max : ''}}"
+                                        required="{{($campo->requerido == 1) ? 'true' : 'false'}}"
+                                        value="{{old($campo->nameinput)}}">
+                                </div>
+                                @else
+                                @if($campo->input_edad == 1)
+                                <div class="form-label-group input-alt">
+
+                                    <input class="form-control input-alt" type="{{$campo->tipo}}"
+                                        placeholder="'{{$campo->label}} {{($campo->requerido == 1) ? '(*)' : ''}}'"
+                                        name="{{$campo->nameinput}}" value="{{old($campo->nameinput)}}"
+                                        onblur="validarEdad(this.value)"
+                                        required="{{($campo->requerido == 1) ? 'true' : 'false'}}">
+                                </div>
+                                @else
+                                <div class="form-label-group input-alt">
+
+                                    <input class="form-control input-alt"
+                                        placeholder="{{$campo->label}} {{($campo->requerido == 1) ? '(*)' : ''}}"
+                                        type="{{$campo->tipo}}" name="{{$campo->nameinput}}"
+                                        value="{{old($campo->nameinput)}}"
+                                        minlength="{{(!empty($campo->min)) ? $campo->min : ''}}"
+                                        maxlength="{{(!empty($campo->max)) ? $campo->max : ''}}"
+                                        required="{{($campo->requerido == 1) ? 'true' : 'false'}}">
+                                </div>
+                                @endif
+                                @endif
+                                @endforeach
 
 
-                                {{-- <div class="col-sm-12 col-xs-12 form-label-group">
+                                <div class="form-label-group form-group position-relative">
+                                    <input
+                                        class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
+                                        placeholder="Ingresa tu email" type="text" autocomplete="off" name="user_email"
+                                        required oncopy="return false" onpaste="return false" />
+                                    <label class="text-white">Email</label>
+                                </div>
 
-                                <div class="rem-password">
-                                    <label class="rememberme mt-checkbox mt-checkbox-outline new-checkbox">
-                                        <input type="checkbox" id="terms" name="terms"
-                                            {{ old('terms') ? 'checked' : '' }} />
-                                I have read, I accept the terms and conditions
-                                <span></span>
-                                <a href="{{asset('assets/terminosycondiciones.pdf')}}" download> Download Terms
-                                    and Conditions</a>
-                                </label>
+
+
+                                <div class="form-label-group form-group position-relative">
+
+                                    <input
+                                        class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
+                                        placeholder="Ingresa tu nombre de usuario" type="text" autocomplete="off"
+                                        name="user_login" required oncopy="return false" onpaste="return false" />
+                                    <label class="text-white">Usuario</label>
+                                </div>
+
+
+                                <div class="form-label-group form-group position-relative">
+
+                                    <input
+                                        class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
+                                        type="password" autocomplete="off" name="password"
+                                        placeholder="Ingresar una contraseña" required style="background-color:f7f7f7;"
+                                        oncopy="return false" onpaste="return false" />
+                                    <label class="text-white">Contraseña</label>
+                                </div>
+
+                                <div class="form-label-group form-group position-relative">
+
+                                    <input
+                                        class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
+                                        type="password" autocomplete="off" name="password_confirmation"
+                                        placeholder="Confirmar la contraseña" required style="background-color:f7f7f7;"
+                                        oncopy="return false" onpaste="return false" />
+                                    <label class="text-white">Repetir Contraseña</label>
+                                </div>
+
+                                <input type="hidden" name="ladomatrix" value="{{request()->lado}}">
+
+                                @if (request()->referred_id == null)
+
+                                <input type="hidden" name="referred_id" value="" />
+                                @else
+                                <input type="hidden" name="referred_id" value="{{ request()->referred_id }}" />
+                                @endif
+
+                                @if (empty(request()->tipouser))
+                                <input type="hidden" name="tipouser" value="Normal" />
+                                @else
+                                <input type="hidden" name="tipouser" value="{{ request()->tipouser }}" />
+                                @endif
+
+                                <button type="submit" class="btn btn-primary btn-block btn-alt btn-inline mb-50">Registrar</button>
+                                    <div class="mt-3">
+                                        <h6 class="text-white text-center">
+                                            <small>
+                                                ¿Ya tienes una cuenta? <a href="{{route('login')}}">Ingresa</a>
+                                            </small>
+                                        </h6>
+                                    </div>
+                            </form>
                         </div>
-                        <div class="form-actions col-12" style="margin-bottom:30px; text-align: center;">
-
-                            <div class="col-xs-6">
-                                <a class="btn btn-alt btn-alt-gray-outline" href="{{route('login')}}">Cancel</a>
-                            </div>
-                            <div class="col-xs-6">
-                                <button class="btn btn-alt btn-alt-gray" type="submit" id="btn">Register
-                                    me</button>
-                            </div>
-                        </div>
-                    </div> --}}
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 </section>
 
