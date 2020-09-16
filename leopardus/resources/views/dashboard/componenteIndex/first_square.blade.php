@@ -4,37 +4,38 @@
         <div class="row">
             {{-- Estado Binario --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1">
+                <div class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div
-                            class="avatar @if ($data['activoBinario']) bg-rgba-success @else bg-rgba-danger @endif p-50 m-0">
-                            <div class="avatar-content">
-                                <i
-                                    class="feather icon-bold font-medium-5 @if ($data['activoBinario']) text-success @else text-danger @endif"></i>
+                        <div class="avatar p-50 m-0">
+                            <div class="avatar-content avatar-content-alt2">
+                                <img class="round" src="{{ asset('avatar/'.Auth::user()->avatar) }}" alt="avatar"
+                                    height="40" width="40">
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">
-                            @if ($data['activoBinario'])
-                            Activo
-                            @else
-                            Inactivo
-                            @endif
-                        </h2>
-                        <p class="mb-0">
-                            <h6>
+                        <p class="mb-0 mt-1">
+                            <h6 class="text-white">
                                 Estado Binario
                             </h6>
+                            <h2 class="text-bold-700 text-blue-light">
+                                <small class="text-bold-700">
+                                    @if ($data['activoBinario'])
+                                        Activo
+                                    @else
+                                        Inactivo
+                                    @endif
+                                </small>
+                            </h2>
                             <h6>
-                                <small>Lado activo de registro binario</small>
+                                <small class="text-white">Lado activo de registro binario</small>
                             </h6>
-                            <ul class="list-unstyled mb-0">
+                            <ul class="list-unstyled mb-0 d-flex">
                                 <li class="d-inline-block mr-2">
                                     <fieldset>
                                         <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" name="customRadio"
                                                 id="customRadio1" @if (Auth::user()->ladoregistrar == 'D') checked
                                             @endif onclick="updateSideBinary('D')">
-                                            <label class="custom-control-label" for="customRadio1">Derecha</label>
+                                            <label class="custom-control-label text-white" for="customRadio1">Derecha</label>
                                         </div>
                                     </fieldset>
                                 </li>
@@ -44,7 +45,7 @@
                                             <input type="radio" class="custom-control-input" name="customRadio"
                                                 id="customRadio2" @if (Auth::user()->ladoregistrar == 'I') checked
                                             @endif onclick="updateSideBinary('I')">
-                                            <label class="custom-control-label" for="customRadio2">Izquierda</label>
+                                            <label class="custom-control-label text-white" for="customRadio2">Izquierda</label>
                                         </div>
                                     </fieldset>
                                 </li>
@@ -54,17 +55,37 @@
                 </div>
             </div>
             {{-- fin estado binario --}}
-            {{-- Barra de progreso --}}
-            <div class="col-lg-6 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1">
+            {{-- Membresia --}}
+            <div class="col-lg-3 col-sm-6 col-12 mt-2">
+                <div class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar bg-rgba-success p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-activity text-success font-medium-5"></i>
+                        <div class="avatar p-50 m-0">
+                            <div class="avatar-content avatar-content-alt">
+                                <img class="img-fluid" src="{{$data['membresia']['img']}}" alt="img placeholder" height="">
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">{{$data['progresoDiario']}} %</h2>
-                        <p class="mb-0">Progreso Diario</p>
+                        <p class="mb-0 mt-1 text-white">Membresia</p>
+                        <h3 class="text-bold-700 text-blue-light">
+                            <small class="text-bold-700">{{$data['membresia']['nombre']}}</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            {{-- fin Membresia --}}
+            {{-- Barra de progreso --}}
+            <div class="col-lg-6 col-sm-6 col-12 mt-2">
+                <div class="card h-100 mt-1 mb-1 bg-blue-dark">
+                    <div class="card-header d-flex align-items-center pb-2 mt-2">
+                        <div>
+                            <h3 class="text-bold-700 mt-1 text-right text-white">Progreso Diario</h3>
+                            {{-- <h2 class="text-bold-700 mt-1 text-right text-white">{{$data['progresoDiario']}} %</h2> --}}
+                            {{-- <p class="mb-0 text-white">Progreso Diario</p> --}}
+                        </div>
+                        <div class="avatar bg-transparent p-50 m-0">
+                            <div class="avatar-content text-blue-light">
+                                <i class="feather icon-activity font-icons-alt"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="progress progress-bar-primary progress-xl">
@@ -77,21 +98,6 @@
                 </div>
             </div>
             {{-- fin barra de progreso --}}
-            {{-- Membresia --}}
-            <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1">
-                    <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar p-50 m-0">
-                            <div class="avatar-content">
-                                <img class="img-fluid" src="{{$data['membresia']['img']}}" alt="img placeholder">
-                            </div>
-                        </div>
-                        <h3 class="text-bold-700 mt-1">{{$data['membresia']['nombre']}}</h3>
-                        <p class="mb-0">Membresia</p>
-                    </div>
-                </div>
-            </div>
-            {{-- fin Membresia --}}
         </div>
     </section>
     {{-- fin fila 1 --}}
@@ -100,63 +106,73 @@
         <div class="row">
             {{-- link de referido --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1" onclick="copyToClipboard('copy')">
-                    <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar bg-rgba-info p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-link text-info font-medium-5"></i>
+                <div class="card h-100 mt-1 mb-1 bg-blue-dark" onclick="copyToClipboard('copy')">
+                    <div class="card-header d-flex align-items-center pb-0">
+                        <div class="avatar bg-transparent p-50 m-0">
+                            <div class="avatar-content text-blue-light">
+                                <i class="feather icon-link text-info font-icons-alt"></i>
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">Copiar Link</h2>
-                        <p class="mb-0">Link de Referido</p>
-                        <p style="display:none;" id="copy">
-                            {{route('autenticacion.new-register').'?referred_id='.Auth::user()->ID}}
-                        </p>
+                        <div>
+                            <h3 class="text-bold-700 mt-0 text-white text-right">Copiar Link</h3>
+                            <p class="mb-0 text-white">
+                                <small>Copia tu link de referido</small>
+                            </p>
+                            <p style="display:none;" id="copy">
+                                {{route('autenticacion.new-register').'?referred_id='.Auth::user()->ID}}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
             {{-- fin link de referido --}}
             {{-- puntos a la Izquierda --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1">
-                    <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar bg-rgba-danger p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-chevron-left text-danger font-medium-5"></i>
+                <div class="card h-100 mt-1 mb-1 bg-blue-dark">
+                    <div class="card-header d-flex align-items-center pb-0">
+                        <div class="avatar bg-transparent p-50 m-0">
+                            <div class="avatar-content text-blue-light">
+                                <i class="feather icon-corner-down-left font-icons-alt"></i>
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">{{$data['puntos']['izquierdos']}}</h2>
-                        <p class="mb-0">Puntos Izquierdos</p>
+                        <div>
+                            <h3 class="text-bold-700 mt-0 text-right text-white">{{$data['puntos']['izquierdos']}}</h3>
+                            <p class="mb-0 text-white text-right">Puntos izquierdos</p>
+                        </div>
                     </div>
                 </div>
             </div>
             {{-- fin puntos a la izquierda --}}
             {{-- puntos a la derecha --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1">
-                    <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar bg-rgba-success p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-chevron-right text-success font-medium-5"></i>
+                <div class="card h-100 mt-1 mb-1 bg-blue-dark">
+                    <div class="card-header d-flex align-items-center pb-0">
+                        <div>
+                            <h3 class="text-bold-700 mt-0 text-white">{{$data['puntos']['derechos']}}</h3>
+                            <p class="mb-0 text-white text-left">Puntos derechos</p>
+                        </div>
+                        <div class="avatar bg-transparent p-50 m-0">
+                            <div class="avatar-content text-blue-light">
+                                <i class="feather icon-corner-down-right font-icons-alt"></i>
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">{{$data['puntos']['derechos']}}</h2>
-                        <p class="mb-0">Puntos Derechos</p>
                     </div>
                 </div>
             </div>
             {{-- fin puntos a la derecha --}}
             {{-- billetera --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1">
-                    <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar bg-rgba-warning p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-credit-card text-warning font-medium-5"></i>
+                <div class="card h-100 mt-1 mb-1 bg-blue-dark">
+                    <div class="card-header d-flex align-items-center pb-0">
+                        <div class="avatar bg-transparent p-50 m-0">
+                            <div class="avatar-content text-blue-light">
+                                <i class="fa fa-usd font-icons-alt"></i>
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">{{$data['billetera']}} $</h2>
-                        <p class="mb-0">Billetera</p>
+                        <div>
+                            <h3 class="text-bold-700 mt-0 text-right text-white">{{$data['billetera']}} $</h3>
+                            <p class="mb-0 text-white text-right">Tu billetera</p>
+                        </div>
                     </div>
                 </div>
             </div>

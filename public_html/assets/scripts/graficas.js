@@ -58,14 +58,28 @@ function barChart(data) {
         }
       ],
         legend: {
-            offsetY: -10
+            offsetY: -10,
         },
         xaxis: {
+            type: 'Dias de la semana',
             categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+            labels:{
+              style: {
+                colors: '#ffffff'
+              }
+            },
         },
         yaxis: {
             title: {
-                text: 'Publicidad'
+                text: 'Publicidad',
+                style: {
+                  color: '#ffffff'
+                }
+            },
+            labels:{
+              style: {
+                color: '#ffffff'
+              }
             }
         },
         fill: {

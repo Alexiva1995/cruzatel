@@ -211,7 +211,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                                     <div class="mt-3">
                                         <h6 class="text-white text-center">
                                             <small>
-                                                ¿Ya tienes una cuenta? <a href="{{route('login')}}">Ingresa</a>
+                                                ¿Ya tienes una cuenta? <strong><a href="{{route('login')}}" class="text-white">Ingresa</a></strong>
                                             </small>
                                         </h6>
                                     </div>

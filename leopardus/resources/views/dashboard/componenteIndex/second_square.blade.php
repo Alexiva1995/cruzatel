@@ -1,12 +1,15 @@
 <div class="col-12">
     <section class="mt-1 mb-1">
+        <h2 class="text-white mt-2 mb-2">
+            <strong>Publicidad diaria</strong>
+        </h2>
         <div class="row">
             {{-- grafico semanal --}}
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Publicidad diaria</h4>
-                    </div>
+                <div class="card bg-blue-dark">
+                    {{-- <div class="card-header">
+                        <h4 class="card-title text-white">Publicidad diaria</h4>
+                    </div> --}}
                     <div class="card-content">
                         <div class="card-body">
                             <div id="g_publicidad"></div>
@@ -17,65 +20,37 @@
             {{-- fin grafico semanal --}}
             {{-- publicidad --}}
             <div class="col-12">
-                <div class="card">
-                    {{-- <div class="card-header">
-                        <h4 class="card-title">Publicidad diaria</h4>
-                    </div> --}}
-                    <div class="card-content">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <h4 class="card-title">Publicidad</h4>
-                                        </div>
-                                        <div class="card-contetn">
-                                            <div class="card-body">
-                                                <ul class="list-group list-group-flush">
-                                                    @foreach ($data['publicidades'] as $item)
-                                                    <li class="list-group-item" >
-                                                        <div class="media">
-                                                            <a class="media-left align-self-center" href="#">
-                                                                <img src="{{$item->img}}" alt="Generic placeholder image" height="64" width="64">
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h5 class="media-heading">{{$item->titulo}}</h5>
-                                                                <p class="mb-0">
-                                                                    {!!$item->descripcion!!}
-                                                                </p>
-                                                                <p class="text-right">
-                                                                    @foreach ($item['social'] as $social)
-                                                                        @if ($social == 'facebook')
-                                                                        <button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1" onclick="fbs_click({{json_encode($item)}})">
-                                                                            <i class="feather icon-facebook"></i>
-                                                                        </button>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </div>
+                <h2 class="text-white mb-2">
+                    <strong>Publicidad</strong>
+                </h2>
+                <div class="row">
+                    @foreach ($data['publicidades'] as $item)
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="card text-center bg-blue-dark">
+                            <div class="card-content">
+                                <div class="card-body d-flex align-items-start text-left pb-0">
+                                    <img src="{{$item->img}}" alt="element 01" width="150" height="150"
+                                        class="float-left rounded px-1">
+                                    <div>
+                                        <h4 class="card-title text-white mt-3">{{$item->titulo}}</h4>
+                                        <p class="card-text text-white">{!!$item->descripcion!!}</p>
                                     </div>
+                                    {{-- <button class="btn btn-primary">Buy Now</button> --}}
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <h4 class="card-title">Grafica Circular</h4>
-                                        </div>
-                                        <div class="card-contetn">
-                                            <div class="card-body">
-                                                <div id="grafica_public"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="card-footer p-0 text-right card-footer-alt bg-blue-dark">
+                                    @foreach ($item['social'] as $social)
+                                    @if ($social == 'facebook')
+                                    <button type="button" class="btn btn-icon text-white bg-blue-dark-2"
+                                        onclick="fbs_click({{json_encode($item)}})">
+                                        Compartir <i class="feather icon-facebook"></i>
+                                    </button>
+                                    @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
             {{-- fin publicidad --}}

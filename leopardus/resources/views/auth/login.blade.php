@@ -113,7 +113,7 @@
                                     <div class="mt-3">
                                         <h6 class="text-white text-center">
                                             <small>
-                                                ¿Aun no tienes una cuenta? <a href="{{route('autenticacion.new-register')}}">Crear Una</a>
+                                                ¿Aun no tienes una cuenta? <strong><a href="{{route('autenticacion.new-register')}}" class="text-white">Crear Una</a></strong>
                                             </small>
                                         </h6>
                                     </div>

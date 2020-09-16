@@ -47,13 +47,13 @@ class AdminController extends Controller
             'progresoDiario' => $publicidad->progresoDiario(Auth::user()->ID),
             'membresia' => [
                 'img' => 'https://comunidadlevelup.com/assets/imgLanding/logo.png',
-                'nombre' => 'Membresia Junior'
+                'nombre' => 'Junior'
             ],
             'puntos' => [
                 'derechos' => Auth::user()->puntosder,
                 'izquierdos' => Auth::user()->puntosizq
             ],
-            'billetera' => Auth::user()->wallet_amount,
+            'billetera' => number_format(Auth::user()->wallet_amount, 3, ',', '.'),
             'publicidades' => $publicidad->getPublicidadCompartir(Auth::user()->ID)
         ];
         view()->share('title', 'Balance General');

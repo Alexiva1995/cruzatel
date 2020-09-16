@@ -68,9 +68,49 @@
         border-radius: 0px 25px 25px 0px;
     }
 
+    .bg-blue-dark{
+        background: #001c5f;
+    }
+
+    .bg-blue-dark-2{
+        background: #144E97;
+    }
+
+    .bg-transparent{ 
+        background: transparent !important;
+    }
+
+    .card .card-footer-alt{
+        border: 0px !important;
+    }
+
+    .rounded{
+        border-radius: 50% !important;
+        height: 115px;
+        width: 140px;
+    }
+
+    .font-icons-alt{
+        font-size: 2.5rem !important;
+    }
+
     .header-navbar .navbar-container ul.nav li.dropdown-user .dropdown-menu-right .dropdown-item:hover{
         background: #144e97;
         border-radius: 0px 25px 25px 0px;
+    }
+
+    .text-blue-light{
+        color: #5CBDEB;
+    }
+
+    .avatar-content-alt{
+        height: 50px !important;
+        width: 50px !important;
+    }
+
+    .avatar-content-alt2{
+        height: 30px !important;
+        width: 30px !important;
     }
 
     #diseng {
