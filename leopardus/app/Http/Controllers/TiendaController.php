@@ -353,6 +353,8 @@ class TiendaController extends Controller
                             'producto' => $datos->name,
                             'precio' => $datos->precio,
                             'bauche' => $nombre_imagen,
+                            'titular' => $datos->titular,
+                            'n_cuenta' => $datos->n_cuenta,
                             'status' => 0
                         ];
                         $this->saveOrden($dataBank);

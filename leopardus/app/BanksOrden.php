@@ -10,6 +10,6 @@ class BanksOrden extends Model
 
     protected $fillable = [
         'idorden', 'iduser', 'producto', 'precio', 'bauche',
-        'status'
+        'status', 'titular', 'n_cuenta'
     ];
 }

@@ -408,7 +408,11 @@ class PublicidadController extends Controller
                 $dia = $arreDia[$fechatmpSemana->dayOfWeekIso];
                 $cant = $ciclo->$dia->cant;
                 if ($cant > 0) {
-                    $progreso = (($cant * 100) / (int) $paquete->limite);
+                    if (!empty($paquete->limite)) {
+                        $progreso = (($cant * 100) / (int) $paquete->limite);
+                    }else{
+                        $progreso = (($cant * 100) / (int) 1);
+                    }
                 }
             }
             return $progreso;

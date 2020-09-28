@@ -33,7 +33,7 @@
                     @endforeach
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12 col-md-4"></div>
                     <div class="col-12 col-md-4 text-center">
                         Seleccione el soporte del bauche
@@ -48,7 +48,7 @@
                         </form>
                     </div>
                     <div class="col-12 col-md-4"></div>
-                </div>
+                </div> --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

@@ -30,7 +30,13 @@
                                 Producto
                             </th>
                             <th class="text-center">
-                                Precion
+                                Precio
+                            </th>
+                            <th class="text-center">
+                                Titular
+                            </th>
+                            <th class="text-center">
+                                N° de cuenta
                             </th>
                             <th class="text-center">
                                 Bauche
@@ -54,6 +60,12 @@
                             </td>
                             <td class="text-center">
                                 {{$orden->precio}}
+                            </td>
+                            <td class="text-center">
+                                {{$orden->titular}}
+                            </td>
+                            <td class="text-center">
+                                {{$orden->n_cuenta}}
                             </td>
                             <td class="text-center">
                                 <img src="{{asset('Bauches/'.$orden->bauche)}}" alt="{{'Bauche_'.$orden->producto}}" height="300">
