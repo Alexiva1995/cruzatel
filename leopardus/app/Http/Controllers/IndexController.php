@@ -323,7 +323,7 @@ class IndexController extends Controller
     {
         $settings = Settings::first();
 		$datosCompra = DB::table($settings->prefijo_wp.'posts')
-                        ->select('post_excerpt', 'post_title', 'post_password as limite')
+                        ->select('post_excerpt', 'post_title', 'post_password as limite', 'wp.to_ping as tipo')
                         ->where('ID', '=', $shop_id)
                         ->first();
 
@@ -442,9 +442,13 @@ class IndexController extends Controller
             $iduser = $this->getIdUser($compra->ID);
             if ($arregProducto->null) {
                 $productos = [];
+                $membresia = false;
                 foreach ($arregProducto as $product) {
                     $idProducto = $this->getIdProductos($product->order_item_id);
                     $detalleProduct = $this->getProductDetails($idProducto);
+                    if ($detalleProduct->tipo != 'membresia') {
+                        $membresia = true;
+                    }
                     if ($detalleProduct->null) {
                         $productos [] = [
                             'idproducto' => $idProducto,
@@ -452,6 +456,7 @@ class IndexController extends Controller
                             'nombre' => $detalleProduct->post_title,
                             'img' => $detalleProduct->post_excerpt,
                             'limite' => $detalleProduct->limite,
+                            'tipo' => $detalleProduct->tipo
                         ];
                     }
                 }
@@ -460,7 +465,8 @@ class IndexController extends Controller
                     'idcompra' => $compra->ID,
                     'fecha' => $compra->post_date,
                     'productos' => $productos,
-                    'total' => $this->getShoppingTotal($compra->ID)
+                    'total' => $this->getShoppingTotal($compra->ID),
+                    'membresia' => $membresia
                 ];
             }
         }

@@ -241,16 +241,18 @@ class ComisionesController extends Controller
         $funcionesIndex = new IndexController();
         $compras = $funcionesIndex->getAllCompras();
         foreach ($compras as $compra) {
-            $sponsors = $funcionesIndex->getSponsor($compra['idusuario'], [], 0, 'ID', 'referred_id');
-            foreach ($sponsors as $sponsor ) {
-                if ($sponsor->nivel > 0 && $sponsor->nivel < 7) {
-                    $idcomision = '60'.$compra['idcompra'];
-                    if ($this->checkComision($idcomision, $sponsor->ID)) {
-                        if ($compra['total'] >= 50) {
-                            $referido = User::find($compra['idusuario']);
-                            $bono = ($compra['total'] * 0.05);
-                            $concepto = 'Bono por consumo por el usuario '.$referido->display_name.' por la orden '.$compra['idcompra'];
-                            $this->guardarComision($sponsor->ID, $idcomision, $bono, $referido->user_email, $sponsor->nivel, $concepto, 'bono');
+            if ($compra['membresia']) {
+                $sponsors = $funcionesIndex->getSponsor($compra['idusuario'], [], 0, 'ID', 'referred_id');
+                foreach ($sponsors as $sponsor ) {
+                    if ($sponsor->nivel > 0 && $sponsor->nivel < 7) {
+                        $idcomision = '60'.$compra['idcompra'];
+                        if ($this->checkComision($idcomision, $sponsor->ID)) {
+                            if ($compra['total'] >= 50) {
+                                $referido = User::find($compra['idusuario']);
+                                $bono = ($compra['total'] * 0.05);
+                                $concepto = 'Bono por consumo por el usuario '.$referido->display_name.' por la orden '.$compra['idcompra'];
+                                $this->guardarComision($sponsor->ID, $idcomision, $bono, $referido->user_email, $sponsor->nivel, $concepto, 'bono');
+                            }
                         }
                     }
                 }
