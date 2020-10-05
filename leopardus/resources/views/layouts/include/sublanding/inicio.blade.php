@@ -1,4 +1,4 @@
-<div class="card mb-3 no-border bg-trans d-flex justify-content-center" style="height:400px">
+<div class="card mb-3 no-border bg-trans d-flex justify-content-center border-0" style="height:400px">
     <div class="row no-gutters">
         <div class="col-md-12 d-flex align-items-center">
             <div class="card-body">

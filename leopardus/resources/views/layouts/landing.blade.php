@@ -8,34 +8,26 @@
     <title>Cruzatel</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     {{-- font Google --}}
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2:400,500,600,700,800&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2:400,500,600,700,800&display=swap"
+        rel="stylesheet">
     {{-- Css Boostrap --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        {{-- font-awesome --}}
-        <link rel="stylesheet" href="{{asset('app-assets/fonts/font-awesome/css/font-awesome.min.css')}}">
+    {{-- font-awesome --}}
+    <link rel="stylesheet" href="{{asset('app-assets/fonts/font-awesome/css/font-awesome.min.css')}}">
     {{-- Css Custom --}}
     <link rel="stylesheet" href="{{asset('assets/css/landing.css')}}">
 </head>
+
 <body>
     {{-- header --}}
-    @if ($landing == 0)
     <div class="header-alt" style="background: url({{asset('assets/imgLanding/sider1.png')}})">
-    @elseif($landing == 3)
-    <div class="header-alt2" style="background: url({{asset('assets/fondo-registro-inicio-de-sesin-.jpg')}})">
-    @else
-    <div class="header-alt2" style="background: url({{asset('assets/imgLanding/fondo-banner-principal.jpg')}})">
-    @endif
         @include('layouts.include.headerLanding')
     </div>
     {{-- container --}}
-    {{-- @if ($landing != 1 || $landing != 3)
-    <div class="container">
-        @yield('content')
-    </div>
-    @endif --}}
+    @yield('content')
     {{-- footer --}}
-    {{-- @include('layouts.include.footerLanding') --}}
+    @include('layouts.include.footerLanding')
 </body>
 {{-- js Boostrap y jquery y popper --}}
 <script src="{{asset('assets/scripts/jquery.min.js')}}"></script>

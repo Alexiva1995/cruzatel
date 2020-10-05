@@ -67,6 +67,13 @@ $referred = DB::table($settings->prefijo_wp.'users')
     .form-label-group>input:not(:active):not(:placeholder-shown)~label {
         color: #ffffff !important;
     }
+
+    .z-index-alt input{
+        z-index: 2;
+    }
+    .z-index-alt label{
+        z-index: 1;
+    }
 </style>
 
 <section class="row flexbox-container">
@@ -152,7 +159,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                                 @endforeach
 
 
-                                <div class="form-label-group form-group position-relative">
+                                <div class="form-label-group form-group position-relative z-index-alt">
                                     <input
                                         class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
                                         placeholder="Ingresa tu email" type="text" autocomplete="off" name="user_email"
@@ -162,7 +169,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
 
 
 
-                                <div class="form-label-group form-group position-relative">
+                                <div class="form-label-group form-group position-relative z-index-alt">
 
                                     <input
                                         class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
@@ -172,7 +179,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                                 </div>
 
 
-                                <div class="form-label-group form-group position-relative">
+                                <div class="form-label-group form-group position-relative z-index-alt">
 
                                     <input
                                         class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
@@ -182,7 +189,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                                     <label class="text-white">Contraseña</label>
                                 </div>
 
-                                <div class="form-label-group form-group position-relative">
+                                <div class="form-label-group form-group position-relative z-index-alt">
 
                                     <input
                                         class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"

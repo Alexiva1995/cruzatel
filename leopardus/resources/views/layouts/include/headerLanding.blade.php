@@ -38,7 +38,7 @@
             </li>
 
             <li class="nav-item mr-5">
-                <a class="nav-link d-flex text-small text-white" >
+                <a class="nav-link d-flex text-small text-white" href="javascript:;">
                     Equipo
                 </a>
             </li>
@@ -58,17 +58,5 @@
 {{-- informacion principal --}}
 
 <div class="container" id="header" style="height: 81.5vh">
-
-    @if ($landing == 0)
-
-        @include('layouts.include.sublanding.inicio')
-
-    @elseif($landing == 1)
-        @include('layouts.include.sublanding.tabLegal')
-    @elseif($landing == 3)
-        @include('layouts.include.sublanding.product')
-    @else
-        @include('layouts.include.sublanding.faq')
-    @endif
-
+    @include('layouts.include.sublanding.inicio')
 </div>
