@@ -5,16 +5,15 @@
             <div class="col-12">
                 <h3 class="text-blue-dark dark-font">Nuestra Empresa</h3>
                 <p class="text-justify">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam quasi sunt doloribus, consectetur
-                    eaque, optio provident aut sapiente natus neque quas consequuntur nemo sit quidem veniam, rem earum
-                    aliquam? Tempora.
+                    
                 </p>
             </div>
             <div class="col-12 mt-3">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-6 col-lg-4 mt-1">
                         <div class="card h-100 rounded-alt bg-blue-alt">
-                            <div class="card-body p-0 pb-3 pl-3 pr-1 pt-1">
+                            <img src="{{asset('assets/imgLanding/grupo_224.png')}}" class="card-img" alt="">
+                            <div class="card-img-overlay p-0 pb-3 pl-3 pr-1 pt-1">
                                 <div class="card-title d-flex align-items-end w-100">
                                     <h3 class="w-100 text-blue-light">Misión</h3>
                                     <img src="{{asset('assets/imgLanding/sustentabilidad.svg')}}" height="80" alt=""
@@ -34,7 +33,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mt-1">
                         <div class="card h-100 rounded-alt bg-blue-alt">
-                            <div class="card-body p-0 pb-3 pl-3 pr-1 pt-1">
+                            <img src="{{asset('assets/imgLanding/grupo_224.png')}}" class="card-img" alt="">
+                            <div class="card-img-overlay p-0 pb-3 pl-3 pr-1 pt-1">
                                 <div class="card-title d-flex align-items-end w-100">
                                     <h3 class="w-100 text-blue-light">Visión</h3>
                                     <img src="{{asset('assets/imgLanding/gol.svg')}}" height="80" alt=""
@@ -52,7 +52,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 mt-1">
                         <div class="card h-100 rounded-alt bg-blue-alt">
-                            <div class="card-body p-0 pb-3 pl-3 pr-1 pt-1">
+                            <img src="{{asset('assets/imgLanding/grupo_224.png')}}" class="card-img" alt="">
+                            <div class="card-img-overlay p-0 pb-3 pl-3 pr-1 pt-1">
                                 <div class="card-title d-flex align-items-end w-100">
                                     <h3 class="w-100 text-blue-light">Valores</h3>
                                     <img src="{{asset('assets/imgLanding/me-gusta.svg')}}" height="80" alt=""
@@ -118,7 +119,7 @@
                                     </h3>
                                 </div>
                                 <p class="card-text text-justify">
-                                    Generamos estrategias digitales para captar la atención <br> 
+                                    Generamos estrategias digitales para captar la atención <br>
                                     del publico objetivo para tu empresa en las redes <br>
                                     sociales, posicionándola y aumentando significativamente <br>
                                     el numero de visitas y futuros clientes

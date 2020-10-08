@@ -4,94 +4,110 @@
             <div class="col-12">
                 <h3 class="text-blue-dark dark-font">Más servicios que te ofrecemos</h3>
                 <p class="text-justify">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam quasi sunt doloribus, consectetur
-                    eaque, optio provident aut sapiente natus neque quas consequuntur nemo sit quidem veniam, rem earum
-                    aliquam? Tempora.
+                    
                 </p>
             </div>
             <div class="col-12">
                 <div class="card-deck">
                     <div class="card bg-blue-alt rounded-alt ">
-                        <div class="card-body pl-1 pr-0 pb-1 pt-4">
+                        <img src="{{asset('assets/imgLanding/grupo_225.jpg')}}" class="card-img" alt="">
+                        <div class="card-img-overlay pl-1 pr-0 pb-1 pt-4">
                             <div class="card-title d-flex align-items-start w-100">
                                 <img src="{{asset('assets/imgLanding/analisis.svg')}}" height="50" alt="">
                                 <h6 class="w-100 text-right">
                                     <span class="pl-2 pr-2 rounded-alt-left bg-pink-alt text-white">En Desarrollo</span>
                                 </h6>
                             </div>
-                            <h5 class="text-white mt-2 text-right pr-2">
-                                Estrategia y <br>
+                            <h4 class="text-white mt-2 text-right pr-2">
+                                <strong>
+                                    Estrategia y <br>
                                 Organización
-                            </h5>
+                                </strong>
+                            </h4>
                         </div>
                     </div>
                     <div class="card bg-blue-alt rounded-alt ">
-                        <div class="card-body pl-1 pr-0 pb-1 pt-4">
+                        <img src="{{asset('assets/imgLanding/grupo_225.jpg')}}" class="card-img" alt="">
+                        <div class="card-img-overlay pl-1 pr-0 pb-1 pt-4">
                             <div class="card-title d-flex align-items-start w-100">
                                 <img src="{{asset('assets/imgLanding/global.svg')}}" height="50" alt="">
                                 <h6 class="w-100 text-right">
                                     <span class="pl-2 pr-2 rounded-alt-left bg-pink-alt text-white">En Desarrollo</span>
                                 </h6>
                             </div>
-                            <h5 class="text-white mt-2 text-right pr-2">
-                                Globalización
-                            </h5>
+                            <h4 class="text-white mt-2 text-right pr-2">
+                                <strong>
+                                    Globalización
+                                </strong>
+                            </h4>
                         </div>
                     </div>
                     <div class="card bg-blue-alt rounded-alt ">
-                        <div class="card-body pl-1 pr-0 pb-1 pt-4">
+                        <img src="{{asset('assets/imgLanding/grupo_225.jpg')}}" class="card-img" alt="">
+                        <div class="card-img-overlay pl-1 pr-0 pb-1 pt-4">
                             <div class="card-title d-flex align-items-start w-100">
                                 <img src="{{asset('assets/imgLanding/dinero.svg')}}" height="50" alt="">
                                 <h6 class="w-100 text-right">
                                     <span class="pl-2 pr-2 rounded-alt-left bg-pink-alt text-white">En Desarrollo</span>
                                 </h6>
                             </div>
-                            <h5 class="text-white mt-2 text-right pr-2">
-                                Finanzas <br>
+                            <h4 class="text-white mt-2 text-right pr-2">
+                                <strong>
+                                    Finanzas <br>
                                 Corporativas
-                            </h5>
+                                </strong>
+                            </h4>
                         </div>
                     </div>
                 </div>
                 <div class="card-deck mt-5">
                     <div class="card bg-blue-alt rounded-alt ">
-                        <div class="card-body pl-1 pr-0 pb-1 pt-4">
+                        <img src="{{asset('assets/imgLanding/grupo_225.jpg')}}" class="card-img" alt="">
+                        <div class="card-img-overlay pl-1 pr-0 pb-1 pt-4">
                             <div class="card-title d-flex align-items-start w-100">
                                 <img src="{{asset('assets/imgLanding/informacion.svg')}}" height="50" alt="">
                                 <h6 class="w-100 text-right">
                                     <span class="pl-2 pr-2 rounded-alt-left bg-pink-alt text-white">En Desarrollo</span>
                                 </h6>
                             </div>
-                            <h5 class="text-white mt-2 text-right pr-2">
-                                Manejo <br>
+                            <h4 class="text-white mt-2 text-right pr-2">
+                                <strong>
+                                    Manejo <br>
                                 de TIC
-                            </h5>
+                                </strong>
+                            </h4>
                         </div>
                     </div>
                     <div class="card bg-blue-alt rounded-alt ">
-                        <div class="card-body pl-1 pr-0 pb-1 pt-4">
+                        <img src="{{asset('assets/imgLanding/grupo_225.jpg')}}" class="card-img" alt="">
+                        <div class="card-img-overlay pl-1 pr-0 pb-1 pt-4">
                             <div class="card-title d-flex align-items-start w-100">
                                 <img src="{{asset('assets/imgLanding/sustentabilidad.svg')}}" height="50" alt="">
                                 <h6 class="w-100 text-right">
                                     <span class="pl-2 pr-2 rounded-alt-left bg-pink-alt text-white">En Desarrollo</span>
                                 </h6>
                             </div>
-                            <h5 class="text-white mt-2 text-right pr-2">
-                                Sustentabilidad
-                            </h5>
+                            <h4 class="text-white mt-2 text-right pr-2">
+                                <strong>
+                                    Sustentabilidad
+                                </strong>
+                            </h4>
                         </div>
                     </div>
                     <div class="card bg-blue-alt rounded-alt ">
-                        <div class="card-body pl-1 pr-0 pb-1 pt-4">
+                        <img src="{{asset('assets/imgLanding/grupo_225.jpg')}}" class="card-img" alt="">
+                        <div class="card-img-overlay pl-1 pr-0 pb-1 pt-4">
                             <div class="card-title d-flex align-items-start w-100">
                                 <img src="{{asset('assets/imgLanding/sociedad.svg')}}" height="50" alt="">
                                 <h6 class="w-100 text-right">
                                     <span class="pl-2 pr-2 rounded-alt-left bg-pink-alt text-white">En Desarrollo</span>
                                 </h6>
                             </div>
-                            <h5 class="text-white mt-2 text-right pr-2">
-                                Desarrollo <br>
+                            <h4 class="text-white mt-2 text-right pr-2">
+                                <strong>
+                                    Desarrollo <br>
                                 Corporativo
+                                </strong>
                             </h5>
                         </div>
                     </div>
@@ -111,8 +127,7 @@
                             <div class="card-body">
                                 <h3 class="card-title">Lorem ipsum dolor sit amet.</h3>
                                 <p class="card-text">
-                                    Donec nec quam at diam luctus tempor. Cras et tortor ullamcorper, scelerisque <br> felis semper,
-                                    vulputate magna. Duis in facilisis risus, a scelerisque neque.
+
                                 </p>
                             </div>
                         </div>

@@ -5,9 +5,7 @@
             <div class="col-12">
                 <h3 class="text-blue-dark dark-font text-center">Nuestro Equipo</h3>
                 <p class="text-center">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam quasi sunt doloribus, consectetur
-                    eaque, optio provident aut sapiente natus neque quas consequuntur nemo sit quidem veniam, rem earum
-                    aliquam? Tempora.
+                    
                 </p>
             </div>
         </div>
