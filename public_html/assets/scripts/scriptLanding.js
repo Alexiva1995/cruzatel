@@ -10,11 +10,12 @@ $(document).ready(function () {
             $('#menu').addClass('bg-white')
             $('#menu').addClass('fixed-top')
             $('#menu').removeClass('sticky-top')
+            $('.nav-link.d-flex').removeClass('text-white')
         } else {
             $('#menu').addClass('sticky-top')
             $('#menu').removeClass('fixed-top')
             $('#menu').removeClass('bg-white')
-            
+            $('.nav-link.d-flex').addClass('text-white')
         }
     });
 })
