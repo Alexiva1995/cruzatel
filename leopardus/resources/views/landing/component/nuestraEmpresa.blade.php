@@ -16,7 +16,7 @@
                             <div class="card-img-overlay p-0 pb-3 pl-3 pr-1 pt-1">
                                 <div class="card-title d-flex align-items-end w-100">
                                     <h3 class="w-100 text-blue-light">Misión</h3>
-                                    <img src="{{asset('assets/imgLanding/sustentabilidad.svg')}}" height="80" alt=""
+                                    <img src="{{asset('assets/imgLanding/trazado1.svg')}}" height="80" alt=""
                                         class="float-right">
                                 </div>
                                 <p class="card-text text-white mt-2">

@@ -116,7 +116,7 @@
         </div>
     </div>
 </div>
-<div class="col-12 p-0">
+{{-- <div class="col-12 p-0">
     <div class="card bg-dark text-white">
         <img src="{{asset('assets/imgLanding/banner2.png')}}" class="card-img">
         <div class="card-img-overlay d-flex align-items-center">
@@ -141,4 +141,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
