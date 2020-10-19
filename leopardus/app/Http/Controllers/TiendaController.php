@@ -341,6 +341,19 @@ class TiendaController extends Controller
                     ];
                     $ruta = $this->generateLinkPaypal($dataPaypal);
                     return redirect($ruta);
+                }elseif($datos->tipo == 'btc'){
+                    $dataBank =  [
+                        'idorden' => $id,
+                        'iduser' => Auth::user()->ID,
+                        'producto' => $datos->name,
+                        'precio' => $datos->precio,
+                        'bauche' => '',
+                        'titular' => $datos->titular,
+                        'n_cuenta' => $datos->n_cuenta,
+                        'status' => 0
+                    ];
+                    $this->saveOrden($dataBank);
+                    return redirect()->back()->with('msj', 'Compra orden '.$id);
                 }else{
                     if ($datos->file('bauche')) {
                         $imagen = $datos->file('bauche');

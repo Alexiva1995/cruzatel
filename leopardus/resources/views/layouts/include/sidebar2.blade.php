@@ -99,6 +99,12 @@
             </a>
             <ul class="sub-menu menu-color">
                 <li class="nav-item">
+                    <a href="{{url('mioficina/admin/wallet')}}" class="nav-link text-white">
+                        <i class="feather icon-circle"></i>
+                        <span class="title">E-wallet</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{url('mioficina/admin/wallet/cobros')}}" class="nav-link text-white">
                         <i class="feather icon-circle"></i>
                         <span class="title">Historial de Retiro</span>
