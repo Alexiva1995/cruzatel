@@ -38,7 +38,7 @@
 
     <style>
         .bg-full-screen-image-alt{
-            background: url("{{asset('assets/img/fondo-mi-cuenta.png')}}");
+            background: url("{{asset('assets/img/newfondo.jpg')}}");
             background-size: cover;
         }
     </style>
