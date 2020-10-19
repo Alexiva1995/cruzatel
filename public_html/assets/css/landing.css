@@ -67,7 +67,6 @@ body{
 /* fondo del header */
 .header-alt{
     background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
     background-position: center center !important;
 }
 

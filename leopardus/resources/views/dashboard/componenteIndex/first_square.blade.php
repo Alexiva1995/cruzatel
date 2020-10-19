@@ -4,7 +4,8 @@
         <div class="row">
             {{-- Estado Binario --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
+                <div
+                    class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar p-50 m-0">
                             <div class="avatar-content avatar-content-alt2">
@@ -19,9 +20,9 @@
                             <h2 class="text-bold-700 text-blue-light">
                                 <small class="text-bold-700">
                                     @if ($data['activoBinario'])
-                                        Activo
+                                    Activo
                                     @else
-                                        Inactivo
+                                    Inactivo
                                     @endif
                                 </small>
                             </h2>
@@ -35,7 +36,8 @@
                                             <input type="radio" class="custom-control-input" name="customRadio"
                                                 id="customRadio1" @if (Auth::user()->ladoregistrar == 'D') checked
                                             @endif onclick="updateSideBinary('D')">
-                                            <label class="custom-control-label text-white" for="customRadio1">Derecha</label>
+                                            <label class="custom-control-label text-white"
+                                                for="customRadio1">Derecha</label>
                                         </div>
                                     </fieldset>
                                 </li>
@@ -45,7 +47,8 @@
                                             <input type="radio" class="custom-control-input" name="customRadio"
                                                 id="customRadio2" @if (Auth::user()->ladoregistrar == 'I') checked
                                             @endif onclick="updateSideBinary('I')">
-                                            <label class="custom-control-label text-white" for="customRadio2">Izquierda</label>
+                                            <label class="custom-control-label text-white"
+                                                for="customRadio2">Izquierda</label>
                                         </div>
                                     </fieldset>
                                 </li>
@@ -57,11 +60,13 @@
             {{-- fin estado binario --}}
             {{-- Membresia --}}
             <div class="col-lg-3 col-sm-6 col-12 mt-2">
-                <div class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
+                <div
+                    class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
                         <div class="avatar p-50 m-0">
                             <div class="avatar-content avatar-content-alt">
-                                <img class="img-fluid" src="{{$data['membresia']['img']}}" alt="img placeholder" height="">
+                                <img class="img-fluid" src="{{$data['membresia']['img']}}" alt="img placeholder"
+                                    height="">
                             </div>
                         </div>
                         <p class="mb-0 mt-1 text-white">Membresia</p>
@@ -78,7 +83,8 @@
                     <div class="card-header d-flex align-items-center pb-2 mt-2">
                         <div>
                             <h3 class="text-bold-700 mt-1 text-right text-white">Progreso Diario</h3>
-                            {{-- <h2 class="text-bold-700 mt-1 text-right text-white">{{$data['progresoDiario']}} %</h2> --}}
+                            {{-- <h2 class="text-bold-700 mt-1 text-right text-white">{{$data['progresoDiario']}} %</h2>
+                            --}}
                             {{-- <p class="mb-0 text-white">Progreso Diario</p> --}}
                         </div>
                         <div class="avatar bg-transparent p-50 m-0">
@@ -90,7 +96,7 @@
                     <div class="card-body">
                         <div class="progress progress-bar-primary progress-xl">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                value="{{$data['progresoDiario']}}" style="width:40%">
+                                style="width:{{$data['progresoDiario']}}%">
                                 {{$data['progresoDiario']}} %
                             </div>
                         </div>
