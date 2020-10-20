@@ -146,7 +146,7 @@
                     <div class="row">
                         @foreach ($banks as $bank)
                         <div class="col-12 col-md-4">
-                            <div class="card bg-blue-dark">
+                            <div class="card bg-blue-dark text-white">
                                 <div class="card-content">
                                     <div class="card-header">
                                         <h4 class="card-title text-white">

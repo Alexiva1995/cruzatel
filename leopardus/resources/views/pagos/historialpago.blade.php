@@ -34,7 +34,7 @@
 
 {{-- fecha --}}
 @if (!empty($fechas['desde']) && !empty($fechas['desde']))
-<div class="card">
+<div class="card bg-blue-dark text-white">
 	<div class="card-content">
 		<div class="card-body">
 			<div class="row">
@@ -52,7 +52,7 @@
 </div>
 @endif
 
-<div class="card">
+<div class="card bg-blue-dark text-white">
 	<div class="card-content">
 		<div class="card-body">
 			<div class="table-responsive">

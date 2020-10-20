@@ -19,7 +19,7 @@
 ])
 
 
-<div class="card">
+<div class="card bg-blue-dark text-white">
 	<div class="card-content">
 		<div class="card-body">
 			<div class="table-responsive">

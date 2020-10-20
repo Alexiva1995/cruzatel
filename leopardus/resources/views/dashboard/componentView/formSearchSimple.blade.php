@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card bg-blue-dark text-white">
     {{-- <div class="card-header">
         <div class="card-title">
             

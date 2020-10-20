@@ -6,7 +6,7 @@
         <div class="row">
             {{-- grafico semanal --}}
             <div class="col-12">
-                <div class="card bg-blue-dark">
+                <div class="card bg-blue-dark text-white">
                     {{-- <div class="card-header">
                         <h4 class="card-title text-white">Publicidad diaria</h4>
                     </div> --}}
