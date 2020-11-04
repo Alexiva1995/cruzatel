@@ -20,12 +20,12 @@ class IndexController extends Controller
     {
         $result = false;
         $derecha = User::where([
-            ['referred_id', '=', $id ],
+            ['position_id', '=', $id ],
             ['status', '=', 1],
             ['ladomatrix', '=', 'D']
         ])->get()->count('ID');
         $izquierda = User::where([
-            ['referred_id', '=', $id ],
+            ['position_id', '=', $id ],
             ['status', '=', 1],
             ['ladomatrix', '=', 'I']
         ])->get()->count('ID');
