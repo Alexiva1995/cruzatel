@@ -113,18 +113,20 @@
                         <div class="col-12 hiddensp" style="display: none;">
                             <div>
                                 <h5 class="text-white">Datos Bancarios</h5>
-                                <div class="row">
+                                
                                     @foreach ($banks as $bank)
                                     <div class="col-12 col-md-4">
                                         <div class="card bg-blue-dark text-white">
                                             <div class="card-content">
                                                 <div class="card-header">
+                                                    
+                                                <!-- Validacion de la palabra Banco -->
                                                     <h4 class="card-title text-white">
-                                                        Banco {{$bank->nombre}}
+                                                        {{$bank->nombre}}
                                                     </h4>
                                                 </div>
                                                 <div class="card-body">
-                                                    <h5 class="text-white">Nombre: <strong>{{$bank->nombre}}</strong>
+                                                    <h5 class="text-white"> Nombre: <strong>{{$bank->nombre}}</strong>
                                                     </h5>
                                                     <h5 class="text-white">Titular: <strong>{{$bank->titular}}</strong>
                                                     </h5>
@@ -137,11 +139,12 @@
                                                     <h5 class="text-white">Número de Cuenta:
                                                         <strong>{{$bank->numero_cuenta}}</strong></h5>
                                                 </div>
+                                                <div></div>
                                             </div>
                                         </div>
                                     </div>
                                     @endforeach
-                                </div>
+                                 
                             </div>
 
                             <div class="row">

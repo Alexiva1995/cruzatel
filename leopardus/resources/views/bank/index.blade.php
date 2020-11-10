@@ -84,11 +84,11 @@
 </div>
 
 <!-- Modal Agregar -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade bg-bluedark" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-blue-dark text-white">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Nuevo Producto</h4>
+                <h4 class="modal-title" id="myModalLabel">Agregar Nuevo Banco</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
@@ -113,19 +113,24 @@
                     </div>
                     <div class="form-group">
                         <label for="">Tipo de Cuenta</label>
-                        <input type="text" class="form-control" name="tipo_cuenta" required>
+                       
+                        <select class="form-control personal form-control personal-solid placeholder-no-fix form-group" name="tipo_cuenta" value="Ahorro" required="">
+                            <option value="Ahorro" id="Ahorro" selected="">Ahorro</option>
+                            <option value="Corriente" id="Corriente">Corriente</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="">Numero de cuenta</label>
                         <input type="number" class="form-control" name="numero_cuenta" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group justify-content-center" >
                         <button class="btn btn-primary">Guardar</button>
                     </div>
+                    
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary " data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

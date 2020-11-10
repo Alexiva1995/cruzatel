@@ -7,9 +7,16 @@
 
 <div class="col-xs-12">
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Nuevo Producto
+        Nuevo Producto XXXX
     </button>
 </div>
+
+<div class="col-xs-12">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#mymodalYYYY">
+        Nuevo Producto YYYY
+    </button>
+</div>
+
 
 {{-- option datatable --}}
 @include('dashboard.componentView.optionDatatable')
@@ -92,14 +99,17 @@
 </div>
 
 <!-- Modal Agregar -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade modalProductEdit" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Nuevo Producto</h4>
+    //<div class="card bg-blue-light">
+        <div class="modal-content bg-blue-dark text-white">
+            
+            <div class="modal-header blue-header ">
+                <h4 class="modalProductEdit" id="myModalLabel" > Añadir Nuevo Producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
+            
             <div class="modal-body">
                 <form action="{{route('save.product')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}

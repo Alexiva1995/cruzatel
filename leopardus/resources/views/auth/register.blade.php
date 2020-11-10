@@ -184,8 +184,8 @@ $referred = DB::table($settings->prefijo_wp.'users')
 || isset($settings->enable_auth_google) && $settings->enable_auth_google )
 <h3>Registrate con tus redes sociales</h3>
 @if( $settings->enable_auth_fb )
-<a href="{{ route('social.oauth', 'facebook') }}"
-    class="socicon-btn socicon-btn-circle socicon-lg socicon-solid bg-blue bg-hover-grey-salsa font-white bg-hover-white socicon-facebook tooltips"
+<a href="{{ route('social.oauth', 'facebook') }}"e bg
+    class="socicon-btn socicon-btn-circle socicon-lg socicon-solid bg-blu-hover-grey-salsa font-white bg-hover-white socicon-facebook tooltips"
     data-original-title="Facebook" style="margin-right: 10px"></a>
 @endif
 
