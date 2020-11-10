@@ -168,10 +168,10 @@ class LiquidationController extends Controller
      */
     public function liduidarUser(Request $request)
     {
-        try {
-            $validate = $request->validate([
-                'listuser' => ['required']
+        $validate = $request->validate([
+            'listuser' => ['required']
             ]);
+        try {
             if ($validate) {
                 foreach ($request->listuser as $user) {
                     $this->generanLiquidacion($user, []);
@@ -191,10 +191,11 @@ class LiquidationController extends Controller
      */
     public function procesarComisiones(Request $request)
     {
-        try {
+        
             $validate = $request->validate([
                 'listcomisiones' => ['required']
             ]);
+        try {
             if ($validate) {
                 if ($request->action == 'liquidar') {
                     $this->generanLiquidacion($request->iduser, $request->listcomisiones);
