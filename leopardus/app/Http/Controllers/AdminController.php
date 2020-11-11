@@ -263,10 +263,10 @@ class AdminController extends Controller
         }
 
         
-        $fecha = [
-            'primero' => new Carbon($_POST['fecha1']),
-            'segundo' => new Carbon($_POST['fecha2'])
-        ];
+        // $fecha = [
+        //     'primero' => new Carbon($_POST['fecha1']),
+        //     'segundo' => new Carbon($_POST['fecha2'])
+        // ];
 
         $data = [
             'ordenes' => $ordenes,
