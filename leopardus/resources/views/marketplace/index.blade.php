@@ -29,10 +29,49 @@
 {{-- alertas --}}
 @include('dashboard.componentView.alert')
 
+@include('dashboard.componentView.optionDatatable')
+
 <div class="card body-color">
     <div class="card-content">
         <div class="card-body">
-            <h1>Hola Mundo</h1>
+            <div class="table-responsive">
+                <table id="mytable" class="table zero-configuration">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                Imagen
+                            </th>
+                            <th class="text-center">
+                                Nombre
+                            </th>
+                            <th class="text-center">
+                                Descripcion
+                            </th>
+                            <th class="text-center">
+                                Precio
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($productos as $product)
+                        <tr>
+                            <td class="text-center">
+                                <img src="{{$product->imagen}}" height="50">
+                            </td>
+                            <td class="text-center">
+                                {{$product->post_title}}
+                            </td>
+                            <td class="text-center">
+                                {{$product->post_content}}
+                            </td>
+                            <td class="text-center">
+                                $ {{$product->meta_value}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
