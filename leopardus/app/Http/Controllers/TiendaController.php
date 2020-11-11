@@ -70,6 +70,7 @@ class TiendaController extends Controller
 
     public function index($tipo){
         $title = ($tipo == 'membresia') ? 'Membresia' : 'Marketplace';
+        $tipo = ($tipo == 'membresia') ? 'membresia' : 'producto';
         view()->share('title', $title);
         $banks = Banks::all();
         $productos = $this->getProductoWP($tipo);
