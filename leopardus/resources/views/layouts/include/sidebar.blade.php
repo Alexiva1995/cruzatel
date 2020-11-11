@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('tienda-index', ['membresia'])}}" class="nav-link nav-toggle text-white">
+                        <a href="{{route('tienda-index', ['tienda'])}}" class="nav-link nav-toggle text-white">
                             <span class="title">Tienda</span>
                         </a>
                     </li>

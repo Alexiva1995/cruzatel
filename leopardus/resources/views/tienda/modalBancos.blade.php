@@ -16,7 +16,7 @@
                                 <div class="card-content">
                                     <div class="card-header">
                                         <h4 class="card-title">
-                                            Banco {{$bank->nombre}}
+                                           {{$bank->nombre}}
                                         </h4>
                                     </div>
                                     <div class="card-body">

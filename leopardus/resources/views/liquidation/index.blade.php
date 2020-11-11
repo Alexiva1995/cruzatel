@@ -27,7 +27,7 @@
                         <input class="form-control form-control-solid placeholder-no-fix" type="number"
                             name="mayorque" style="background-color:f7f7f7;" />
                     </div>
-                    <div class="col-12 text-center col-md-4" style="padding-left: 10px;">
+                    <div class="col-12 text-center col-md-4" style="padding-left: 5px;">
                         <button class="btn btn-primary mt-2" type="submit" id="btn">Buscar</button>
                         @if ($filtro)
                         <a class="btn btn-danger mt-1" href="{{route('liquidacion')}}">Limpiar</a>
@@ -40,7 +40,7 @@
 </div>
 
 <div class="card">
-    <div class="card-content">
+    <div class="card-content bg-blue-dark text-white">
         <div class="card-body">
             <div class="table-responsive">
                 <form action="{{route('liquidacion.generar')}}" method="post" id="form_liquidation">

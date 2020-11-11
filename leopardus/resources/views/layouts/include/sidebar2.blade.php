@@ -37,7 +37,7 @@
         {{--FIN RANKING --}}
         {{-- MARKETING --}}
         <li class="nav-item">
-            <a href="{{route('tienda-index', ['producto'])}}" class="nav-link nav-toggle text-white">
+            <a href="{{route('tienda-index', ['tienda'])}}" class="nav-link nav-toggle text-white">
                 <i class="feather icon-shopping-cart"></i>
                 <span class="title">Marketplace</span>
             </a>
