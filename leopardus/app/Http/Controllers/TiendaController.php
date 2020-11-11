@@ -74,7 +74,11 @@ class TiendaController extends Controller
         $banks = Banks::all();
         $productos = $this->getProductoWP($tipo);
         $moneda = Monedas::where('principal', 1)->get()->first();
-        return view('tienda.index')->with(compact('productos', 'moneda', 'banks'));
+        if ($tipo == 'membresia') {
+            return view('tienda.index')->with(compact('productos', 'moneda', 'banks'));
+        }else{
+            return view('marketplace.index')->with(compact('productos', 'moneda', 'banks'));
+        }
     }
 
     /**

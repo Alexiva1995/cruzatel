@@ -323,7 +323,7 @@ class IndexController extends Controller
     {
         $settings = Settings::first();
 		$datosCompra = DB::table($settings->prefijo_wp.'posts')
-                        ->select('post_excerpt', 'post_title', 'post_password as limite', 'wp.to_ping as tipo')
+                        ->select('post_excerpt', 'post_title', 'post_password as limite', 'to_ping as tipo')
                         ->where('ID', '=', $shop_id)
                         ->first();
 
