@@ -51,7 +51,7 @@
                                 Precio
                             </th>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody>
                         @foreach ($productos as $product)
                         <tr>
