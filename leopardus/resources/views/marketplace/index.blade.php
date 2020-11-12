@@ -419,8 +419,10 @@
         </div>   
     </div>
     
-    
-    <div class="col-lg-8 col-md-4 col-12 mt-4 menu-color text-white  ">Resultados coincicen con la búsqueda
+       
+    <div class="col-lg-8 col-md-4 col-12 mt-4 menu-color text-white  "> 
+        <?php $resultados = count($productos) ; echo "$resultados ";?>
+     Resultados coincicen con la búsqueda
         <div class="card  h-100 mt-1 mb-1 menu-color text-white"> <!--Menu color--> 
             <input type="search" class="form-control  text-white" aria-controls="mytable" placeholder="Buscar"  >
             
@@ -431,7 +433,7 @@
             @foreach ($productos as $product)
             <div class="card bg-blue-dark" style="width: 20rem;">
                 <!--Imgen del producto-->
-              <img class="card-img-top" src="{{$product->imagen}}"  alt="Card image cap" width="220" height="220">
+              <img class="card-img-top" src="{{$product->imagen}}"  alt="Card image cap" width="250" height="250">
                 <!--Precio del producto-->
                 <h6 class="item-price text-white text-right" >
                     <strong>  $ {{$product->meta_value}}</strong> 
@@ -459,8 +461,7 @@
                    
             </div>
             </section>
-        </div>
-    </div>
+        </div>    </div>
 </div>
 
     
