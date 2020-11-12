@@ -99,18 +99,20 @@
 </div>
 
 <!-- Modal Agregar -->
-<div class="modal fade modalProductEdit" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-    //<div class="card bg-blue-light">
+    <div class="card bg-blue-light">
         <div class="modal-content bg-blue-dark text-white">
+
+            {{-- Formulario Agregar --}}
             
-            <div class="modal-header blue-header ">
-                <h4 class="modalProductEdit" id="myModalLabel" > Añadir Nuevo Producto</h4>
+            <div class="modal-header blue-header new">
+                <h4 class="" id="myModalLabel" > Añadir Nuevo Producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             
-            <div class="modal-body">
+            <div class="modal-body new">
                 <form action="{{route('save.product')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -154,22 +156,16 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-{{-- modal Editar --}}
-<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Editar Producto</h4>
+
+
+            {{-- formulario Editar --}}
+
+            <div class="modal-header edit" style="display: none">
+                <h4 class="modal-title" id="myModalLabelEdit">Editar Producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body edit" style="display: none">
                 <form action="{{route('edit.product')}}" method="post"  enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="idproduct" id="product">
@@ -214,12 +210,16 @@
                     </div>
                 </form>
             </div>
+
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 @endsection
 
@@ -234,6 +234,8 @@
         $('#porcentaje').val(dataProduct.porcentaje)
         $('#visible').val(dataProduct.visible)
         $('#tipo').val(dataProduct.tipo)
-        $('#myModalEdit').modal('show')
+        $('.edit').fadeIn('1000')
+        $('.new').fadeOut('1000')
+        $('#myModal').modal('show')
     }
 </script>
