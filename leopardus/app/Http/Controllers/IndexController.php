@@ -336,27 +336,27 @@ class IndexController extends Controller
         return $datosCompra;
     }
     
-    /**
-     * Permite obtener el precio de los productos comprado
-     *
-     * @param integer $id_item
-     * @return void
-     */
-	public function getTotalProductos($id_item)
-	{
-        $valor = 0;
-        $settings = Settings::first();
-		$IdProducto = DB::table($settings->prefijo_wp.'woocommerce_order_itemmeta')
-													->select('meta_value')
-													->where('order_item_id', '=', $id_item)
-													->where('meta_key', '=', '_line_total')
-													->first();
-        if (!empty($IdProducto)) {
-            $restante = $IdProducto->meta_value;
-            $valor = $restante;
-        }
-		return $valor;
-    }
+    //**
+    * Permite obtener el precio de los productos comprado
+    *
+    * @param integer $id_item
+    * @return void
+    */
+   public function getTotalProductos($id_item)
+   {
+       $valor = 0;
+       $settings = Settings::first();
+       $IdProducto = DB::table($settings->prefijo_wp.'woocommerce_order_itemmeta')
+                                                   ->select('meta_value')
+                                                   ->where('order_item_id', '=', $id_item)
+                                                   ->where('meta_key', '=', '_line_total')
+                                                   ->first();
+       if (!empty($IdProducto)) {
+           $restante = $IdProducto->meta_value;
+           $valor = $restante;
+       }
+       return $valor;
+   }
     
 	/**
      * Permite obtener el monto total de la compra realizada
