@@ -364,7 +364,7 @@ class IndexController extends Controller
      * @param integer $shop_id
      * @return void
      */
-    public function getShoppingTotal($shop_id): float
+    public function getShoppingTotal($shop_id)
     {
         $settings = Settings::first();
 		$totalCompra = DB::table($settings->prefijo_wp.'postmeta')
