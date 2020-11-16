@@ -37,9 +37,9 @@
                     <h6 class="text-white">Elige una membresia</h6>
                 </div>
                 @foreach ($productos as $item)
-                <div class="col-md-4 col-sm-12">
+                <div class=" card menu-color col-md-4 col-sm-12">
                     <a onclick="detalles({{json_encode($item)}})">
-                        <div class="card ecommerce-card p-2" id="producto{{$item->ID}}">
+                        <div class="card ecommerce-card p-2 bg-blue-dark2" id="producto{{$item->ID}}">
                             <div class="card-content">
                                 <div class="item-img text-center">
                                     <img class="img-fluid" src="{{$item->imagen}}" alt="{{$item->post_title}}">
