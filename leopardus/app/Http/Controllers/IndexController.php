@@ -342,7 +342,7 @@ class IndexController extends Controller
      * @param integer $id_item
      * @return void
      */
-	public function getTotalProductos($id_item) : float
+	public function getTotalProductos($id_item)
 	{
         $valor = 0;
         $settings = Settings::first();
