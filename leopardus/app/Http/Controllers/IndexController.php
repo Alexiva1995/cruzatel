@@ -336,12 +336,7 @@ class IndexController extends Controller
         return $datosCompra;
     }
     
-    //**
-    * Permite obtener el precio de los productos comprado
-    *
-    * @param integer $id_item
-    * @return void
-    */
+  
    public function getTotalProductos($id_item)
    {
        $valor = 0;
