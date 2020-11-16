@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Settings;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
-
-
+use stdClass;
 class IndexController extends Controller
 {
 
@@ -21,12 +20,12 @@ class IndexController extends Controller
     {
         $result = false;
         $derecha = User::where([
-            ['referred_id', '=', $id ],
+            ['position_id', '=', $id ],
             ['status', '=', 1],
             ['ladomatrix', '=', 'D']
         ])->get()->count('ID');
         $izquierda = User::where([
-            ['referred_id', '=', $id ],
+            ['position_id', '=', $id ],
             ['status', '=', 1],
             ['ladomatrix', '=', 'I']
         ])->get()->count('ID');
@@ -179,20 +178,22 @@ class IndexController extends Controller
         if (!empty($compras)) {
             foreach ($compras as $compra) {
                 $detallesCompra = $this->getShoppingDetails($compra->post_id);
-                if (!empty($detallesCompra)) {
+                if ($detallesCompra->null) {
                     $arregProducto = $this->getProductos($compra->post_id);
-                    if (!empty($arregProducto)) {
+                    if ($arregProducto->null) {
                         $productos = [];
                         foreach ($arregProducto as $product) {
                             $idProducto = $this->getIdProductos($product->order_item_id);
                             $detalleProduct = $this->getProductDetails($idProducto);
-                            $productos [] = [
-                                'idproducto' => $idProducto,
-                                'precio' => $this->getTotalProductos($product->order_item_id),
-                                'nombre' => $detalleProduct->post_title,
-                                'img' => $detalleProduct->post_excerpt,
-                                'limite' => $detalleProduct->limite,
-                            ];
+                            if ($detalleProduct->null) {
+                                $productos [] = [
+                                    'idproducto' => $idProducto,
+                                    'precio' => $this->getTotalProductos($product->order_item_id),
+                                    'nombre' => $detalleProduct->post_title,
+                                    'img' => $detalleProduct->post_excerpt,
+                                    'limite' => $detalleProduct->limite,
+                                ];
+                            }
                         }
                         $arreCompras [] = [
                             'idusuario' => $iduser,
@@ -231,7 +232,7 @@ class IndexController extends Controller
      * @param integer $idpost
      * @return void
      */
-    public function getIdUser($idpost) : object
+    public function getIdUser($idpost) : int
     {
         $settings = Settings::first();
         $comprasID = DB::table($settings->prefijo_wp.'postmeta')
@@ -256,6 +257,13 @@ class IndexController extends Controller
                         ->where('ID', '=', $shop_id)
                         ->where('post_status', '=', 'wc-completed')
                         ->first();
+
+        if (empty($datosCompra)) {
+            $datosCompra = new stdClass();
+            $datosCompra->null = false;
+        }else{
+            $datosCompra->null = true;
+        }
         return $datosCompra;
     }
 
@@ -263,15 +271,22 @@ class IndexController extends Controller
      * Permite obtener todos los productos de la compras
      *
      * @param integer $shop_id
-     * @return void
+     * @return object
      */
-	public function getProductos($shop_id): array
+	public function getProductos($shop_id): object
 	{
         $settings = Settings::first();
 		$totalProductos = DB::table($settings->prefijo_wp.'woocommerce_order_items')
 													->select('order_item_id')
 													->where('order_id', '=', $shop_id)
-													->get();
+                                                    ->get();
+
+        if (empty($totalProductos)) {
+            $totalProductos = new stdClass();
+            $totalProductos->null = false;
+        }else{
+            $totalProductos->null = true;
+        }
 		return $totalProductos;
 	}
     
@@ -281,7 +296,7 @@ class IndexController extends Controller
      * @param integer $id_item
      * @return void
      */
-	public function getIdProductos($id_item): integer
+	public function getIdProductos($id_item): int
 	{
         $settings = Settings::first();
         $valor = 0;
@@ -289,9 +304,11 @@ class IndexController extends Controller
 													->select('meta_value')
 													->where('order_item_id', '=', $id_item)
 													->where('meta_key', '=', '_product_id')
-													->first();
+                                                    ->first();
         if (!empty($IdProducto)) {
-            $valor = $IdProducto->meta_value;
+            if (!empty($IdProducto->meta_value)) {
+                $valor = $IdProducto->meta_value;
+            }
         }
 		return $valor;
     }
@@ -306,9 +323,16 @@ class IndexController extends Controller
     {
         $settings = Settings::first();
 		$datosCompra = DB::table($settings->prefijo_wp.'posts')
-                        ->select('post_excerpt', 'post_title', 'wp.post_password as limite')
+                        ->select('post_excerpt', 'post_title', 'post_password as limite', 'to_ping as tipo')
                         ->where('ID', '=', $shop_id)
                         ->first();
+
+        if (empty($datosCompra)) {
+            $datosCompra = new stdClass();
+            $datosCompra->null = false;
+        }else{
+            $datosCompra->null = true;
+        }
         return $datosCompra;
     }
     
@@ -318,7 +342,7 @@ class IndexController extends Controller
      * @param integer $id_item
      * @return void
      */
-	public function getTotalProductos($id_item) : float
+	public function getTotalProductos($id_item)
 	{
         $valor = 0;
         $settings = Settings::first();
@@ -349,7 +373,104 @@ class IndexController extends Controller
 				        ->where('meta_key', '=', '_order_total')
 				        ->first();
 		return $totalCompra->meta_value;
-	}
+    }
+    
+    /**
+     * Se trare la informacion de los hijos 
+     *
+     * @param integer $id - id a buscar hijos
+     * @param integer $nivel - nivel en que los hijos se encuentra
+     * @param string $typeTree - tipo de arbol a usar
+     * @return void
+     */
+    private function getDataSponsor($id, $nivel, $typeTree) : object
+    {
+        $resul = User::where($typeTree, '=', $id)->get();
+        foreach ($resul as $user) {
+            $user->avatar = asset('avatar/'.$user->avatar);
+            $user->nivel = $nivel;
+            $user->ladomatriz = $user->ladomatrix;
+        }
+        return $resul;
+    }
 
+    /**
+     * Permite obtener a todos mis patrocinadores
+     *
+     * @param integer $child - id del hijo
+     * @param array $array_tree_user - arreglo de patrocinadores
+     * @param integer $nivel - nivel a buscar
+     * @param string $typeTree - llave a buscar
+     * @param string $keySponsor - llave para buscar el sponsor, position o referido
+     * @return array
+     */
+    public function getSponsor($child, $array_tree_user, $nivel, $typeTree, $keySponsor): array
+    {
+        if (!is_array($array_tree_user))
+        $array_tree_user = [];
+    
+        $data = $this->getDataSponsor($child, $nivel, $typeTree);
+        if (count($data) > 0) {
+            foreach($data as $user){
+                $array_tree_user [] = $user;
+                $array_tree_user = $this->getSponsor($user->$keySponsor, $array_tree_user, ($nivel+1), $typeTree, $keySponsor);
+            }
+        }
+        return $array_tree_user;
+    }
+
+    /**
+     * Permite Obtener las ultimas compras realizadas en los ultimos 30 dias, para pagar los bonos correspondientes
+     *
+     * @return array
+     */
+    public function getAllCompras(): array
+    {
+        $fecha = Carbon::now();
+        $settings = Settings::first();
+        $compras = DB::table($settings->prefijo_wp.'posts')
+                    ->select('*')
+                    ->where([
+                        ['post_type', '=', 'shop_order'],
+                        ['post_status', '=', 'wc-completed']
+                    ])
+                    ->whereDate('post_date', '>', $fecha->subDay(30))
+                    ->get();
+        $arreCompras = [];
+        foreach ($compras as $compra) {
+            $arregProducto = $this->getProductos($compra->ID);
+            $iduser = $this->getIdUser($compra->ID);
+            if ($arregProducto->null) {
+                $productos = [];
+                $membresia = false;
+                foreach ($arregProducto as $product) {
+                    $idProducto = $this->getIdProductos($product->order_item_id);
+                    $detalleProduct = $this->getProductDetails($idProducto);
+                    if ($detalleProduct->tipo != 'membresia') {
+                        $membresia = true;
+                    }
+                    if ($detalleProduct->null) {
+                        $productos [] = [
+                            'idproducto' => $idProducto,
+                            'precio' => $this->getTotalProductos($product->order_item_id),
+                            'nombre' => $detalleProduct->post_title,
+                            'img' => $detalleProduct->post_excerpt,
+                            'limite' => $detalleProduct->limite,
+                            'tipo' => $detalleProduct->tipo
+                        ];
+                    }
+                }
+                $arreCompras [] = [
+                    'idusuario' => $iduser,
+                    'idcompra' => $compra->ID,
+                    'fecha' => $compra->post_date,
+                    'productos' => $productos,
+                    'total' => $this->getShoppingTotal($compra->ID),
+                    'membresia' => $membresia
+                ];
+            }
+        }
+        return $arreCompras;
+    }
 
 }

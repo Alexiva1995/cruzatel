@@ -13,6 +13,7 @@
     <meta name="author" content="VALDUSOFT">
     <title>{{$settings->name}}</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
+    <link rel="apple-touch-icon" href="../../.../app-assets/css/styles_k.css">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
@@ -23,7 +24,7 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click"
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static body-color" data-open="click"
     data-menu="vertical-menu-modern" data-col="2-columns">
     {{-- header  --}}
     @include('layouts.include.header')
@@ -39,7 +40,7 @@
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
+        {{-- <div class="header-navbar-shadow"></div> --}}
         <div class="content-wrapper">
             <div class="content-header row">
                 {{-- <div class="content-header-left col-12 mb-2">

@@ -50,7 +50,11 @@ class PagoController extends Controller
 			'desde' => '',
 			'hasta' => ''
 		];
-	    return view('pagos.confirmarpago')->with(compact('pagos', 'fechas', 'moneda'));
+		$data = [
+			'pagos' => $pagos,
+			'volver' => false
+		];
+	    return view('pagos.confirmarpago')->with(compact('data', 'fechas', 'moneda'));
 	}
 
 	/**
@@ -67,12 +71,18 @@ class PagoController extends Controller
 				'hasta' => $hasta
 			];
 			if ($datos->form == "confirmarpago") {
+				view()->share('title', 'Confirmar Pagos');
 				if ($desde > $hasta) {
 					return redirect('mioficina/admin/price/confirmar')->with('msj2', 'La fecha desde no puede ser mayor que la fecha hasta');
 				}
 				$pagos = Pagos::where('estado', 0)->where('fechasoli', '>=', $desde)->where('fechasoli', '<=', $hasta)->get();
-	    		return view('pagos.confirmarpago')->with(compact('pagos', 'fechas', 'moneda'));
+				$data = [
+					'pagos' => $pagos,
+					'volver' => false
+				];
+	    		return view('pagos.confirmarpago')->with(compact('data', 'fechas', 'moneda'));
 			} else {
+				view()->share('title', 'Historial de retiro');
 				if ($desde > $hasta) {
 					return redirect('mioficina/admin/price/historial')->with('msj2', 'La fecha desde no puede ser mayor que la fecha hasta');
 				}

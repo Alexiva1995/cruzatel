@@ -47,7 +47,7 @@ Route::group(['prefix' => 'autentication'], function (){
 
 Route::group(['prefix' => 'tienda', 'middleware' => ['auth', 'licencia', 'guest']], function (){
 
-    Route::get('/', 'TiendaController@index')->name('tienda-index');
+    Route::get('/ecommerce/{tipo}', 'TiendaController@index')->name('tienda-index');
 
     Route::post('savecompra', 'TiendaController@saveOrdenPosts')->name('tienda-save-compra');
 
@@ -75,6 +75,24 @@ Route::group(['prefix' => 'tienda', 'middleware' => ['auth', 'licencia', 'guest'
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']], function() {
 
+  
+  Route::group(['prefix' => 'liquidacion'], function ()
+  {
+    // Liquidaciones Pendientes
+    Route::get('/', 'LiquidationController@index')->name('liquidacion');
+    Route::get('/{iduser}/detalles', 'LiquidationController@detalles')->name('liquidacion.detalles');
+    Route::post('liquidationFiltro', 'LiquidationController@indexFiltro')->name('liquidation.filtro');
+    Route::post('generarliquidacion', 'LiquidationController@liduidarUser')->name('liquidacion.generar');
+    Route::post('procesarcomisiones', 'LiquidationController@procesarComisiones')->name('liquidacion.procesar.comision');
+    Route::get('/liquidacionPendientes', 'LiquidationController@liquidacionPendientes')->name('liquidacion.pendientes');
+    Route::get('/liquidacioninversion', 'LiquidationController@liquidacionesInversion')->name('liquidacion.inversion');
+    Route::post('/liquidarinversiones', 'LiquidationController@liquidarInversiones')->name('liquidacion.liquidacion.inversiones');
+    Route::get('/liquidacionrealizadas', 'LiquidationController@liquidacionesRealizada')->name('liquidacion.realizadas');
+    Route::post('/updateLiquidacion', 'LiquidationController@updateLiquidation')->name('liquidacion.update');
+
+    Route::get('rentabilidad', 'ComisionesController@getRentabilidad')->name('prueba.rentabilidad');
+  });
+
   Route::post('changeside', 'HomeController@changeSide')->name('change.side');
 
     // Actualiza todos la informacion para los usuarios
@@ -91,6 +109,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']
       Route::get('/user', 'PublicidadController@indexUser')->name('publicidad.user');
       Route::post('/compartido', 'PublicidadController@compartido')->name('publicidad.compartido');
       Route::get('/ciclografiph', 'PublicidadController@getInfoDiario')->name('publicidad.ciclo');
+      Route::get('Historial', 'PublicidadController@historialPublicidad')->name('publicidad.historial');
+    });
+
+    // Bank
+    Route::group(['prefix' => 'banks'], function ()
+    {
+        Route::get('/', 'BanksController@index')->name('banks.index');
+        Route::post('/save', 'BanksController@save')->name('banks.save');
+        Route::post('/update', 'BanksController@update')->name('banks.update');
+        Route::get('{id}/delete', 'BanksController@delete')->name('banks.delete');
+        Route::get('/solicitudes', 'BanksController@solicitud')->name('banks.solitud');
+        Route::get('{id}/{estado}', 'BanksController@actionOrden')->name('banks.action');
+
     });
 
     // Billetera
@@ -610,17 +641,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'licencia', 'guest']
 
 
     Route::group(['prefix' => 'network'], function(){
-
-        Route::get('/directrecords', 'AdminController@direct_records')->name('directrecords');
-
-        Route::get('/networkrecords', 'AdminController@network_records')->name('networkrecords');
-
-         Route::post('/buscardirectos','AdminController@buscardirectos')->name('buscardirectos');
-
-          Route::post('/buscarnetwork','AdminController@buscarnetwork')->name('buscarnetwork');
-
-          Route::post('/buscarnetworknivel','AdminController@buscarnetworknivel')->name('buscarnetworknivel');
-
+      // Directos
+      Route::get('/directrecords', 'AdminController@direct_records')->name('directrecords');
+      Route::post('/buscardirectos','AdminController@buscardirectos')->name('buscardirectos');
+      // En Red
+      Route::get('/networkrecords', 'AdminController@network_records')->name('networkrecords');
+      Route::post('/buscarnetwork','AdminController@buscarnetwork')->name('buscarnetwork');
+      // Binarios
+      Route::get('binaryrecord', 'AdminController@recordUserBinary')->name('binaryrecord');
+      Route::post('buscarbinaryrecord', 'AdminController@recordUserBinaryBuscar')->name('buscarbinaryrecord');
            
 
         Route::get('/commissionsrecords', 'ComisionesController@ObtenerUsuarios')->name('commissionsrecords');

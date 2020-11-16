@@ -179,7 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
+        Netshell\Paypal\PaypalServiceProvider::class
     ],
 
     /*
@@ -232,6 +232,7 @@ return [
         'Module' => Nwidart\Modules\Facades\Module::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Input' => Illuminate\Support\Facades\Input::class,
+        'Paypal' => Netshell\Paypal\Facades\Paypal::class
     ],
 
 ];

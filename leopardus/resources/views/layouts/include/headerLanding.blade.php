@@ -5,7 +5,7 @@
 
     <a class="navbar-brand" href="javascript:;" onclick="moveDiv('#header')">
 
-        <img src="{{asset('assets/imgLanding/logo2.png')}}" height="90" alt="">
+        <img src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
 
     </a>
 
@@ -13,91 +13,40 @@
 
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon text-white"></span>
 
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 
-        <ul class="navbar-nav">
-
-            <li class="nav-item active">
-
-                <a class="nav-link d-flex text-small" href="javascript:;" onclick="moveDiv('#quienessomos')">
-
+        <ul class="navbar-nav" style="margin-right: 100px">
+            {{-- <li class="nav-item active">
+                <a class="nav-link d-flex text-small text-white" href="javascript:;" onclick="moveDiv('#quienessomos')">
                     <div class="point"></div> Filosofía <span class="sr-only">(current)</span>
-
                 </a>
-
+            </li> --}}
+            <li class="nav-item">
+                <a class="nav-link d-flex text-small text-white" href="javascript:;">
+                    Nosotros
+                </a>
             </li>
 
             <li class="nav-item">
-
-
-
-                <a class="nav-link d-flex text-small" href="javascript:;" onclick="moveDiv('#comofunciona')">
-
-                    <div class="point"></div> Alianzas
-
+                <a class="nav-link d-flex text-small text-white" href="javascript:;">
+                    Servicios
                 </a>
-
             </li>
 
-            <li class="nav-item">
-
-
-
-                <a class="nav-link d-flex text-small" href="javascript:;" onclick="moveDiv('#participar')">
-
-                    <div class="point"></div> ¿Cómo funciona?
-
+            <li class="nav-item mr-5">
+                <a class="nav-link d-flex text-small text-white" href="javascript:;">
+                    Equipo
                 </a>
-
             </li>
 
-            <li class="nav-item">
-
-
-
-                <a class="nav-link d-flex text-small" href="{{route('product')}}">
-                    <div class="point"></div> Productos
-
+            <li class="nav-item ml-5">
+                <a class="nav-link d-flex text-small text-white" href="{{route('login')}}">
+                     Login
                 </a>
-
-            </li>
-
-            <li class="nav-item">
-
-
-
-                <a class="nav-link d-flex text-small" href="javascript:;" onclick="moveDiv('#contacto')">
-
-                    <div class="point"></div> Contacto
-
-                </a>
-
-            </li>
-
-            <li class="nav-item dropdown">
-
-                <a class="nav-link dropdown-toggle text-small" href="#" id="navbarDropdownMenuLink" role="button"
-
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                    Idioma
-
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                    <a class="dropdown-item text-small" href="#">Ingles</a>
-
-                    <a class="dropdown-item text-small" href="#">Español</a>
-
-                    <a class="dropdown-item text-small" href="#">Frances</a>
-
-                </div>
-
             </li>
 
         </ul>
@@ -108,18 +57,6 @@
 
 {{-- informacion principal --}}
 
-<div class="container" id="header">
-
-    @if ($landing == 0)
-
-        @include('layouts.include.sublanding.inicio')
-
-    @elseif($landing == 1)
-        @include('layouts.include.sublanding.tabLegal')
-    @elseif($landing == 3)
-        @include('layouts.include.sublanding.product')
-    @else
-        @include('layouts.include.sublanding.faq')
-    @endif
-
+<div class="container" id="header" style="height: 81.5vh">
+    @include('layouts.include.sublanding.inicio')
 </div>

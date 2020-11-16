@@ -37,15 +37,6 @@ class WalletController extends Controller
 		$funciones->ObtenerUsuarios();
 		$cuentawallet = '';
 		$pagosPendientes = false;
-		// if (Auth::user()->rol_id == 0) {
-		// 	$wallets = Wallet::where([
-		// 		['puntos', '!=', 0],
-		// 		['debito', '!=', 0],
-		// 	])->orWhere([
-		// 		['puntos', '!=', 0],
-		// 		['credito', '!=', 0],
-		// 	])->get();
-		// } else {
 			$validarPagos = Pagos::where([
 				['iduser', '=', Auth::user()->ID],
 				['estado', '=', 0]
@@ -67,71 +58,6 @@ class WalletController extends Controller
 	   	return view('wallet.indexwallet')->with(compact('metodopagos', 'comisiones', 'wallets', 'moneda', 'cuentawallet', 'pagosPendientes'));
 	}
 
-	/**
-	 *  Va a la vista principal de la billetera tantechcoins
-	 * 
-	 * @access public
-	 * @return view
-	 */
-	public function indexTantech(){
-	   
-		$moneda = Monedas::where('principal', 1)->get()->first();
-		$metodopagos = MetodoPago::all();
-		$comisiones = SettingsComision::select('comisionretiro', 'comisiontransf')->where('id', 1)->get();
-		$funciones = new ComisionesController;
-		$funciones->ObtenerUsuarios();
-		$cuentawallet = '';
-		if (Auth::user()->rol_id == 0) {
-			$wallets = Wallet::where([
-				['puntos', '!=', 0],
-				['descripcion', '!=', 'Bono de activacion']
-			])->get();
-		} else {
-			$wallets = Wallet::where([
-				['iduser', '=',Auth::user()->ID], 
-				['puntos', '!=', 0],
-				['descripcion', '!=', 'Bono de activacion']
-			])->get();
-			$cuentawallet = DB::table('user_campo')->where('ID', Auth::user()->ID)->select('paypal')->get()[0];
-			$cuentawallet = $cuentawallet->paypal;
-		}
-		
-	   	return view('wallet.indexwallettantech')->with(compact('metodopagos', 'comisiones', 'wallets', 'moneda', 'cuentawallet'));
-	}
-
-	
-	/**
-	 *  Va a la vista principal de la billetera tantechcoins personales
-	 * 
-	 * @access public
-	 * @return view
-	 */
-	public function indexTantechPersonal(){
-	   
-		$moneda = Monedas::where('principal', 1)->get()->first();
-		$metodopagos = MetodoPago::all();
-		$comisiones = SettingsComision::select('comisionretiro', 'comisiontransf')->where('id', 1)->get();
-		$funciones = new ComisionesController;
-		$funciones->ObtenerUsuarios();
-		$cuentawallet = '';
-		if (Auth::user()->rol_id == 0) {
-			$wallets = Wallet::where([
-				['puntos', '!=', 0],
-			])->get();
-		} else {
-			$wallets = Wallet::where([
-				['iduser', '=',Auth::user()->ID], 
-				['puntos', '!=', 0],
-			])->orWhere([
-				['iduser', '=',Auth::user()->ID], 
-				['creditocoin', '!=', 0],
-			])->get();
-			$cuentawallet = DB::table('user_campo')->where('ID', Auth::user()->ID)->select('paypal')->get()[0];
-			$cuentawallet = $cuentawallet->paypal;
-		}
-		
-	   	return view('wallet.indexwallettantech')->with(compact('metodopagos', 'comisiones', 'wallets', 'moneda', 'cuentawallet'));
-	}
 
 	/**
 	 *  Va a la vista principal de la billetera puntos
@@ -152,80 +78,16 @@ class WalletController extends Controller
 		} else {
 			$wallets = Wallet::where([
 				['iduser', '=',Auth::user()->ID], 
-				['puntos', '=', 0]
+				['puntosD', '!=', 0],
+			])->orWhere([
+				['iduser', '=',Auth::user()->ID], 
+				['puntosI', '!=', 0],
 			])->get();
 			$cuentawallet = DB::table('user_campo')->where('ID', Auth::user()->ID)->select('paypal')->get()[0];
 			$cuentawallet = $cuentawallet->paypal;
 		}
 		
 	   	return view('wallet.indexwalletpuntos')->with(compact('metodopagos', 'comisiones', 'wallets', 'moneda', 'cuentawallet'));
-	}
-	
-	/**
-	 * Realizar Transferencia de un usuario a otro
-	 * 
-	 * @access public
-	 * @param Request
-	 * @return view
-	 */
-	public function transferencia(Request $datos){
-	   
-	   if(!empty($datos)){
-	       $verificaruser = User::where('user_email', $datos->usuario)->get()->toArray();
-	       if (empty($verificaruser)){
-			   return redirect('mioficina/admin/wallet')->with('msj2', 'El correo '.$datos->usuario.' no esta registrado');
-	       }else{
-	           $resta = ($datos->monto - $datos->comision);
-	           if($resta > 0){
-	               if($resta < $datos->montodisponible){
-	                   $userOrigen = User::find(Auth::user()->ID);
-    	               $userDestino = User::find($verificaruser[0]['ID']);
-    	               $userOrigen->wallet_amount = ($userOrigen->wallet_amount - $datos['monto']);
-    	               $userDestino->wallet_amount = ($userOrigen->wallet_amount + $resta);
-    	               $userOrigen->save();
-    	               $userDestino->save();
-    	               $datosOrigen = [
-    	                   'iduser' => $userOrigen->ID,
-    	                   'usuario' => $userOrigen->display_name,
-    	                   'descripcion' => 'Transfer sent to '.$userDestino->display_name,
-    	                   'descuento' => ($datos['monto'] - $resta),
-						   'debito' => 0,
-						   'puntos' => 0,
-						   'puntosI' => 0,
-						   'puntosD' => 0,
-						   'credito' => $datos['monto'],
-						   'tantechcoin' => 0,
-						   'balance' => $userOrigen->wallet_amount,
-						   'tipotransacion' => 0
-    	               ];
-    	               $datosDestino = [
-    	                   'iduser' => $userDestino->ID,
-    	                   'usuario' => $userDestino->display_name,
-    	                   'descripcion' => 'Transfer received from '.$userOrigen->display_name,
-    	                   'descuento' => 0,
-						   'debito' => $resta,
-						   'puntos' => 0,
-						   'puntosI' => 0,
-						   'puntosD' => 0,
-						   'credito' => 0,
-						   'tantechcoin' => 0,
-						   'balance' => $userDestino->wallet_amount,
-						   'tipotransacion' => 0
-    	               ];
-    	               $this->saveWallet($datosOrigen);
-    	               $this->saveWallet($datosDestino);
-    	               
-    	               return redirect('mioficina/admin/wallet')->with('msj', 'Transfer sent with Success');
-	               }else{
-	                   return redirect('mioficina/admin/wallet')->with('msj2', 'The amount to be transferred cannot exceed the amount available');
-	               }
-	           }else{
-	               return redirect('mioficina/admin/wallet')->with('msj2', 'The amount to be transferred cannot be negative');
-	           }
-	       }
-	   }else{
-	       return redirect('mioficina/admin/wallet');
-	   }
 	}
 	
 	/**
@@ -236,20 +98,6 @@ class WalletController extends Controller
 	 */
 	public function saveWallet($datos){
 		Wallet::create($datos);
-		// Wallet::create([
-		// 	'iduser' => $datos['iduser'],
-		// 	'usuario' => $datos['usuario'],
-		// 	'descripcion' => $datos['descripcion'],
-		// 	'puntos' => $datos['puntos'],
-		// 	'descuento' => $datos['descuento'],
-		// 	'puntosI' => $datos['puntosI'],
-		// 	'puntosD' => $datos['puntosD'],
-		// 	'debito' => $datos['debito'],
-		// 	'tantechcoin' => $datos['tantechcoin'],
-		// 	'credito' => $datos['credito'],
-		// 	'balance' => $datos['balance'],
-		// 	'tipotransacion' => $datos['tipotransacion']
-		// ]);
 	}
     
     /**
@@ -288,7 +136,7 @@ class WalletController extends Controller
                         $tipopago = $tipopago.'- Bank data: '.$datos->metodobancario;
                     }
                     $metodo = MetodoPago::find($datos->metodopago);
-                    // if ($resta > $datos->monto_min) {
+                    if ($resta > $datos->monto_min) {
 						// DB::table('user_campo')->where('ID', Auth::user()->ID)->update(['paypal' => $datos->metodowallet]);
 						$user = Auth::user();
 						$user->wallet_amount = ($user->wallet_amount - $resta);
@@ -320,9 +168,9 @@ class WalletController extends Controller
 							'estado' => 0
 						]);
 						return redirect()->back()->with('msj', 'El Retiro ha sido procesado');
-					// } else {
-					// 	return redirect()->back()->with('msj2', 'El monto a retirar no puede ser menor la monto minimo');	
-					// }
+					} else {
+						return redirect()->back()->with('msj2', 'El monto a retirar no puede ser menor la monto minimo');	
+					}
                 }else{
                     return redirect()->back()->with('msj2', 'El monto a retirar no puede ser mayor a monto disponible');
                 }
@@ -356,83 +204,93 @@ class WalletController extends Controller
     
     public function historial()
     {
+		view()->share('title', 'Historial de Comisiones');
+
 		$moneda = Monedas::where('principal', 1)->get()->first();
        
-$billetera = DB::table('walletlog')
-                ->where('iduser', '=', Auth::user()->ID )
-                ->where('tipotransacion', '=', 0 )
-                ->get();
+		$billetera = DB::table('walletlog')
+						->where([
+							['tipotransacion', '=', 2],
+							['debito', '!=', 0]
+						])
+						->get();
+		$data = [
+			'billetera' => $billetera,
+			'volver' => false
+		];
 
-     return view('wallet.historial', compact('billetera', 'moneda')); 
+     return view('wallet.historial', compact('data', 'moneda')); 
     }
     
      public function historial_fechas(Request $request)
     {
+		view()->share('title', 'Historial de Comisiones- Desde: '.$request->primero.' Hasta: '.$request->segundo);
+
         $moneda = Monedas::where('principal', 1)->get()->first();
-      $billetera = Wallet::whereDate("created_at",">=",$request->primero)
-             ->whereDate("created_at","<=",$request->segundo)
-             ->where('tipotransacion', '=', 0 )
-             ->where('iduser', '=', Auth::user()->ID )
-             ->get(); 
+		$billetera = Wallet::whereDate("created_at",">=",$request->primero)
+				->whereDate("created_at","<=",$request->segundo)
+				->where([
+					['tipotransacion', '=', 2],
+					['debito', '!=', 0]
+				])
+				->get();
+		
+		$data = [
+			'billetera' => $billetera,
+			'volver' => false
+		];
              
- return view('wallet.historial', compact('billetera', 'moneda')); 
+ 		return view('wallet.historial', compact('data', 'moneda')); 
     }
-    
+	
+	/**
+	 * LLeva a la vista de los retiros de los usuarios
+	 *
+	 * @return void
+	 */
     public function cobros()
     {
+		// TITLE
+		view()->share('title', 'Historial de Retiro');
 		$moneda = Monedas::where('principal', 1)->get()->first();
 		$billetera = DB::table('walletlog')
                 ->where('iduser', '=', Auth::user()->ID )
                 ->where('tipotransacion', '=', 1 )
-                ->get();
+				->get();
+		
+		$data = [
+			'billetera' => $billetera,
+			'volver' => false
+		];
 
-     return view('wallet.cobros', compact('billetera', 'moneda')); 
+     return view('wallet.cobros', compact('data', 'moneda')); 
     }
-    
+	
+	/**
+	 * Permite filtras los retiros de los usuario
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
     public function cobros_fechas(Request $request)
     {
-		$moneda = Monedas::where('principal', 1)->get()->first();
- $billetera = Wallet::whereDate("created_at",">=",$request->primero)
-             ->whereDate("created_at","<=",$request->segundo)
-             ->where('tipotransacion', '=', 1 )
-             ->where('iduser', '=', Auth::user()->ID )
-             ->get();
+		// TITLE
+		view()->share('title', 'Historial de Retiro - Desde: '.$request->primero.' Hasta: '.$request->segundo);
 
-     return view('wallet.cobros', compact('billetera', 'moneda')); 
+		$moneda = Monedas::where('principal', 1)->get()->first();
+		$billetera = Wallet::whereDate("created_at",">=",$request->primero)
+					->whereDate("created_at","<=",$request->segundo)
+					->where('tipotransacion', '=', 2)
+					->where('iduser', '=', Auth::user()->ID )
+					->get();
+
+		$data = [
+			'billetera' => $billetera,
+			'volver' => true
+		];
+
+     return view('wallet.cobros', compact('data', 'moneda')); 
 	}
 	
-	// public function fixBalance()
-	// {
-	// 	$users = User::where('ID', '>', 4)->get();
-
-	// 	foreach ($users as $user) {
-	// 		$wallets = Wallet::where([
-	// 			['debito', '!=', 0],
-	// 			['iduser', '=', $user->ID],
-	// 		])->orWhere([
-	// 			['credito', '!=', 0],
-	// 			['iduser', '=', $user->ID]
-	// 		])->orderBy('id')->get();
-	// 		$balance = 0;
-	// 		echo "<br><br>usuario: ".$user->display_name.'<br>';
-	// 		foreach ($wallets as $wallet) {
-	// 				if ($wallet->debito != 0) {
-	// 					$balance = ($balance + $wallet->debito);
-	// 				}
-	// 				if ($wallet->credito != 0) {
-	// 					$balance = ($balance - ($wallet->credito+$wallet->descuento));
-	// 				}
-	// 				echo "userID: ".$wallet->iduser.' - debito '.$wallet->debito.' - credito '.$wallet->credito.' - descuento '.$wallet->descuento." - balance: ".$balance.'<br>';
-	// 				// Wallet::where('id', $wallet->id)->update([
-	// 				// 	'balance' => $balance
-	// 				// ]);
-	// 		}
-	// 		// User::where('ID', $user->ID)->update([
-	// 		// 	'wallet_amount' => $balance
-	// 		// ]);
-	// 		echo "Balance final: ".$balance.'<br>';
-	// 	}
-	// 	// dd('detener');
-	// }
 
 }

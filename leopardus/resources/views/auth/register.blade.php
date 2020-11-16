@@ -98,24 +98,24 @@ $referred = DB::table($settings->prefijo_wp.'users')
                 @endif
                 @endforeach
                 <div class="col-12 col-md-6 form-group">
-                    <input class="form-control form-control-solid placeholder-no-fix form-group" placeholder="Email (*)"
-                        type="text" autocomplete="off" name="user_email" required style="background-color:f7f7f7;"
+                    <input class="form-control form-control-solid placeholder-no-fix form-group" placeholder="Email"
+                        type="email" autocomplete="off" name="user_email" required style="background-color:f7f7f7;"
                         oncopy="return false" onpaste="return false" />
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <input class="form-control form-control-solid placeholder-no-fix form-group"
-                        placeholder="Email Confirmation (*)" type="text" autocomplete="off"
-                        name="user_email_confirmation" required style="background-color:f7f7f7;" oncopy="return false"
+                        placeholder="Nombre de usuario" type="text" autocomplete="off"
+                        name="user_login" required style="background-color:f7f7f7;" oncopy="return false"
                         onpaste="return false" />
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <input class="form-control form-control-solid placeholder-no-fix form-group" type="password"
-                        autocomplete="off" name="password" placeholder="Password (*)" required
+                        autocomplete="off" name="password" placeholder="Contraseña" required
                         style="background-color:f7f7f7;" oncopy="return false" onpaste="return false" />
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <input class="form-control form-control-solid placeholder-no-fix form-group" type="password"
-                        autocomplete="off" name="password_confirmation" placeholder="Password Confirmation (*)" required
+                        autocomplete="off" name="password_confirmation" placeholder="Confirmar contraseña" required
                         style="background-color:f7f7f7;" oncopy="return false" onpaste="return false" />
                 </div>
                 <input type="hidden" name="ladomatrix" value="{{request()->lado}}">
@@ -144,7 +144,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                 @else
                 <input type="hidden" name="tipouser" value="{{ request()->tipouser }}" />
                 @endif
-                <div class="col-12 form-group">
+                {{-- <div class="col-12 form-group">
                     <fieldset class="checkbox">
                         <div class="vs-checkbox-con vs-checkbox-primary">
                             <input type="checkbox" {{ old('terms') ? 'checked' : '' }} name="terms">
@@ -159,7 +159,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                             </span>
                         </div>
                     </fieldset>
-                </div>
+                </div> --}}
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-md-6 text-center">
@@ -184,8 +184,8 @@ $referred = DB::table($settings->prefijo_wp.'users')
 || isset($settings->enable_auth_google) && $settings->enable_auth_google )
 <h3>Registrate con tus redes sociales</h3>
 @if( $settings->enable_auth_fb )
-<a href="{{ route('social.oauth', 'facebook') }}"
-    class="socicon-btn socicon-btn-circle socicon-lg socicon-solid bg-blue bg-hover-grey-salsa font-white bg-hover-white socicon-facebook tooltips"
+<a href="{{ route('social.oauth', 'facebook') }}"e bg
+    class="socicon-btn socicon-btn-circle socicon-lg socicon-solid bg-blu-hover-grey-salsa font-white bg-hover-white socicon-facebook tooltips"
     data-original-title="Facebook" style="margin-right: 10px"></a>
 @endif
 

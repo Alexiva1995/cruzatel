@@ -210,73 +210,74 @@ right connector from last child*/
 				<ul>
 					@foreach ($trees as $child)
 					{{-- lado Derecho --}}
-					@include('referraltree::sideempty', ['side' => 'D'])
+					@include('referraltree::sideempty', ['side' => 'D', 'cant' => count($base->children)])
 					<li>
 						@include('referraltree::infouser', ['data' => $child])
 						@if (!empty($child->children))
 						{{-- nivel 2 --}}
 						<ul>
-							@foreach ($child->children as $child)
+							@foreach ($child->children as $child2)
 							{{-- lado Derecho --}}
-							@include('referraltree::sideempty', ['side' => 'D'])
+							@include('referraltree::sideempty', ['side' => 'D', 'cant' => count($child->children)])
 							<li>
-								@include('referraltree::infouser', ['data' => $child])
-								@if (!empty($child->children))
+								
+								@include('referraltree::infouser', ['data' => $child2])
+								@if (!empty($child2->children))
 								{{-- nivel 3 --}}
 								<ul>
-									@foreach ($child->children as $child)
+									@foreach ($child2->children as $child3)
 									{{-- lado Derecho --}}
-									@include('referraltree::sideempty', ['side' => 'D'])
+									@include('referraltree::sideempty', ['side' => 'D', 'cant' => count($child2->children)])
 									<li>
-										@include('referraltree::infouser', ['data' => $child])
-										@if (!empty($child->children))
+										@include('referraltree::infouser', ['data' => $child3])
+										@if (!empty($child3->children))
 										{{-- nivel 4 --}}
 										<ul>
-											@foreach ($child->children as $child)
+											@foreach ($child3->children as $child4)
 											{{-- lado Derecho --}}
-											@include('referraltree::sideempty', ['side' => 'D'])
+											@include('referraltree::sideempty', ['side' => 'D', 'cant' => count($child3->children)])
 											<li>
-												@include('referraltree::infouser', ['data' => $child])
+												@include('referraltree::infouser', ['data' => $child4])
 
-												@if (!empty($child->children))
+												@if (!empty($child4->children))
 												{{-- nivel 5 --}}
 												<ul>
-													@foreach ($child->children as $child)
+													@foreach ($child4->children as $child5)
 													{{-- lado Derecho --}}
-													@include('referraltree::sideempty', ['side' => 'D'])
+													@include('referraltree::sideempty', ['side' => 'D', 'cant' => count($child4->children)])
 													<li>
-														@include('referraltree::infouser', ['data' => $child])
+														@include('referraltree::infouser', ['data' => $child5])
 													</li>
 													{{-- lado Izquierdo --}}
-													@include('referraltree::sideempty', ['side' => 'I'])
+													@include('referraltree::sideempty', ['side' => 'I', 'cant' => count($child4->children)])
 													@endforeach
 												</ul>
 												{{-- fin nivel 5 --}}
 												@endif
 											</li>
 											{{-- lado Izquierdo --}}
-											@include('referraltree::sideempty', ['side' => 'I'])
+											@include('referraltree::sideempty', ['side' => 'I', 'cant' => count($child3->children)])
 											@endforeach
 										</ul>
 										{{-- fin nivel 4 --}}
 										@endif
 									</li>
 									{{-- lado Izquierdo --}}
-									@include('referraltree::sideempty', ['side' => 'I'])
+									@include('referraltree::sideempty', ['side' => 'I', 'cant' => count($child2->children)])
 									@endforeach
 								</ul>
 								{{-- fin nivel 3 --}}
 								@endif
 							</li>
 							{{-- lado Izquierdo --}}
-							@include('referraltree::sideempty', ['side' => 'I'])
+							@include('referraltree::sideempty', ['side' => 'I', 'cant' => count($child->children)])
 							@endforeach
 						</ul>
 						{{-- fin nivel 2 --}}
 						@endif
 					</li>
 					{{-- lado Izquierdo --}}
-					@include('referraltree::sideempty', ['side' => 'I'])
+					@include('referraltree::sideempty', ['side' => 'I', 'cant' => count($base->children)])
 					@endforeach
 				</ul>
 				{{-- fin nivel 1 --}}

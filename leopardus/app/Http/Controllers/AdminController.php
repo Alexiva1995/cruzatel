@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\User;
-use App\Wallet;
 use App\Settings;
 use App\Notification;
 
 
 use App\Http\Controllers\IndexController;
-
+use App\Http\Controllers\ActivacionController;
 use App\Http\Controllers\PublicidadController;
 
 class AdminController extends Controller
@@ -41,18 +40,20 @@ class AdminController extends Controller
 
         $funcionesIndex = new IndexController();
         $publicidad = new PublicidadController();
+        $activacion = new ActivacionController();
+        $activacion->activarUsuarios(Auth::user()->ID);
         $data = [
             'activoBinario' => $funcionesIndex->statusBinary(Auth::user()->ID),
-            'progresoDiario' => 49,
+            'progresoDiario' => $publicidad->progresoDiario(Auth::user()->ID),
             'membresia' => [
                 'img' => 'https://comunidadlevelup.com/assets/imgLanding/logo.png',
-                'nombre' => 'Membresia Junior'
+                'nombre' => 'Junior'
             ],
             'puntos' => [
                 'derechos' => Auth::user()->puntosder,
                 'izquierdos' => Auth::user()->puntosizq
             ],
-            'billetera' => Auth::user()->wallet_amount,
+            'billetera' => number_format(Auth::user()->wallet_amount, 3, ',', '.'),
             'publicidades' => $publicidad->getPublicidadCompartir(Auth::user()->ID)
         ];
         view()->share('title', 'Balance General');
@@ -66,141 +67,151 @@ class AdminController extends Controller
      * @return void
      */
     public function direct_records(){
-
         // TITLE
-
         view()->share('title', 'Usuarios Directos');
-
-
-
         // DO MENU
-
         view()->share('do', collect(['name' => 'network', 'text' => 'Red de Usuarios']));
-
-
-
-            $referidosDirectos = User::where('referred_id', '=', Auth::user()->ID)
-
-                                ->orderBy('created_at', 'DESC')
-
-                                ->get();
-
-
-        return view('dashboard.directRecords')->with(compact('referidosDirectos'));
-
-    }
-
-    
-
-    public function buscardirectos(){
-
-        // TITLE
-
-        view()->share('title', 'Usuarios Directos');
-
-
-
-        // DO MENU
-
-        view()->share('do', collect(['name' => 'network', 'text' => 'Red de Usuarios']));
-
-
-
-        $primero = new Carbon($_POST["fecha1"]);
-
-        $segundo = new Carbon($_POST["fecha2"]);
-
-
-            $referidosDirectos =User::whereDate("created_at",">=",$primero)
-
-             ->whereDate("created_at","<=",$segundo)
-
-             ->where('referred_id', '=', Auth::user()->ID)
-
-             ->orderBy('created_at', 'DESC')
-
-             ->get();
-
-
-
-
-        return view('dashboard.buscardirectos')->with(compact('referidosDirectos'));
-
-    }
-
-    
-
-    public function buscarnetwork(){
-
-        // TITLE
-
-        view()->share('title', 'Usuarios en Red');
-
-        view()->share('do', collect(['name' => 'network', 'text' => 'Red de Usuarios']));
-
-
-        $allReferido = $this->generarArregloUsuario(Auth::user()->ID);
-        return view('dashboard.buscarnetwork')->with(compact('allReferido','primero','segundo'));
-
-    }
-
-    public function buscarnetworknivel(Request $request)
-    {
-                // TITLE
-                $funcionesIndex = new IndexController();
-                view()->share('title', 'Usuarios en Red');
-
-                // DO MENU
-        
-                view()->share('do', collect(['name' => 'network', 'text' => 'Red de Usuarios']));
-                
-                $allReferidotmp = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
-                $allReferido = [];
-                foreach ($allReferidotmp as $user ) {
-                    if ($request->nivel > 0) {
-                        if ($user['nivel'] == $request->nivel) {
-                            $allReferido [] = $user;
-                        }
-                    } else {
-                            $allReferido [] = $user;
-                    }
-                    
-                }
-                return view('dashboard.networkRecords')->with(compact('allReferido'));
-    }
-
-
-
-    public function network_records(){
-
-        // TITLE
-
-        view()->share('title', 'Usuarios en Red');
-
-        $funcionesIndex = new IndexController();
-
-        // DO MENU
-
-        view()->share('do', collect(['name' => 'network', 'text' => 'Red de Usuarios']));
-
-        
-        $allReferido = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
-
-
-        return view('dashboard.networkRecords')->with(compact('allReferido'));
+        $referidosDirectos = User::where('referred_id', '=', Auth::user()->ID)
+                            ->orderBy('created_at', 'DESC')
+                            ->get();
+        $data = [
+            'referidosDirectos' => $referidosDirectos,
+            'volver' => false,
+        ];
+        return view('dashboard.directRecords')->with(compact('data'));
 
     }
 
     /**
-
-     * Permite Borrar a todos los usuarios del sistema menos al admin
-
+     * Permite filtrar a los usuarios directos por fechas
      *
-
      * @return void
-
      */
+    public function buscardirectos(){
+        $primero = new Carbon($_POST["fecha1"]);
+        $segundo = new Carbon($_POST["fecha2"]);
 
+        // TITLE
+        view()->share('title', 'Usuarios Directos - Desde: '.$primero->format('d-m-Y').' Hasta: '.$segundo->format('d-m-Y'));
+
+        $referidosDirectos = User::whereDate("created_at",">=",$primero)
+                            ->whereDate("created_at","<=",$segundo)
+                            ->where('referred_id', '=', Auth::user()->ID)
+                            ->orderBy('created_at', 'DESC')
+                            ->get();
+
+        $data = [
+            'referidosDirectos' => $referidosDirectos,
+            'volver' => true,
+        ];
+        return view('dashboard.directRecords')->with(compact('data'));
+    }
+
+    /**
+     * Lleva a la vista de red
+     *
+     * @return void
+     */
+    public function network_records(){
+
+        // TITLE
+        view()->share('title', 'Usuarios en Red');
+
+        $funcionesIndex = new IndexController();
+        $allReferido = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
+        $data = [
+            'allReferido' => $allReferido,
+            'volver' => false
+        ];
+
+        return view('dashboard.networkRecords')->with(compact('data'));
+
+    }
+
+    /**
+     * Permite filtrar mis usuarios en red
+     *
+     * @return void
+     */
+    public function buscarnetwork(){
+
+        $primero = new Carbon($_POST["fecha1"]);
+        $segundo = new Carbon($_POST["fecha2"]);
+        // TITLE
+        view()->share('title', 'Usuarios en Red - Desde: '.$primero->format('d-m-Y').' Hasta: '.$segundo->format('d-m-Y'));
+        
+        $funcionesIndex = new IndexController();
+        $allReferidotmp = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
+        $allReferido = [];
+        foreach ($allReferidotmp as $referido) {
+            $fechaRegistro = new Carbon($referido->created_at);
+            if ($fechaRegistro >= $primero && $fechaRegistro <= $segundo) {
+                $allReferido [] = $referido;
+            }
+        }
+        $data = [
+            'allReferido' => $allReferido,
+            'volver' => true
+        ];
+
+        return view('dashboard.networkRecords')->with(compact('data'));
+    }
+
+    /**
+     * Lleva a la vista de los usuario binarios
+     *
+     * @return void
+     */
+    public function recordUserBinary()
+    {
+        // TITLE
+        view()->share('title', 'Usuarios Binarios');
+
+        $funcionesIndex = new IndexController();
+        $allReferido = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'position_id', 0);
+        $data = [
+            'allReferido' => $allReferido,
+            'volver' => false
+        ];
+
+        return view('dashboard.binaryRecords')->with(compact('data'));
+    }
+
+    /**
+     * Permite filtrar los usuario binarios
+     *
+     * @return void
+     */
+    public function recordUserBinaryBuscar()
+    {
+        
+        $primero = new Carbon($_POST["fecha1"]);
+        $segundo = new Carbon($_POST["fecha2"]);
+        // TITLE
+        view()->share('title', 'Usuarios Binarios - Desde: '.$primero->format('d-m-Y').' Hasta: '.$segundo->format('d-m-Y'));
+        
+        $funcionesIndex = new IndexController();
+        $allReferidotmp = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'position_id', 0);
+        $allReferido = [];
+        foreach ($allReferidotmp as $referido) {
+            $fechaRegistro = new Carbon($referido->created_at);
+            if ($fechaRegistro >= $primero && $fechaRegistro <= $segundo) {
+                $allReferido [] = $referido;
+            }
+        }
+        $data = [
+            'allReferido' => $allReferido,
+            'volver' => true
+        ];
+
+        return view('dashboard.binaryRecords')->with(compact('data'));
+    }
+
+    /**
+     * Permite Borrar a todos los usuarios del sistema menos al admin
+     *
+     * @return void
+     */
     public function deleteTodos()
 
         {
@@ -227,86 +238,94 @@ class AdminController extends Controller
 
         }
 
-    
-
+    /**
+     * Lleva a la vista de mi historia de compra
+     *
+     * @return void
+     */
     public function personal_orders(){
-          // TITLE
-          view()->share('title', 'Ordenes Personales');
+        // TITLE
+        view()->share('title', 'Ordenes Personales');
+        
         $settings = Settings::first();
-        $ordenes = DB::table($settings->prefijo_wp.'postmeta')
+        $ordenes = [];
+        $ordenestmp = DB::table($settings->prefijo_wp.'postmeta')
                     ->select('post_id')
                     ->where('meta_key', '=', '_customer_user')
                     ->where('meta_value', '=', Auth::user()->ID)
                     ->orderBy('post_id', 'DESC')
                     ->get();
-         //******************
-        //Marcar como leídas las notificaciones pendientes de Órdenes Directas
-        $notificaciones_pendientes = DB::table('notifications')
-                                        ->select('id')
-                                        ->where('user_id', '=', Auth::user()->ID)
-                                        ->where('notification_type', '=', 'OD')
-                                        ->where('status', '=', 0)
-                                        ->get();
-        foreach ($notificaciones_pendientes as $not){
-            Notification::find($not->id)->update(['status' => 1]);
+
+        $fecha = [];
+        
+        foreach ($ordenestmp as $orden) {
+            $ordenes = $this->getDetailsOrder($orden->post_id, $ordenes, 1, Auth::user()->display_name, $fecha);
         }
-        //********************
-        return view('dashboard.personalOrders')->with(compact('ordenes'));
-
-
-
-    }
-
-    
-
-    
-
-     public function buscarpersonalorder(){
-
-          // TITLE
-
-          view()->share('title', 'Ordenes Personales');
-
-        $settings = Settings::first();
-
-        $primero = new Carbon($_POST['fecha1']);
-
-        $segundo = new Carbon($_POST['fecha2']);
 
         
+        // $fecha = [
+        //     'primero' => new Carbon($_POST['fecha1']),
+        //     'segundo' => new Carbon($_POST['fecha2'])
+        // ];
 
-        $ordenes = DB::table($settings->prefijo_wp.'postmeta')
+        $data = [
+            'ordenes' => $ordenes,
+            'volver' => false
+        ];
 
+        return view('dashboard.personalOrders')->with(compact('data'));
+    }
+
+    /**
+     * Permite aplicar filtro a las compras personales
+     *
+     * @return void
+     */
+    public function buscarpersonalorder(){
+
+        // TITLE
+        $fecha = [
+            'primero' => new Carbon($_POST['fecha1']),
+            'segundo' => new Carbon($_POST['fecha2'])
+        ];
+        view()->share('title', 'Ordenes Personales - Desde: '.$fecha['primero']->format('d-m-Y').' Hasta: '.$fecha['segundo']->format('d-m-Y'));
+        
+        $settings = Settings::first();
+        $ordenes = [];
+        $ordenestmp = DB::table($settings->prefijo_wp.'postmeta')
                     ->select('post_id')
-
                     ->where('meta_key', '=', '_customer_user')
-
                     ->where('meta_value', '=', Auth::user()->ID)
-
                     ->orderBy('post_id', 'DESC')
-
                     ->get();
 
-        return view('dashboard.buscarpersonalorder')->with(compact('ordenes','primero','segundo'));
+        
+        foreach ($ordenestmp as $orden) {
+            $ordenes = $this->getDetailsOrder($orden->post_id, $ordenes, 1, Auth::user()->display_name, $fecha);
+        }
 
+        $data = [
+            'ordenes' => $ordenes,
+            'volver' => true
+        ];
 
+        return view('dashboard.personalOrders')->with(compact('data'));
 
     }
 
     /**
-     * Genera la Informacion de las ordenes de la red
-     * 
-     * @access public
-     * @param int $order_id - orden de la compra, array $array_datos - informacion de las compras, int $level - nivel del usuario
+     * Genera la informacion de la ordenes compradas
+     *
+     * @param integer $order_id
+     * @param array $array_datos
+     * @param integer $level
+     * @param string $nombre
+     * @param array $fecha
      * @return array
      */
-    public function getDetailsOrder($order_id, $array_datos, $level, $nombre, $fecha){
+    public function getDetailsOrder($order_id, $array_datos, $level, $nombre, $fecha): array
+    {
         $settings = Settings::first();
-        $numOrden = DB::table($settings->prefijo_wp.'postmeta')
-                        ->select('meta_value')
-                        ->where('post_id', '=', $order_id)
-                        ->where('meta_key', '=', '_order_key')
-                        ->first();
         $fechaOrden = DB::table($settings->prefijo_wp.'posts')
                         ->select('post_date')
                         ->where('ID', '=', $order_id)
@@ -370,12 +389,27 @@ class AdminController extends Controller
         if (!empty($fecha)) {
             $fechaCompra = new Carbon($fechaOrden->post_date);
             if ($fechaCompra->format('ymd') >= $fecha['primero']->format('ymd') && $fechaCompra->format('ymd') <= $fecha['segundo']->format('ymd')) {
-                array_push($array_datos, array($order_id, $nombreCompleto, $fechaOrden->post_date, $items, $totalOrden->meta_value, $level, $estadoEntendible) );
+                $array_datos [] = [
+                    'idorden' => $order_id,
+                    'nombre' => $nombreCompleto,
+                    'fecha_orden' => $fechaOrden->post_date,
+                    'productos' => $items, 
+                    'total' => $totalOrden->meta_value,
+                    'nivel' => $level,
+                    'estado' => $estadoEntendible
+                ];
             }
         } else {
-            array_push($array_datos, array($order_id, $nombreCompleto, $fechaOrden->post_date, $items, $totalOrden->meta_value, $level, $estadoEntendible) );
+            $array_datos [] = [
+                'idorden' => $order_id,
+                'nombre' => $nombreCompleto,
+                'fecha_orden' => $fechaOrden->post_date,
+                'productos' => $items, 
+                'total' => $totalOrden->meta_value,
+                'nivel' => $level,
+                'estado' => $estadoEntendible
+            ];
         }
-        
         
         return($array_datos);
     }
@@ -383,124 +417,79 @@ class AdminController extends Controller
 
 
     /**
-
      * Genera todas las ordenes de red de usuarios
-
      * 
-
      * @access public
-
      * @return view - vista de transacciones
-
      */
-
     public function network_orders(){
 
         view()->share('title', 'Ordenes de Red');
-
         $settings = Settings::first();
-
-        $TodosUsuarios = $this->generarArregloUsuario(Auth::user()->ID);
-
-        $compras = array();
-
+        $funcionesIndex = new IndexController();
+        $TodosUsuarios = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
+        $ordenes = [];
         $fecha = [];
-
-         if (!empty($TodosUsuarios)) {
-
-        foreach($TodosUsuarios as $user){
-
-            $ordenes = DB::table($settings->prefijo_wp.'postmeta')
-
+        if (!empty($TodosUsuarios)) {
+            foreach($TodosUsuarios as $user){
+                $compras = DB::table($settings->prefijo_wp.'postmeta')
                             ->select('post_id')
-
                             ->where('meta_key', '=', '_customer_user')
-
-                            ->where('meta_value', '=', $user['ID'])
-
+                            ->where('meta_value', '=', $user->ID)
                             ->orderBy('post_id', 'DESC')
-
                             ->get();
 
-
-
-            foreach ($ordenes as $orden){
-
-                $compras = $this->getDetailsOrder($orden->post_id, $compras, '1', $user['nombre'], $fecha);
-
+                foreach ($compras as $orden){
+                    $ordenes = $this->getDetailsOrder($orden->post_id, $ordenes, $user->nivel, $user->display_name, $fecha);
+                }
             }
-
         }
 
+        $data = [
+            'ordenes' => $ordenes,
+            'volver' => false
+        ];
+        
+        return view('dashboard.networkOrders')->with(compact('data'));
     }
 
-
-
-        //******************
-
-        //Marcar como leídas las notificaciones pendientes de Órdenes en Red
-
-        $notificaciones_pendientes = DB::table('notifications')
-
-                                        ->select('id')
-
-                                        ->where('user_id', '=', Auth::user()->ID)
-
-                                        ->where('notification_type', '=', 'OR')
-
-                                        ->where('status', '=', 0)
-
-                                        ->get();
-
-
-
-        foreach ($notificaciones_pendientes as $not){
-
-            Notification::find($not->id)->update(['status' => 1]);
-
-        }
-
-        //********************
-
-
-
-        return view('dashboard.networkOrders')->with(compact('compras'));
-
-    }
-
-    
-
-    
-
+    /**
+     * Permite aplicar filtros a las compras de mis usuarios
+     *
+     * @return void
+     */
      public function buscarnetworkorder(){
           // TITLE
-          view()->share('title', 'Ordenes de Red');
-         $TodosUsuarios = $this->generarArregloUsuario(Auth::user()->ID);
-         $settings = Settings::first();
-        $compras = array();
-
         $fecha = [
             'primero' => new Carbon($_POST['fecha1']),
             'segundo' => new Carbon($_POST['fecha2'])
         ];
-         if (!empty($TodosUsuarios)) {
-        foreach($TodosUsuarios as $user){
-
-            $ordenes = DB::table($settings->prefijo_wp.'postmeta')
+        view()->share('title', 'Ordenes en Red - Desde: '.$fecha['primero']->format('d-m-Y').' Hasta: '.$fecha['segundo']->format('d-m-Y'));
+        $settings = Settings::first();
+        $funcionesIndex = new IndexController();
+        $TodosUsuarios = $funcionesIndex->getChidrens2(Auth::user()->ID, [], 1, 'referred_id', 0);
+        $ordenes = [];
+        if (!empty($TodosUsuarios)) {
+            foreach($TodosUsuarios as $user){
+                $compras = DB::table($settings->prefijo_wp.'postmeta')
                             ->select('post_id')
                             ->where('meta_key', '=', '_customer_user')
-                            ->where('meta_value', '=', $user['ID'])
+                            ->where('meta_value', '=', $user->ID)
                             ->orderBy('post_id', 'DESC')
                             ->get();
-            foreach ($ordenes as $orden){
-                $compras = $this->getDetailsOrder($orden->post_id, $compras, '1', $user['nombre'], $fecha);
+
+                foreach ($compras as $orden){
+                    $ordenes = $this->getDetailsOrder($orden->post_id, $ordenes, $user->nivel, $user->display_name, $fecha);
+                }
             }
         }
-    }
 
+        $data = [
+            'ordenes' => $ordenes,
+            'volver' => true
+        ];
         
-
-        return view('dashboard.networkOrders')->with(compact('compras'));
+        return view('dashboard.networkOrders')->with(compact('data'));
 
     }
 
@@ -535,31 +524,6 @@ class AdminController extends Controller
 
     }
 
-    /**
-     * obtengo los puntos de mi red
-     * 
-     * @access private
-     * @param int $iduser
-     * @return integer
-     */
-    private function puntosRed($iduser)
-    {
-        // $usuario = User::find($iduser);
-        // $resul = false;
-        // $todoUsuarios = $this->generarArregloUsuario($iduser);
-        // $inicio = Carbon::now()->startOfMonth();
-        // $fin = Carbon::now()->endOfMonth();
-        $totalgrupa = 0;
-        $lado1 = 0; $lado2 = 0;
-        // foreach ($todoUsuarios as $user) {
-            $lado1 = ( $lado1 + Wallet::where('iduser', $iduser)
-                                ->get()->sum('puntosI'));
-            $lado2 = ( $lado2 + Wallet::where('iduser', $iduser)
-                                ->get()->sum('puntosD'));
-        // }
-        $totalgrupa = ($lado1 + $lado2);
-        return $totalgrupa;
-    }
 
     // /**
     //  * Permite eliminar las ordenes del postmetas

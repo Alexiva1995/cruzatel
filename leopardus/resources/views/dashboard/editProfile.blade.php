@@ -51,7 +51,28 @@
         $('.pago').attr('disabled', true)
         $('#botom4').hide('slow')
     }
+
+    const MAXIMO = 2000000; // 2MB
+
+    function checkSize(){
+        console.log("Entro");
+        var input = document.querySelector("#avatar");
+        // si no hay archivos, regresamos
+        if (input.files.length <= 0) return;
+
+        // Validamos el primer archivo únicamente
+        const archivo = input.files[0];
+        if (archivo.size > MAXIMO) {
+            const tamanioEnMb = MAXIMO / 1000000;
+            document.getElementById("error_avatar").style.display = 'block';
+            input.value = "";
+        } else {
+            document.getElementById("error_avatar").style.display = 'none';
+        }
+    }
 </script>
+
+
 @if ($errors->any())
 <div class="alert alert-danger">
     <ul>

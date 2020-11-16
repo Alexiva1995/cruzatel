@@ -51,5 +51,10 @@ return [
         'client_id'     => env('GL_ID'),
         'client_secret' => env('GL_SECRET'),
         'redirect'      => env('APP_URL') . '/oauth/google/callback',
-    ],      
+    ],
+
+    'paypal' => [
+        'client_id' => 'AcMpVkjyFijKsDLI7qwpO8hbu0St6wPV3euYlEzcWur1g6oa6PqmPoS0EMgCgzQKrfRWIbY-rpE4cMD1',
+        'secret' => 'ED--NG6xjyL_rPbjVEDNTK3DrQLNMvsaSiTKTZoj98x1C5BM4r7qunY9rVfR6q3lqrWFPACoXulrRMK3'
+    ],
 ];

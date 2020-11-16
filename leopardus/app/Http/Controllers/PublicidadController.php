@@ -8,6 +8,7 @@ use App\Publicidad;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use function GuzzleHttp\json_decode;
@@ -295,14 +296,14 @@ class PublicidadController extends Controller
         $fechatmpSemana = Carbon::now();
         $semana = $fechatmpSemana->weekOfYear;
         $year = $fechatmpSemana->year;
-        $paquete = json_decode(Auth::user()->paquete);
+        $paquete = (!empty(Auth::user()->paquete)) ? json_decode(Auth::user()->paquete) : '';
         $completado = CicloPublicidad::where([
             ['iduser', '=', Auth::user()->ID],
             ['completado', '=', 0],
             ['semana', '=', $semana],
             ['year', '=', $year]
         ])->first();
-        if (!empty($completado)) {
+        if (!empty($completado) && $paquete != '') {
             $ciclo = json_decode($completado->ciclo);
             $cant = $ciclo[$arreDia[$fechatmpSemana->dayOfWeekIso]]['cant'];
             $ciclo[$arreDia[$fechatmpSemana->dayOfWeekIso]]['cant'] = ($cant + 1);
@@ -371,5 +372,70 @@ class PublicidadController extends Controller
             $arregloGrafica = [0, 0, 0, 0, 0, 0, 0];
         }
         return $arregloGrafica;
+    }
+
+    /**
+     * Permite obtener mi progreso diario
+     *
+     * @param integer $iduser
+     * @return float
+     */
+    public function progresoDiario($iduser) : float
+    {
+        try {
+            $progreso = 0;
+            $arreDia = [
+                1 => 'Lunes',
+                2 => 'Martes',
+                3 => 'Miercoles',
+                4 => 'Jueves',
+                5 => 'Viernes',
+                6 => 'Sabado',
+                7 => 'Domingo'
+            ];
+            $fechatmpSemana = Carbon::now();
+            $semana = $fechatmpSemana->weekOfYear;
+            $year = $fechatmpSemana->year;
+            $paquete = (!empty(Auth::user()->paquete)) ? json_decode(Auth::user()->paquete) : '';
+            $completado = CicloPublicidad::where([
+                ['iduser', '=', $iduser],
+                ['completado', '=', 0],
+                ['semana', '=', $semana],
+                ['year', '=', $year]
+            ])->first();
+            if (!empty($completado) && $paquete != '') {
+                $ciclo = json_decode($completado->ciclo);
+                $dia = $arreDia[$fechatmpSemana->dayOfWeekIso];
+                $cant = $ciclo->$dia->cant;
+                if ($cant > 0) {
+                    if (!empty($paquete->limite)) {
+                        $progreso = (($cant * 100) / (int) $paquete->limite);
+                    }else{
+                        $progreso = (($cant * 100) / (int) 1);
+                    }
+                }
+            }
+            return $progreso;
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    /**
+     * Lleva a la vista de Historial de publicidad
+     *
+     * @return void
+     */
+    public function historialPublicidad()
+    {
+        // TITLE
+    view()->share('title', 'Historial de Publicidad');
+        $historial = DB::table('check_publicidad as cp')
+                        ->join('wp_users as wpu', 'cp.iduser', 'wpu.ID')
+                        ->join('publicidad as p', 'cp.idpublicidad', 'p.id')
+                        ->select('cp.*', 'wpu.display_name', 'p.titulo')
+                        ->get();
+        
+        return view('publicidad.historial', compact('historial'));
     }
 }

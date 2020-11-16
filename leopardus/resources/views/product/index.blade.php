@@ -7,13 +7,13 @@
 
 <div class="col-xs-12">
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Nuevo Producto
+        Nuevo Producto Prueba Git
     </button>
 </div>
 
 {{-- option datatable --}}
 @include('dashboard.componentView.optionDatatable')
-<div class="card">
+<div class="card bg-blue-dark text-white">
     <div class="card-content">
         <div class="card-body">
             <div class="table-responsive">
@@ -34,6 +34,9 @@
                             </th>
                             <th class="text-center">
                                 Limite de Publicación
+                            </th>
+                            <th class="text-center">
+                                Tipo
                             </th>
                             <th class="text-center">
                                 Precio
@@ -65,14 +68,19 @@
                                 {{$product->limite}}
                             </td>
                             <td class="text-center">
+                                {{$product->tipo}}
+                            </td>
+                            <td class="text-center">
                                 $ {{$product->meta_value}}
                             </td>
                             <td class="text-center">
                                 {{$product->visible}}
                             </td>
                             <td>
+                                @if ($product->tipo != 'membresia')
                                 <a class="btn btn-info" onclick="editProduct({{json_encode($product)}})"> Editar</a>
                                 <a class="btn btn-danger" href="{{route('save.delete', [$product->ID])}}"> Borrar</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -84,15 +92,20 @@
 </div>
 
 <!-- Modal Agregar -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Nuevo Producto</h4>
+    <div class="card bg-blue-light">
+        <div class="modal-content bg-blue-dark text-white">
+
+            {{-- Formulario Agregar --}}
+            
+            <div class="modal-header blue-header new">
+                <h4 class="" id="myModalLabel" > Añadir Nuevo Producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
+            
+            <div class="modal-body new">
                 <form action="{{route('save.product')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -120,6 +133,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="">Tipo (Producto o Membresia)</label>
+                        <select class="form-control" name="tipo" id="" required>
+                            <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="membresia">Membresia</option>
+                            <option value="producto">Producto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="">Imagen Producto</label>
                         <input type="file" name="imagen" class="form-control" required accept="image/jpeg, image/png">
                     </div>
@@ -128,22 +149,16 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-{{-- modal Editar --}}
-<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Editar Producto</h4>
+
+
+            {{-- formulario Editar --}}
+
+            <div class="modal-header edit" style="display: none">
+                <h4 class="modal-title" id="myModalLabelEdit">Editar Producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body edit" style="display: none">
                 <form action="{{route('edit.product')}}" method="post"  enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="idproduct" id="product">
@@ -172,6 +187,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="">Tipo (Producto o Membresia)</label>
+                        <select class="form-control" name="tipo" id="tipo" required>
+                            <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="membresia">Membresia</option>
+                            <option value="producto">Producto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="">Imagen Producto</label>
                         <input type="file" name="imagen" class="form-control" accept="image/jpeg, image/png">
                     </div>
@@ -180,12 +203,16 @@
                     </div>
                 </form>
             </div>
+
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 @endsection
 
@@ -196,10 +223,12 @@
         $('#name').val(dataProduct.post_title)
         $('#product').val(dataProduct.ID)
         $('#limite').val(dataProduct.limite)
-        $('#type_file').val(dataProduct.type)
-        $('#myModalEdit').modal('show')
         $('#nivel_pago').val(dataProduct.nivel_pago)
         $('#porcentaje').val(dataProduct.porcentaje)
         $('#visible').val(dataProduct.visible)
+        $('#tipo').val(dataProduct.tipo)
+        $('.edit').fadeIn('1000')
+        $('.new').fadeOut('1000')
+        $('#myModal').modal('show')
     }
 </script>

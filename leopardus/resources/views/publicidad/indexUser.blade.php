@@ -7,7 +7,7 @@
 
 {{-- option datatable --}}
 @include('dashboard.componentView.optionDatatable')
-<div class="card">
+<div class="card bg-blue-dark text-white">
     <div class="card-content">
         <div class="card-body">
             <div class="table-responsive">
@@ -18,7 +18,7 @@
                                 Product ID
                             </th> --}}
                             <th class="text-center">
-                                Imagen
+                                Imagen3
                             </th>
                             <th class="text-center">
                                 Nombre
@@ -49,9 +49,7 @@
                             <td>
                                 @foreach ($publicidad['social'] as $social)
                                 @if ($social == 'facebook')
-                                <button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1"
-                                    onclick="fbs_click({{json_encode($publicidad)}})">
-                                    <i class="feather icon-facebook"></i>
+                                <button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1" onclick="fbs_click({json_encode($publicidad)})">  <i class="feather icon-facebook"></i>
                                 </button>
                                 @endif
                                 @endforeach
@@ -79,7 +77,7 @@
    		window.open(url, 'sharer', 'toolbar=0,status=0,width=626,height=436')
 		data = {
 			id: publi.id,
-            social: 'facebook'
+            social: 'facebook',
             _token: '{{ csrf_token() }}'
         }
 		$.post(urlCom, data, function(){

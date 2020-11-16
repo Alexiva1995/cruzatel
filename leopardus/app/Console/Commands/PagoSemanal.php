@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\ComisionesController;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 
@@ -40,11 +41,19 @@ class PagoSemanal extends Command
      */
     public function handle()
     {
-        $users = User::where('ID', '!=', 1)->get();
-        $funcionConmision = new ComisionesController();
-        foreach ($users as $user) {
-            $funcionConmision->bonoIndividual($user->ID);
-            $funcionConmision->bonoXConsumoResidual($user->ID);
+        try {
+            $users = User::where([
+                ['ID', '!=', 1],
+                ['status', '=', 1]
+            ])->get();
+            $funcionConmision = new ComisionesController();
+            foreach ($users as $user) {
+                $funcionConmision->bonoIndividual($user->ID);
+                $funcionConmision->bonoXConsumoResidual($user->ID);
+            }
+            $this->info('Bonos Semanales Pagados Correctamente '.Carbon::now());
+        } catch (\Throwable $th) {
+            $this->info($th);
         }
     }
 }

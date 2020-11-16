@@ -42,7 +42,9 @@ class ProductController extends Controller
                         ['wpm.meta_key', '=', '_price'],
                         ['wp.post_type', '=', 'product'],
                     ])
-                    ->select('wp.ID', 'wp.post_title', 'wp.post_content', 'wpm.meta_value', 'wp.post_mime_type as type', 'wp.guid as file', 'wp.post_excerpt as imagen', 'wp.post_password as limite', 'wp.to_ping as porcentaje', 'wp.pinged as visible')
+                    ->select(
+                        'wp.ID', 'wp.post_title', 'wp.post_content', 'wpm.meta_value', 'wp.post_excerpt as imagen',
+                        'wp.post_password as limite', 'wp.pinged as visible', 'wp.to_ping as tipo')
                     ->get();
         // foreach ($result as $element) {
         //     $element->type = json_decode($element->type);
@@ -57,7 +59,8 @@ class ProductController extends Controller
             'price' => 'required',
             'name' => 'required',
             'content' => 'required',
-            'limite' => 'required'
+            'limite' => 'required',
+            'tipo' => 'required'
         ]);
 
         if ($validate) {
@@ -84,7 +87,7 @@ class ProductController extends Controller
                 'ping_status' => 'closed',
                 'post_password' => $request->limite,
                 'post_name' => strtolower($name),
-                'to_ping' => '',
+                'to_ping' => $request->tipo,
                 'pinged' => $request->visible,
                 'post_modified' => $fecha->now(),
                 'post_modified_gmt' => $fecha->now(),
@@ -175,7 +178,8 @@ class ProductController extends Controller
         $validate = $request->validate([
             'price' => 'required',
             'name' => 'required',
-            'limite' => 'required'
+            'limite' => 'required',
+            'tipo' => 'required'
         ]); 
         
         if ($validate) {
@@ -197,6 +201,7 @@ class ProductController extends Controller
                 'post_modified_gmt' => $fecha->now(),
                 'post_mime_type' => '',
                 'post_password' => $request->limite,
+                'to_ping' => $request->tipo,
                 'guid' => '',
                 'post_excerpt' => $routeLogo,
                 'pinged' => $request->visible,

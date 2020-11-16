@@ -22,8 +22,13 @@ class ComisionesController extends Controller
     if (Auth::user()->rol_id == 0) {
         // $this->bonoUnilevel(Auth::user()->ID);
     } else {
-        $this->bonoDirecto(Auth::user()->ID);
-        $this->bonoXConsumo(Auth::user()->ID);
+        try {
+            $this->bonoDirecto();
+            $this->bonoXConsumo();
+            $this->recordPoint();
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
   }
 
@@ -33,56 +38,27 @@ class ComisionesController extends Controller
    * @param integer $iduser
    * @return void
    */
-  public function recordPoint($iduser)
+  public function recordPoint()
   {
         $funciones = new IndexController;
-        $directoMatrix = User::where('position_id', $iduser)->get();
-        if ($directoMatrix->isNoEmpty()) {
-            foreach ($directoMatrix as $directo) {
-                if ($directo->ladomatrix == 'D') {
-                    $this->detalleComision($directo->ID, $directo->user_email, 'D');
-                    $arregloD = $funciones->getChidrens2($directo->ID, [], 2, 'position_id', 1);
-                    if (!empty($arregloD)) {
-                        foreach ($arregloD as $user) {
-                            if ($user->nivel < 7) {
-                                $this->detalleComision($user->ID, $user->user_email, 'D');
-                            }
-                        }
-                    }
-                }
-                if ($directo->ladomatrix == 'I') {
-                    $this->detalleComision($directo->ID, $directo->user_email, 'I');
-                    $arregloI = $funciones->getChidrens2($directo->ID, [], 2, 'position_id', 1);
-                    if (!empty($arregloI)) {
-                        foreach ($arregloI as $user) {
-                            if ($user->nivel < 7) {
-                                $this->detalleComision($user->ID, $user->user_email, 'I');
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-  /**
-   * Permite verificar el detalle de la compra 
-   *
-   * @param integer $iduser
-   * @param string $email
-   * @param string $side
-   * @return void
-   */
-  public function detalleComision($iduser, $email, $side)
-  {
-        $funciones = new IndexController;
-        $compras = $funciones->getInforShopping($iduser);
+        $compras = $funciones->getAllCompras();
         foreach ($compras as $compra) {
-            $idcomision = '10'.$compra['idcompra'];
-            if ($this->checkComision($idcomision, $iduser)) {
-                foreach ($compra['productos'] as $producto) {
-                    $this->PuntosPaquetes($iduser, $producto['precio'], $email, $side);
+            $sponsors = $funciones->getSponsor($compra['idusuario'], [], 0, 'ID', 'referred_id');
+            $referido = User::find($compra['idusuario']);
+            $side = $referido->ladomatrix;
+            foreach ($sponsors as $sponsor) {
+                if ($sponsor->ID != $compra['idusuario']) {
+                    $idcomision = '10'.$compra['idcompra'];
+                    if ($this->checkComision($idcomision, $sponsor->ID)) {
+                        foreach ($compra['productos'] as $producto) {
+                            $concepto = 'Primera Compra sin Comision';
+                            $this->guardarComision($sponsor->ID, $idcomision, $producto['precio'], $referido->user_email, $sponsor->nivel, $concepto, 'referido');
+                            $this->PuntosPaquetes($sponsor->ID, $producto['precio'], $referido->user_email, $side);
+                        }
+                    }
+                    $side = $sponsor->ladomatrix;
                 }
+
             }
         }
     }
@@ -145,58 +121,46 @@ class ComisionesController extends Controller
             $comision->tipo_comision = $tipo_comision;
             $comision->referred_email = $referred_email;
             $comision->referred_level = $referred_level;
-            $comision->status = true;
+            $comision->status = ($concepto == 'Primera Compra sin Comision')? true : false;
 
             if ($concepto != 'Primera Compra sin Comision') {
                 $user = User::find($iduser);
-                if ($user->porc_rentabilidad < $user->rentabilidad) {
-                    
-                    if ($idcompra == 51) {
-                        $user->porc_rentabilidad = ($user->porc_rentabilidad + $totalComision);
-                        if ($user->porc_rentabilidad >= $user->rentabilidad) {
-                            $user->porc_rentabilidad = $user->rentabilidad;
-                        }
-                    }
-                    $user->wallet_amount = ($user->wallet_amount + $dinero);
-                    $user->save();
-                    $datos = [
-                        'iduser' => $iduser,
-                        'usuario' => $user->display_name,
-                        'descripcion' => $concepto,
-                        'puntos' => 0,
-                        'puntosI' => 0,
-                        'puntosD' => 0,
-                        'descuento' => 0,
-                        'debito' => $dinero,
-                        'tantechcoin' => 0,
-                        'credito' => 0,
-                        'balance' => $user->wallet_amount,
-                        'tipotransacion' => 2
-                    ];
-                    $funciones = new WalletController;
-                    $funciones->saveWallet($datos);
-                }else{
-                    if ($user->ID == 1) {
-                        $user->wallet_amount = ($user->wallet_amount + $dinero);
-                        $user->save();
-                        $datos = [
-                            'iduser' => $iduser,
-                            'usuario' => $user->display_name,
-                            'descripcion' => $concepto,
-                            'puntos' => 0,
-                            'puntosI' => 0,
-                            'puntosD' => 0,
-                            'descuento' => 0,
-                            'debito' => $dinero,
-                            'tantechcoin' => 0,
-                            'credito' => 0,
-                            'balance' => $user->wallet_amount,
-                            'tipotransacion' => 2
-                        ];
-                        $funciones = new WalletController;
-                        $funciones->saveWallet($datos);
-                    }
-                }
+                $user->wallet_amount = ($user->wallet_amount + $dinero);
+                $user->save();
+                $datos = [
+                    'iduser' => $iduser,
+                    'usuario' => $user->display_name,
+                    'descripcion' => $concepto,
+                    'puntos' => 0,
+                    'puntosI' => 0,
+                    'puntosD' => 0,
+                    'descuento' => 0,
+                    'debito' => $dinero,
+                    'tantechcoin' => 0,
+                    'credito' => 0,
+                    'balance' => $user->wallet_amount,
+                    'tipotransacion' => 2
+                ];
+                $funciones = new WalletController;
+                $funciones->saveWallet($datos);
+                // $user->wallet_amount = ($user->wallet_amount + $dinero);
+                // $user->save();
+                // $datos = [
+                //     'iduser' => $iduser,
+                //     'usuario' => $user->display_name,
+                //     'descripcion' => $concepto,
+                //     'puntos' => 0,
+                //     'puntosI' => 0,
+                //     'puntosD' => 0,
+                //     'descuento' => 0,
+                //     'debito' => $dinero,
+                //     'tantechcoin' => 0,
+                //     'credito' => 0,
+                //     'balance' => $user->wallet_amount,
+                //     'tipotransacion' => 2
+                // ];
+                // $funciones = new WalletController;
+                // $funciones->saveWallet($datos);
             }
             $comision->save();
   }
@@ -207,25 +171,24 @@ class ComisionesController extends Controller
   /**
    * Permite pagar el pono unilevel
    *
-   * @param integer $iduser
    * @return void
    */
-    public function bonoDirecto($iduser)
+    public function bonoDirecto()
     {
-        $user = User::find($iduser);
         $funciones = new IndexController;
-        $TodosUsuarios = $funciones->getChidrens2($iduser, [], 1, 'referred_id', 1);
-        foreach ($TodosUsuarios as $user) {
-            if ($user->nivel == 1) {
-            $compras = $funciones->getInforShopping($user->ID);
-                foreach ($compras as $compra) {
+        $compras = $funciones->getAllCompras();
+        foreach ($compras as $compra) {
+            $sponsors = $funciones->getSponsor($compra['idusuario'], [], 0, 'ID', 'referred_id');
+            foreach ($sponsors as $sponsor) {
+                if ($sponsor->nivel == 1) {
                     $idcomision = '34'.$compra['idcompra'];
-                    if ($this->checkComision($idcomision, $iduser)) {
+                    if ($this->checkComision($idcomision, $sponsor->ID)) {
+                        $referido = User::find($compra['idusuario']);
                         foreach ($compra['productos'] as $producto) {
                             $porcent = 0.03;
                             if ($porcent > 0 && $producto['precio'] > 0) {
                                 $pagar = ($producto['precio'] * $porcent);
-                                $this->guardarComision($iduser, $idcomision, $pagar, $user->email, $user->nivel, 'Bono Indicacion Directa, usuario '.$user->display_name.' por la orden '.$compra['idcompra'], 'referido');
+                                $this->guardarComision($sponsor->ID, $idcomision, $pagar, $referido->user_email, $sponsor->nivel, 'Bono Indicacion Directa, usuario '.$referido->display_name.' por la orden '.$compra['idcompra'], 'referido'); 
                             }
                         }
                     }
@@ -273,20 +236,23 @@ class ComisionesController extends Controller
      * @param integer $iduser
      * @return void
      */
-    public function bonoXConsumo($iduser)
+    public function bonoXConsumo()
     {
         $funcionesIndex = new IndexController();
-        $users = $funcionesIndex->getChidrens2($iduser, [], 1, 'referred_id', 0);
-        foreach ($users as $user) {
-            if ($user->nivel < 7) {
-                $compras = $funcionesIndex->getInforShopping($user->ID);
-                foreach ($compras as $compra) {
-                    $idcomision = '60'.$compra['idcompra'];
-                    if ($this->checkComision($idcomision, $iduser)) {
-                        if ($compra['total'] >= 50) {
-                            $bono = ($compra['total'] * 0.05);
-                            $concepto = 'Bono por consumo por el usuario '.$user->display_name.' por la orden '.$compra['idcompra'];
-                            $this->guardarComision($iduser, $idcomision, $bono, $user->email, $user->nivel, $concepto, 'bono');
+        $compras = $funcionesIndex->getAllCompras();
+        foreach ($compras as $compra) {
+            if ($compra['membresia']) {
+                $sponsors = $funcionesIndex->getSponsor($compra['idusuario'], [], 0, 'ID', 'referred_id');
+                foreach ($sponsors as $sponsor ) {
+                    if ($sponsor->nivel > 0 && $sponsor->nivel < 7) {
+                        $idcomision = '60'.$compra['idcompra'];
+                        if ($this->checkComision($idcomision, $sponsor->ID)) {
+                            if ($compra['total'] >= 50) {
+                                $referido = User::find($compra['idusuario']);
+                                $bono = ($compra['total'] * 0.05);
+                                $concepto = 'Bono por consumo por el usuario '.$referido->display_name.' por la orden '.$compra['idcompra'];
+                                $this->guardarComision($sponsor->ID, $idcomision, $bono, $referido->user_email, $sponsor->nivel, $concepto, 'bono');
+                            }
                         }
                     }
                 }
@@ -306,7 +272,7 @@ class ComisionesController extends Controller
         $semana = $fechatmpSemana->weekOfYear;
         $year = $fechatmpSemana->year;
         $completado = CicloPublicidad::where([
-            ['iduser', '=', Auth::user()->ID],
+            ['iduser', '=', $iduser],
             ['completado', '=', 1],
             ['semana', '=', $semana],
             ['year', '=', $year]
@@ -314,7 +280,7 @@ class ComisionesController extends Controller
         if (!empty($completado)) {
             $user = User::find($iduser);
             $bono = 0;
-            $paquete = json_decode(Auth::user()->paquete);
+            $paquete = json_decode($user->paquete);
             $idcomision = '40'.$completado->id;
             if (stripos($paquete->nombre, 'Junior') !== false) {
                 $bono == 10;

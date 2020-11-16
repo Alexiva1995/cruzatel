@@ -1,99 +1,25 @@
-<div class="footer-alt pt-4 pb-4 {{($landing == 3) ? '' : 'mt-5'}}">
-
-    <div class="menor">
-
-        <div class="row">
-
-            <div class="col-12 col-sm-5">
-
-                <div class="col text-center">
-
-                    <img src="{{asset('assets/imgLanding/logo.png')}}" alt="" height="70px">
-
+<div class="col-12 p-0 mt-5 pt-3">
+    {{-- <div class="card">
+        <img src="{{asset('assets/imgLanding/trazado73.svg')}}" class="card-img">
+        <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-blue-dark dark-font text-center">Lorem ipsu dolor</h3>
+                        <p class="text-center text-white">
+                            
+                        </p>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <form class="form-inline d-flex justify-content-center">
+                            <input type="email" class="form-control mb-2 mr-sm-2 rounded-alt" placeholder="Ingresa tu email">
+                          
+                            <button type="submit" class="btn btn-primary mb-2 rounded-alt bg-blue-alt pl-4 pr-4">Enviar</button>
+                          </form>
+                    </div>
                 </div>
-
-            </div>
-
-            <div class="col-12 col-sm-7">
-
-                <div class="row ">
-
-                    <div class="col">
-
-                        <h6>
-
-                            <a class="text-white text-small2" href="{{route('faq')}}">FAQ</a>
-
-                        </h6>
-
-                        <h6>
-
-                            <a class="text-white text-small2" href="{{route('legal', ['tipo' => 'documentacion'])}}">Documentación</a>
-
-                        </h6>
-
-                        <h6>
-
-                            <a class="text-white text-small2" href="{{route('legal', ['tipo' => 'privacidad'])}}">Privacidad</a>
-
-                        </h6>
-
-                    </div>
-
-                    <div class="col">
-
-                        <h6>
-
-                            <a class="text-white text-small2" href="{{route('legal', ['tipo' => 'cookies'])}}">Cookies</a>
-
-                        </h6>
-
-                        <h6>
-
-                            <a class="text-white text-small2" href="{{route('legal', ['tipo' => 'avisolegal'])}}">Aviso Legal</a>
-
-                        </h6>
-
-                    </div>
-
-                    <div class="col text-white">
-
-                        <h6 class="text-small2">
-
-                            Síguenos:
-
-                        </h6>
-
-                        <h5>
-
-                            <a href="https://www.facebook.com/Level.upclubuppers/">
-
-                                <img src="{{asset('assets/imgLanding/icono_fb-09.svg')}}" alt="" height="30">
-
-                            </a>
-
-                            <a href="https://www.instagram.com/level.upclub/">
-
-                                <img src="{{asset('assets/imgLanding/icono_instagram-09.svg')}}" alt="" height="30">
-
-                            </a>
-
-                            <a href="http://">
-
-                                <img src="{{asset('assets/imgLanding/icono_telegram-09.svg')}}" alt="" height="30">
-
-                            </a>
-
-                        </h5>
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
-
-    </div>
-
+    </div> --}}
+            <div class="col-12 text-center pt-3 pb-3 bg-pink-alt text-white">
+                &copy; {{date('Y')}} Cruzatel - Todos los derechos reservados - Desarrollado por <a class="text-white" href="https://valdusoft.com/">Valdusoft</a>
+            </div>
 </div>

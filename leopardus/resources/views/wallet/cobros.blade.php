@@ -5,21 +5,30 @@
 @include('dashboard.componentView.optionDatatable')
 
 {{-- formulario de fecha  --}}
-@include('dashboard.componentView.formSearch', ['route' => 'wallet-cobros-fechas', 'name1' => 'primero', 'name2' =>
-'segundo', 'text1' => 'Fecha Desde', 'text1' => 'Fecha Hasta', 'type' => 'date'])
+@include('dashboard.componentView.formSearch', [
+	'route' => 'wallet-cobros-fechas', 
+	'name1' => 'primero',
+	'name2' =>'segundo',
+	'text1' =>
+	'Fecha Desde',
+	'text2' =>
+	'Fecha Hasta',
+	'type' => 'date',
+	'volver' => $data['volver'],
+	'form' => ''
+])
 
 
-<div class="card">
+<div class="card bg-blue-dark text-white">
 	<div class="card-content">
 		<div class="card-body">
 			<div class="table-responsive">
 				<table id="mytable" class="table zero-configuration">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>#</th>
 							<th>Usuario</th>
 							<th>Descripcion</th>
-							<th>Tantechcoins</th>
 							<th>Cash</th>
 							<th>Credito</th>
 							<th>Balance</th>
@@ -28,12 +37,11 @@
 					</thead>
 
 					<tbody>
-						@foreach ($billetera as $bille)
-						<tr>
+						@foreach ($data['billetera'] as $bille)
+						<tr class="text-center">
 							<td>{{ $bille->id }}</td>
 							<td>{{ $bille->usuario }}</td>
 							<td>{{ $bille->descripcion }}</td>
-							<td>{{ $bille->puntos }}</td>
 							<td>
 								@if ($moneda->mostrar_a_d)
 								{{$moneda->simbolo}} {{ $bille->debito }}

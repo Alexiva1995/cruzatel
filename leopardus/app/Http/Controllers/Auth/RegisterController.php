@@ -193,11 +193,11 @@ class RegisterController extends Controller
 
         $validatedData = $data->validate([
 
-            'user_email' => 'required|string|email|max:100|unique:'.$settings->prefijo_wp.'users|confirmed',
+            'user_email' => 'required|string|email|max:100|unique:'.$settings->prefijo_wp.'users',
+
+            'user_login' => 'required|string',
 
             'password' => 'required|string|min:6|confirmed',
-
-            'terms' => 'required'
 
         ]);
 
@@ -282,6 +282,8 @@ class RegisterController extends Controller
         $user = User::create([
 
             'user_email' => $data['user_email'],
+
+            'user_login' => $data['user_login'],
 
             'user_status' => '0',
 
