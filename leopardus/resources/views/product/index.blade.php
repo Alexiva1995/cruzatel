@@ -7,16 +7,9 @@
 
 <div class="col-xs-12">
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Nuevo Producto XXXX
+        Nuevo Producto Prueba Git
     </button>
 </div>
-
-<div class="col-xs-12">
-    <button class="btn btn-primary" data-toggle="modal" data-target="#mymodalYYYY">
-        Nuevo Producto YYYY
-    </button>
-</div>
-
 
 {{-- option datatable --}}
 @include('dashboard.componentView.optionDatatable')
