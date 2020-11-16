@@ -188,7 +188,7 @@ class ComisionesController extends Controller
                             $porcent = 0.03;
                             if ($porcent > 0 && $producto['precio'] > 0) {
                                 $pagar = ($producto['precio'] * $porcent);
-                                $this->guardarComision($sponsor->ID, $idcomision, $pagar, $referido->user_email, $sponsor->nivel, 'Bono Indicacion Directa, usuario '.$referido->display_name.' por la orden '.$compra['idcompra'], 'referido');
+                                $this->guardarComision($sponsor->ID, $idcomision, $pagar, $referido->user_email, $sponsor->nivel, 'Bono Indicacion Directa, usuario '.$referido->display_name.' por la orden '.$compra['idcompra'], 'referido'); 
                             }
                         }
                     }
