@@ -360,7 +360,7 @@ class IndexController extends Controller
      * @return void
      */
 
-    public function getShoppingTotal($shop_id): string
+    public function getShoppingTotal($shop_id)
     {
         $settings = Settings::first();
 		$totalCompra = DB::table($settings->prefijo_wp.'postmeta')
