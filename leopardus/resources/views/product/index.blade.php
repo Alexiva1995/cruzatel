@@ -1,15 +1,5 @@
 @extends('layouts.dashboard')
 
-@push('page_css')
-<style>
-   
-   #number {
-        width: 3em;
-    }
-
-</style>
-@endpush
-
 @section('content')
 {{-- alertas --}}
 @include('dashboard.componentView.alert')
@@ -132,8 +122,9 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="">Precio</label>
-                        <input type="number" step="0.01" data-decimals="2" class="form-control" name="price" placeholder="100.00" >
+                        <label for="">Precio $$$</label>
+                        <input data-prefix="$" type="number" step="0.01" data-decimals="2" class="form-control" name="price" placeholder="100.00" >
+
                     </div>
                     <div class="form-group">
                         <label for="">Visible en la tienda</label>
