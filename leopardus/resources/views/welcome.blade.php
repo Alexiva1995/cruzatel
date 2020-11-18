@@ -91,7 +91,7 @@
                     <a href="{{ route('login') }}">Iniciar sesión</a>
                 @endguest
                 @if(! $isInstalled )
-                        <a style="color:#3498db" href="{{ route('install.index') }}">Instalar</a>
+                        <a style="color:#3498db" href="{{ route('install.index') }}">Instalar 2 </a>
                 @endif
             </div>
 
