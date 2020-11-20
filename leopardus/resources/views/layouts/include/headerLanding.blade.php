@@ -7,7 +7,7 @@
 
     <a class="navbar-brand" href="javascript:;" onclick="moveDiv('#header')">
 
-        <img src="{{asset('assets/imgLanding/logo-cruzate.png')}}" height="90" alt="">
+        <img src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
 
     </a>
 
@@ -21,12 +21,12 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 
-      {{--  <ul class="navbar-nav" style="margin-right: 100px">
-             <li class="nav-item active">
+       <ul class="navbar-nav" style="margin-right: 100px">
+             {{-- <li class="nav-item active">
                 <a class="nav-link d-flex text-small text-white" href="javascript:;" onclick="moveDiv('#quienessomos')">
                     <div class="point"></div> Filosofía <span class="sr-only">(current)</span>
                 </a>
-            </li> 
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link d-flex text-small text-white" href="javascript:;">
                     Nosotros
@@ -51,7 +51,7 @@
                 </a>
             </li>
 
-        </ul>--}}
+        </ul>
 
     </div>
 
