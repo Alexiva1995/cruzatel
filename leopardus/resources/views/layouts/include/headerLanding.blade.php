@@ -1,11 +1,24 @@
 {{-- Menu --}}
 
+<style>
+    #imagen{
+    position: absolute;
+    width: 100px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+</style>
+
 {{-- <nav class="navbar navbar-expand-lg {{($landing == 0) ? 'fixed-top' : 'sticky-top'}} navbar-light" id="menu"> --}}
 <nav class="navbar navbar-expand-lg sticky-top navbar-light" id="menu">
 
     <a class="navbar-brand" href="javascript:;" onclick="moveDiv('#header')">
 
-        <img src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
+        <img id="imagen" src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
 
     </a>
 
