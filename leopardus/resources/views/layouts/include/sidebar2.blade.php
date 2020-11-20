@@ -51,18 +51,18 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu menu-color">
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{route('autenticacion.new-register').'?referred_id='.Auth::user()->ID}}" class="nav-link text-white">
                         <i class="feather icon-circle"></i>
                         <span class="title">Nuevo Usuario</span>
                     </a>
-                </li>
-                <li class="nav-item">
+                </li>--}}
+                {{-- <li class="nav-item">
                     <a href="{{route('referraltree', ['tree'])}}" class="nav-link text-white">
                         <i class="feather icon-circle"></i>
                         <span class="title">Árbol Directo</span>
                     </a>
-                </li>
+                </li>--}}
                 <li class="nav-item">
                     <a href="{{route('referraltree', ['matriz'])}}" class="nav-link text-white">
                         <i class="feather icon-circle"></i>
@@ -75,7 +75,7 @@
                         <span class="title">Registros Directos</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{url('mioficina/admin/network/networkrecords')}}" class="nav-link text-white">
                         <i class="feather icon-circle"></i>
                         <span class="title">Registros en Red</span>
@@ -86,7 +86,7 @@
                         <i class="feather icon-circle"></i>
                         <span class="title">Usuarios Binarios</span>
                     </a>
-                </li>
+                </li>--}}
             </ul>
         </li>
         {{-- FIN GENEALOGIA --}}
@@ -104,12 +104,12 @@
                         <span class="title">E-wallet</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{--<li class="nav-item">
                     <a href="{{url('mioficina/admin/wallet/cobros')}}" class="nav-link text-white">
                         <i class="feather icon-circle"></i>
                         <span class="title">Historial de Retiro</span>
                     </a>
-                </li>
+                </li>--}}
             </ul>
         </li>
         {{-- FIN BILLETERA --}}
