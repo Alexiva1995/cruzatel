@@ -34,9 +34,7 @@
 
 <div class="row menu-color text-white">
 
-    @include('marketplace.component.filtro')
-
-    @include('marketplace.component.tienda')
+        @include('marketplace.component.tienda')
 </div>
 
 

@@ -53,7 +53,7 @@
                 <div class="col-12 p-0">
                     <div class="card rounded-0 mb-0 px-2 card-alt">
                         <div class="card-header pb-1">
-                            <div class="card-title inicio">
+                            <div class="card-title inicio" style="width: auto; margin: auto auto;">
                                 <h4 class="mb-0 text-white">Iniciar sesión</h4>
                             </div>
                             <div class="card-title recuperar" style="display:none;">
@@ -87,36 +87,31 @@
                                         </div>
                                         <label for="user-password" class="text-white">Contraseña</label>
                                     </fieldset>
-                                    <div class="form-group d-flex justify-content-between align-items-center">
-                                        <div class="text-left">
+                                    
+                                        <div class="text-center" >
                                             <fieldset class="checkbox">
-                                                <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <div class="vs-checkbox-con vs-checkbox-primary" >
                                                     <input type="checkbox">
                                                     <span class="vs-checkbox">
                                                         <span class="vs-checkbox--check">
-                                                            <i class="vs-icon feather icon-check"></i>
+                                                            <i class="vs-icon feather icon-check"> </i>
                                                         </span>
                                                     </span>
-                                                    <span class="text-white">Recordar</span>
+                                                    <span class="text-white" >   Recordar</span>
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <div class="text-right">
-                                            <a class="card-link text-white" onclick="toggle()" href="javascript:;">
-                                                ¿Olvidaste tu Clave?
-                                            </a>
-                                        </div>
+
+                                    <div class="text-center">
+                                        <a class="card-link text-white" onclick="toggle()" href="javascript:;">
+                                         ¿Olvidaste tu Clave?
+                                         </a>
                                     </div>
+
                                     {{-- <a href="{{route('autenticacion.new-register')}}"
                                         class="btn btn-outline-primary float-left btn-inline">Registro</a> --}}
                                     <button type="submit" class="btn btn-primary btn-block btn-inline btn-alt mt-4">Session</button>
-                                    <div class="mt-3">
-                                        <h6 class="text-white text-center">
-                                            <small>
-                                                ¿Aun no tienes una cuenta? <strong><a href="{{route('autenticacion.new-register')}}" class="text-white">Crear Una</a></strong>
-                                            </small>
-                                        </h6>
-                                    </div>
+                                    
                                 </form>
                                 {{-- reset password --}}
                                 <form class="forget-form recuperar" action="{{route('autenticacion.clave')}}"

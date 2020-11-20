@@ -12,7 +12,7 @@
                 @foreach ($productos as $product)
                 <div class="card bg-blue-dark" style="width: 20rem;">
                     <!--Imgen del producto-->
-                    <img class="card-img-top" src="{{$product->imagen}}" alt="Card image cap" width="250" height="250">
+                    <img class="card-img-top" src="{{$product->imagen}}" alt="Card image cap">
                     <!--Precio del producto-->
                     <h6 class="item-price text-white text-right">
                         <strong> $ {{$product->meta_value}}</strong>
