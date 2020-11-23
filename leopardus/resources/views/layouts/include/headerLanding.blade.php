@@ -1,5 +1,7 @@
 {{-- Menu --}}
 
+
+
 {{-- <nav class="navbar navbar-expand-lg {{($landing == 0) ? 'fixed-top' : 'sticky-top'}} navbar-light" id="menu"> --}}
 <nav class="navbar navbar-expand-lg sticky-top navbar-light" id="menu">
 
@@ -19,8 +21,8 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 
-        <ul class="navbar-nav" style="margin-right: 100px">
-            {{-- <li class="nav-item active">
+       <ul class="navbar-nav" style="margin-right: 100px">
+             {{-- <li class="nav-item active">
                 <a class="nav-link d-flex text-small text-white" href="javascript:;" onclick="moveDiv('#quienessomos')">
                     <div class="point"></div> Filosofía <span class="sr-only">(current)</span>
                 </a>

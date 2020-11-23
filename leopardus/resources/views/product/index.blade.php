@@ -7,7 +7,7 @@
 
 <div class="col-xs-12">
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Nuevo Producto Prueba Git
+        Agregar Nuevo Producto
     </button>
 </div>
 
@@ -118,11 +118,13 @@
                     </div>
                     <div class="form-group">
                         <label for="">Limite de Publiciacion</label>
-                        <input type="text" name="limite" class="form-control" required>
+                        <input type="number" min="0" max="1000" name="limite" placeholder="5" class="form-control" required>
+                        
                     </div>
                     <div class="form-group">
-                        <label for="">Precio</label>
-                        <input type="text" class="form-control" name="price">
+                        <label for="">Precio $$$</label>
+                        <input data-prefix="$" type="number" step="0.01" data-decimals="2" class="form-control" name="price" placeholder="100.00" >
+
                     </div>
                     <div class="form-group">
                         <label for="">Visible en la tienda</label>

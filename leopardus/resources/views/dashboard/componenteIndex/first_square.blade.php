@@ -63,10 +63,10 @@
                 <div
                     class="card h-100 mt-1 mb-1 d-flex flex-column align-items-center justify-content-center bg-blue-dark">
                     <div class="card-header d-flex flex-column align-items-center justify-content-center pb-2">
-                        <div class="avatar p-50 m-0">
+                        <div class="avatar">
                             <div class="avatar-content avatar-content-alt">
-                                <img class="img-fluid" src="{{$data['membresia']['img']}}" alt="img placeholder"
-                                    height="">
+                                <img class="img" src="{{asset('assets/img//')}}{{'/'}}{{$data['membresia']['nombre']}}{{'.png'}}" alt="img placeholder"
+                                    height="90px">
                             </div>
                         </div>
                         <p class="mb-0 mt-1 text-white">Membresia</p>
