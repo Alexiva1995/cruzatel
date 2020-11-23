@@ -41,10 +41,12 @@
     }
 </style>
 
-
 <section class="row flexbox-container">
-    <div class="col-xl-8 col-11 d-flex justify-content-center">
-        <div class="card bg-authentication rounded-0 mb-0 card-alt card-alt col-8 col-sm-6 col-lg-5">
+    <div class="col-xl-8 col-11 text-center">
+        <div class="col-12 mb-3">
+            <img id="imagen" src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
+        </div>
+        <div class="card bg-authentication rounded-0 mb-0 card-alt card-alt col-8 col-sm-6 col-lg-5 m-auto">
             <div class="row m-0">
                 {{-- <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
                     <img style="max-width: 250px;"src="{{asset('assets/imgLanding/logo2.png')}}" alt="branding logo" width="300">

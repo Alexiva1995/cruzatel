@@ -42,14 +42,14 @@
             background-size: cover;
         }
 
-        #imagen{
+        /* #imagen{
             position: absolute;
             top: 150;
             left: 0;
             right: 0;
             bottom: 0;
             margin: auto;
-        }
+        } */
 
     </style>
 
@@ -65,7 +65,7 @@
 
             <a class="navbar-brand" href="javascript:;" onclick="moveDiv('#header')">
         
-                <img id="imagen" src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
+                {{-- <img id="imagen" src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt=""> --}}
         
             </a>
         
