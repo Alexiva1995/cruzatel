@@ -4,7 +4,7 @@
             <li class="nav-item mr-auto">
                 <a class="navbar-brand" href="" href="" style="width: 100%;margin: 0px; margin-top: 1rem;">
                     <div class="brand-logo2" style="width: 100%;">
-                        <img src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" style="width: 100%;">
+                        <img src="{{asset('assets/imgLanding/logo-cruzatel2.png')}}" style="width: 100%;">
                     </div>
                 </a>
             </li>
