@@ -12,14 +12,16 @@
 @endphp
 
 <style>
+
+    .m-0 {
+    margin: 4 !important;
+}
     .card-alt{
-        background: #3A58A2 0% 0% no-repeat padding-box !important;
         border-radius: 25px !important;
-        opacity: 1 !important;
+        opacity: 0.9 !important;
     }
 
     .input-alt{
-        background: #FFFFFF 0% 0% no-repeat padding-box;
         border-radius: 25px;
         opacity: 1;
         text-align: left;
@@ -28,7 +30,7 @@
     }
 
     .bg-white{
-        background: #ffffff !important;
+        opacity: 0.9 !important;
     }
 
     .btn-alt{
@@ -44,20 +46,21 @@
 
 <section class="row flexbox-container">
     <div class="col-xl-8 col-11 d-flex justify-content-center">
-        <div class="card bg-authentication rounded-0 mb-0 card-alt card-alt col-8 col-sm-6 col-lg-5">
-            <div class="row m-0">
-                {{-- <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                    <img style="max-width: 250px;"src="{{asset('assets/imgLanding/logo2.png')}}" alt="branding logo" width="300">
-                    <img src="{{asset('app-assets/images/pages/login.png')}}" alt="branding logo">
-                </div> --}}
+        <div class="card rounded-0 mb-0 card-alt card-alt col-8 col-sm-6 col-lg-5">
+            <div class="row m-0" style="justify-content: center;">
+                <div class="col-lg-6 d-lg-block m-0 text-center align-self-center px-1 py-0">
+                    <img style="max-width: 150px; margin-top: 20px;" src="{{asset('assets/imgLanding/logo-cruzatel2.png')}}" alt="branding logo" width="300">
+                </div> 
                 <div class="col-12 p-0">
                     <div class="card rounded-0 mb-0 px-2 card-alt">
+
                         <div class="card-header pb-1">
-                            <div class="card-title inicio">
-                                <h4 class="mb-0 text-white">Iniciar sesión</h4>
+                            
+                            <div class="card-title inicio" style="width: auto; margin: auto auto;">
+                                <h4 class="mb-0">Iniciar sesión</h4>
                             </div>
                             <div class="card-title recuperar" style="display:none;">
-                                <h4 class="mb-0 text-white">Recuperar tu clave</h4>
+                                <h4 class="mb-0 ">Recuperar tu clave</h4>
                             </div>
                         </div>
                         {{-- alertas --}}
@@ -76,7 +79,7 @@
                                         <div class="form-control-position">
                                             <i class="feather icon-user"></i>
                                         </div>
-                                        <label for="user-name" class="text-white">Usuario</label>
+                                        <label for="user-name" >Usuario</label>
                                     </fieldset>
 
                                     <fieldset class="form-label-group position-relative has-icon-left mb-0">
@@ -85,38 +88,33 @@
                                         <div class="form-control-position">
                                             <i class="feather icon-lock"></i>
                                         </div>
-                                        <label for="user-password" class="text-white">Contraseña</label>
+                                        <label for="user-password">Contraseña</label>
                                     </fieldset>
-                                    <div class="form-group d-flex justify-content-between align-items-center">
-                                        <div class="text-left">
+                                    
+                                        <div class="text-center" >
                                             <fieldset class="checkbox">
-                                                <div class="vs-checkbox-con vs-checkbox-primary">
+                                                <div class="vs-checkbox-con vs-checkbox-primary" >
                                                     <input type="checkbox">
                                                     <span class="vs-checkbox">
                                                         <span class="vs-checkbox--check">
-                                                            <i class="vs-icon feather icon-check"></i>
+                                                            <i class="vs-icon feather icon-check" style="font-size: 11px"> </i>
                                                         </span>
                                                     </span>
-                                                    <span class="text-white">Recordar</span>
+                                                    <span style="font-size: 11px"> Recordar</span>
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <div class="text-right">
-                                            <a class="card-link text-white" onclick="toggle()" href="javascript:;">
-                                                ¿Olvidaste tu Clave?
-                                            </a>
-                                        </div>
+
+                                    <div class="text-right">
+                                        <a class="card-link" onclick="toggle()" href="javascript:;" style="font-size: 11px">
+                                         ¿Olvidaste tu Clave?
+                                         </a>
                                     </div>
+
                                     {{-- <a href="{{route('autenticacion.new-register')}}"
                                         class="btn btn-outline-primary float-left btn-inline">Registro</a> --}}
                                     <button type="submit" class="btn btn-primary btn-block btn-inline btn-alt mt-4">Session</button>
-                                    <div class="mt-3">
-                                        <h6 class="text-white text-center">
-                                            <small>
-                                                ¿Aun no tienes una cuenta? <strong><a href="{{route('autenticacion.new-register')}}" class="text-white">Crear Una</a></strong>
-                                            </small>
-                                        </h6>
-                                    </div>
+                                    
                                 </form>
                                 {{-- reset password --}}
                                 <form class="forget-form recuperar" action="{{route('autenticacion.clave')}}"

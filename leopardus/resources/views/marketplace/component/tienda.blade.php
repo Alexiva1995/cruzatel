@@ -1,8 +1,9 @@
-<div class="col-lg-8 col-md-4 col-12 mt-4 menu-color text-white  ">
-    <?php $resultados = count($productos) ; echo "$resultados ";?>
-    Resultados coincicen con la búsqueda
+<div class="menu-color text-white  ">
+    
     <div class="card  h-100 mt-1 mb-1 menu-color text-white">
         <!--Menu color-->
+        <?php $resultados = count($productos) ; echo "$resultados ";?>
+    Resultados coincicen con la búsqueda
         <input type="search" class="form-control  text-white" aria-controls="mytable" placeholder="Buscar">
 
         <section id="ecommerce-products">
