@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow menu-color" data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow menu-color" data-scroll-to-active="true" style="overflow-y: auto">
 
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
