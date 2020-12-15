@@ -29,11 +29,13 @@
     {{-- header  --}}
     @include('layouts.include.header')
 
-    {{-- menu --}}
+    @auth
+        {{-- menu --}}
     @if (Auth::user()->rol_id == 0)
-        @include('layouts.include.sidebar')
-    @else
-        @include('layouts.include.sidebar2')
+    @include('layouts.include.sidebar')
+@else
+    @include('layouts.include.sidebar2')
+@endauth
     @endauth
 
     {{-- contenido --}}

@@ -42,39 +42,42 @@
           {{-- notificaciones --}}
           @include('layouts.include.notifications')
 
+          @auth
           <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#"
-              data-toggle="dropdown">
-              <div class="user-nav d-sm-flex d-none">
-                <span class="user-name text-bold-600 text-white">
-                  {{ Auth::user()->display_name }}
-                </span>
-                <span class="user-status text-white">
-                  @if (Auth::user()->status == 1)
-                  Activo
-                  @else
-                  Inactivo
-                  @endif
-                </span>
-              </div>
-              <span>
-                <img class="round" src="{{ asset('avatar/'.Auth::user()->avatar) }}" alt="avatar" height="40"
-                  width="40">
+            data-toggle="dropdown">
+            <div class="user-nav d-sm-flex d-none">
+              <span class="user-name text-bold-600 text-white">
+                {{ Auth::user()->display_name }}
               </span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right menu-color">
-              <a class="dropdown-item text-white" href="{{ route('admin.user.edit') }}">
-                <i class="feather icon-user"></i>
-                Editar Perfil
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-white" href="{{ route('logout') }}"
-                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                <i class="feather icon-power"></i> Salir </a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-              </form>
+              <span class="user-status text-white">
+                @if (Auth::user()->status == 1)
+                Activo
+                @else
+                Inactivo
+                @endif
+              </span>
             </div>
-          </li>
+            <span>
+              <img class="round" src="{{ asset('avatar/'.Auth::user()->avatar) }}" alt="avatar" height="40"
+                width="40">
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right menu-color">
+            <a class="dropdown-item text-white" href="{{ route('admin.user.edit') }}">
+              <i class="feather icon-user"></i>
+              Editar Perfil
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-white" href="{{ route('logout') }}"
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <i class="feather icon-power"></i> Salir </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+            </form>
+          </div>
+        </li>
+          @endauth
+
         </ul>
       </div>
     </div>

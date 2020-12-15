@@ -52,11 +52,11 @@
 <script>
 	$(document).ready(function () {
 		$('#mytable').DataTable({
-			dom: 'flBrtip',
+			// dom: 'flBrtip',
 			responsive: true,
-			buttons: [
-				'csv', 'pdf', 'print', 'excel'
-			]
+			// buttons: [
+			// 	'csv', 'pdf', 'print', 'excel'
+			// ]
 		});
 
 		$('.dataTables_wrapper.dt-bootstrap4.no-footer').addClass('row justify-content-center')

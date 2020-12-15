@@ -31,6 +31,13 @@ class HomeController extends Controller
         if (Auth::guest()){
             return redirect('mioficina/login');
         }else{
+
+            if (session()->has('tienda')) {
+                session()->forget('tienda');
+                return redirect()->route('tienda-index', 'tienda');
+            }else{
+                return redirect('mioficina/admin');
+            }
             // if (empty(Auth::user()->verificar_correo)) {
                 // return redirect('login')->with('msj3', 'Your Email has not been Validated, check the email that registered in the system');
             // }else{
@@ -38,7 +45,6 @@ class HomeController extends Controller
                 //     return redirect()->route('autenticacion.2fact');
                 // }else{
                     // }
-                    return redirect('mioficina/admin');
             // }
             // $cliente = SettingCliente::find(1);
             // if ($cliente->permiso == 0 && Auth::user()->tipouser == 'Cliente') {

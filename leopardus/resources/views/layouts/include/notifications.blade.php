@@ -1,11 +1,16 @@
 @php
 $notificaciones = [];
-$notificaciones = DB::table('notificaciones')
+@endphp
+
+@auth
+@php
+	$notificaciones = DB::table('notificaciones')
 ->where([
 ['iduser', '=', Auth::user()->ID],
 ['vista', '=', 0]
 ])->get();
 @endphp
+@endauth
 
 <style>
 	.dropdown-notification .dropdown-menu-header{

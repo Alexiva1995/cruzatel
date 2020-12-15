@@ -42,6 +42,9 @@
                                 Bauche
                             </th>
                             <th>
+                                Estado
+                            </th>
+                            <th>
                                 Acción
                             </th>
                         </tr>
@@ -71,8 +74,19 @@
                                 <img src="{{asset('Bauches/'.$orden->bauche)}}" alt="{{'Bauche_'.$orden->producto}}" height="300">
                             </td>
                             <td>
+                                @if ($orden->status == 1)
+                                    Aprobadas
+                                @elseif($orden->status == 2)
+                                    Cancelada
+                                @else
+                                    En Espera
+                                @endif
+                            </td>
+                            <td>
+                                @if ($orden->status == 0)
                                 <a class="btn btn-info" href="{{route('banks.action', [$orden->id, 'aprobada'])}}"> Aceptar</a>
                                 <a class="btn btn-danger" href="{{route('banks.action', [$orden->id, 'cancelada'])}}"> Cancelar</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

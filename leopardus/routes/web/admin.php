@@ -45,9 +45,11 @@ Route::group(['prefix' => 'autentication'], function (){
 
 // Tienda Online
 
+Route::get('tienda/ecommerce/{tipo}', 'TiendaController@index')->name('tienda-index')->middleware('guest');
+
 Route::group(['prefix' => 'tienda', 'middleware' => ['auth', 'licencia', 'guest']], function (){
 
-    Route::get('/ecommerce/{tipo}', 'TiendaController@index')->name('tienda-index');
+    // Route::get('/ecommerce/{tipo}', 'TiendaController@index')->name('tienda-index');
 
     Route::post('savecompra', 'TiendaController@saveOrdenPosts')->name('tienda-save-compra');
 

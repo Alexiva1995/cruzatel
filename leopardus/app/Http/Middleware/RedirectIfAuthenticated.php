@@ -18,22 +18,34 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // if (Auth::guard($guard)->check()) {
-        //     if ($request->getPathInfo() != '/mioficina/admin/user/update') {
-        //         if ($request->getPathInfo() != '/mioficina/admin/user/edit') {
-        //             $check = DB::table('user_campo')->where([
-        //                 ['ID', '=', Auth::user()->ID],
-        //                 ['firstname', '!=', ''],
-        //                 ['lastname', '!=', ''],
-        //                 ['direccion', '!=', ''],
-        //                 ['paypal', '!=', '']
-        //             ])->first();
-        //             if ($check == null) {
-        //                 return redirect()->route('admin.user.edit')->with('msj4', 'Por favor llene su informacion personal, para poder hacer uso del sistema, nombre, apellido, direcion y su direccion en la billetera');
-        //             }
-        //         }
-        //     }
-        // }
+        if (Auth::guard($guard)->check()) {
+            // if ($request->getPathInfo() != '/mioficina/admin/user/update') {
+                // if ($request->getPathInfo() != '/mioficina/admin/user/edit') {
+                //     $check = DB::table('user_campo')->where([
+                //         ['ID', '=', Auth::user()->ID],
+                //         ['firstname', '!=', ''],
+                //         ['lastname', '!=', ''],
+                //         ['direccion', '!=', ''],
+                //         ['paypal', '!=', '']
+                //     ])->first();
+                //     if ($check == null) {
+                //         return redirect()->route('admin.user.edit')->with('msj4', 'Por favor llene su informacion personal, para poder hacer uso del sistema, nombre, apellido, direcion y su direccion en la billetera');
+                //     }
+                // }
+            // }
+            // if (session()->has('tienda')) {
+            //     session()->forget('tienda');
+            //     redirect()->route('tienda-index', 'tienda');
+            // }
+        }else{
+
+            if ($request->getPathInfo() == '/mioficina/tienda/ecommerce/membresia') {
+                return redirect()->route('login');
+            }
+            if ($request->getPathInfo() == '/mioficina/tienda/ecommerce/tienda') {
+                session(['tienda' => 1]);
+            }
+        }
 
         return $next($request);
     }

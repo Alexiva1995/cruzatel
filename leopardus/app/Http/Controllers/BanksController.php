@@ -103,7 +103,7 @@ class BanksController extends Controller
     public function solicitud()
     {
         view()->share('title', 'Transferecias Bancarias');
-        $ordens = BanksOrden::all()->where('status', '=', 0);
+        $ordens = BanksOrden::all();
 
         foreach ($ordens as $orden) {
             $user = User::find($orden->iduser);
