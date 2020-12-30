@@ -340,8 +340,9 @@ class ComisionesController extends Controller
                 $pagar = $user->puntosizq;
             }
             if (!empty($user->paquete)) {
-                if ($pagar > $user->paquete->monto) {
-                    $pagar = $user->paquete->monto;
+                $paquete = json_decode($user->paquete);
+                if ($pagar > $paquete->precio) {
+                    $pagar = $paquete->precio;
                 }
             }
             if ($pagar != 0) {
