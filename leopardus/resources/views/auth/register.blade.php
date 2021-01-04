@@ -36,7 +36,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
 @endif
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">
+        <h4 class="card-title text-white">
             @if ($referred != null)
             Referido Por: <strong>{{  $referred->display_name }}</strong>
             @endif

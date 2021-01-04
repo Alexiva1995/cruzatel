@@ -53,7 +53,7 @@ class AdminController extends Controller
                 'derechos' => Auth::user()->puntosder,
                 'izquierdos' => Auth::user()->puntosizq
             ],
-            'billetera' => number_format(Auth::user()->wallet_amount, 3, ',', '.'),
+            'billetera' => number_format(Auth::user()->wallet_amount, 2, ',', '.'),
             'publicidades' => $publicidad->getPublicidadCompartir(Auth::user()->ID)
         ];
         view()->share('title', 'Balance General');

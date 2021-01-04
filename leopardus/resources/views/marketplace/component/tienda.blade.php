@@ -27,6 +27,7 @@
                         </p>
                     </div>
 
+                    @auth
                     <form action="{{route('tienda-save-compra')}}" method="post">
                         {{ csrf_field() }}
                         <input type="hidden" name="idproducto" id="product_id" value="{{$product->ID}}">
@@ -35,6 +36,9 @@
                         <input type="hidden" name="tipo" value="paypal">
                         <button type="submit" class="btn btn-primary btn-block">Comprar</button>
                     </form>
+                    @else
+                    <a class="btn btn-primary btn-block" href="{{route('autenticacion.new-register')}}">Comprar</a>
+                    @endauth
                 </div>
                 @endforeach
             </div>

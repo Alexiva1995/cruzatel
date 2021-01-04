@@ -93,7 +93,7 @@ $referred = DB::table($settings->prefijo_wp.'users')
                         </div>
                     </div>
                     @if ($referred != null)
-                    <p class="px-2">Referido de : <strong>{{ $referred->display_name }}</strong> </p>
+                    <p class="px-2 text-white">Referido de : <strong>{{ $referred->display_name }}</strong> </p>
                     @endif
 
                     {{-- alertas --}}
@@ -202,8 +202,14 @@ $referred = DB::table($settings->prefijo_wp.'users')
                                 <input type="hidden" name="ladomatrix" value="{{request()->lado}}">
 
                                 @if (request()->referred_id == null)
+                                <div class="form-label-group form-group position-relative z-index-alt">
 
-                                <input type="hidden" name="referred_id" value="" />
+                                    <input
+                                        class="form-control input-alt form-control-solid placeholder-no-fix form-label-group"
+                                        placeholder="ID Del Patrocinador" type="text" autocomplete="off"
+                                        name="referred_id" />
+                                    <label class="text-white">Usuario</label>
+                                </div>
                                 @else
                                 <input type="hidden" name="referred_id" value="{{ request()->referred_id }}" />
                                 @endif
