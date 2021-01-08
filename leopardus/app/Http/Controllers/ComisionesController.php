@@ -45,20 +45,22 @@ class ComisionesController extends Controller
         foreach ($compras as $compra) {
             $sponsors = $funciones->getSponsor($compra['idusuario'], [], 0, 'ID', 'referred_id');
             $referido = User::find($compra['idusuario']);
-            $side = $referido->ladomatrix;
-            foreach ($sponsors as $sponsor) {
-                if ($sponsor->ID != $compra['idusuario']) {
-                    $idcomision = '10'.$compra['idcompra'];
-                    if ($this->checkComision($idcomision, $sponsor->ID)) {
-                        foreach ($compra['productos'] as $producto) {
-                            $concepto = 'Primera Compra sin Comision';
-                            $this->guardarComision($sponsor->ID, $idcomision, $producto['precio'], $referido->user_email, $sponsor->nivel, $concepto, 'referido');
-                            $this->PuntosPaquetes($sponsor->ID, $producto['precio'], $referido->user_email, $side);
+            if(!empty($referido)){
+                $side = $referido->ladomatrix;
+                foreach ($sponsors as $sponsor) {
+                    if ($sponsor->ID != $compra['idusuario']) {
+                        $idcomision = '10'.$compra['idcompra'];
+                        if ($this->checkComision($idcomision, $sponsor->ID)) {
+                            foreach ($compra['productos'] as $producto) {
+                                $concepto = 'Primera Compra sin Comision';
+                                $this->guardarComision($sponsor->ID, $idcomision, $producto['precio'], $referido->user_email, $sponsor->nivel, $concepto, 'referido');
+                                $this->PuntosPaquetes($sponsor->ID, $producto['precio'], $referido->user_email, $side);
+                            }
                         }
+                        $side = $sponsor->ladomatrix;
                     }
-                    $side = $sponsor->ladomatrix;
-                }
 
+                }
             }
         }
     }

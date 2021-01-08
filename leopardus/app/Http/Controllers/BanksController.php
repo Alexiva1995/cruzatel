@@ -107,7 +107,11 @@ class BanksController extends Controller
 
         foreach ($ordens as $orden) {
             $user = User::find($orden->iduser);
-            $orden->user_name = $user->display_name;
+            $orden->user_name = 'Usuario no disponible';
+            if (!empty($user)) {
+                $orden->user_name = $user->display_name;
+            }
+            
         }
 
         return view('bank.solicitud', compact('ordens'));
