@@ -21,16 +21,23 @@ $(document).ready(function () {
 })
 
 function moveDiv(hash) {
-    let url = window.location.pathname
-    let tmpurl = url.split('/')
+    // let url = window.location.pathname
+    // let tmpurl = url.split('/')
     if (hash != '') {
-        if (tmpurl[tmpurl.length-1] == 'legal') {
-            window.location.href = '../'+hash
-        }
+        // if (tmpurl[tmpurl.length-1] == 'legal') {
+        //     window.location.href = '../'+hash
+        // }
 
-        let position = ($(hash).offset().top - 120);
-        $('html, body').animate({
-            scrollTop: position
-        }, 1000)
+        if (hash != '#menu') {
+            let position = ($(hash).offset().top - 120);
+            $('html, body').animate({
+                scrollTop: position
+            }, 1000)
+        }else{
+            let position = 0;
+            $('html, body').animate({
+                scrollTop: position
+            }, 1000)
+        }
     }
 }

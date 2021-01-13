@@ -11,7 +11,7 @@
                 {{-- <h3 style="color: #002a38; font-weight: 700;">
                     AL SIGUIENTE NIVEL
                 </h3> --}}
-                <a class="btn text-white pl-4 pr-4" href="javascript:;" style="background: #3A58A2; border-radius: 15px">
+                <a class="btn text-white pl-4 pr-4" href="{{route('autenticacion.new-register')}}?referred_id=2" style="background: #3A58A2; border-radius: 15px" >
                     <strong>¡AFILIATE AHORA MISMO!</strong>
                 </a>
             </div>

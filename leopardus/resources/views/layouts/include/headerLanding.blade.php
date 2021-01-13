@@ -5,9 +5,9 @@
 {{-- <nav class="navbar navbar-expand-lg {{($landing == 0) ? 'fixed-top' : 'sticky-top'}} navbar-light" id="menu"> --}}
 <nav class="navbar navbar-expand-lg sticky-top navbar-light" id="menu">
 
-    <a class="navbar-brand" href="javascript:;" onclick="moveDiv('#header')">
+    <a class="navbar-brand" href="javascript:;" onclick="moveDiv('#menu')">
 
-        <img src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="">
+        <img src="{{asset('assets/imgLanding/logo-cruzatel.png')}}" height="90" alt="" >
 
     </a>
 
@@ -28,19 +28,19 @@
                 </a>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link d-flex text-small text-white" href="javascript:;">
+                <a class="nav-link d-flex text-small text-white" href="javascript:;" onclick="moveDiv('#nosotros')">
                     Nosotros
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link d-flex text-small text-white" href="javascript:;">
+                <a class="nav-link d-flex text-small text-white" href="javascript:;" onclick="moveDiv('#servicio')">
                     Servicios
                 </a>
             </li>
 
             <li class="nav-item mr-5">
-                <a class="nav-link d-flex text-small text-white" href="javascript:;">
+                <a class="nav-link d-flex text-small text-white" href="javascript:;" onclick="moveDiv('#equipo')">
                     Equipo
                 </a>
             </li>
