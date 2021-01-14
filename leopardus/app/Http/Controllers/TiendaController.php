@@ -287,6 +287,9 @@ class TiendaController extends Controller
         ]); 
         $settings = Settings::first();
         if ($validate) {
+            if ((int)$datos->precio <= 0) {
+                return redirect()->back()->with('msj', 'El Precio no puede ser 0');
+            }
             // $verificarCode = DB::table($settings->prefijo_wp.'posts')->where('code_coinbase', $datos->code_coinbase)->first();
             // if (!empty($verificarCode)) {
             //     $ruta = 'https://commerce.coinbase.com/charges/'.$datos->code_coinbase;

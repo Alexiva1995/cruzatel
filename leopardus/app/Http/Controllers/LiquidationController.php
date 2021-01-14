@@ -61,7 +61,7 @@ class LiquidationController extends Controller
         )->groupBy('user_id')->get();
 
         foreach ($comisionestmp as $comision) {
-            $user = User::find($comision->user_id)->only('display_name', 'status', 'user_email');
+            $user = User::find($comision->user_id);
             $comision->usuario = 'Usuario No Disponible';
             $comision->status = 0;
             $comision->email = 'Correo no disponible';
@@ -150,7 +150,7 @@ class LiquidationController extends Controller
      */
     public function detalles(int $iduser): string
     {
-        $user = User::find($iduser)->only('display_name');
+        $user = User::find($iduser);
         $data = [
             'comisiones' => $this->getComisiones($iduser, 0),
             'totalPagar' => number_format($this->getTotaPagar($iduser, 0), 2, ',', '.'),
@@ -342,7 +342,7 @@ class LiquidationController extends Controller
         $liquidaciones = Liquidacion::where('status', '=', 0)->get();
 
         foreach ($liquidaciones as $liquidacion) {
-            $user = User::find($liquidacion->iduser)->only('display_name', 'user_email');
+            $user = User::find($liquidacion->iduser);
             $liquidacion->usuario = 'Usuario No Disponible';
             $liquidacion->email = 'Correo no disponible';
             if (!empty($user)) {
@@ -366,7 +366,7 @@ class LiquidationController extends Controller
         $liquidaciones = Liquidacion::where('status', '=', 1)->get();
 
         foreach ($liquidaciones as $liquidacion) {
-            $user = User::find($liquidacion->iduser)->only('display_name', 'user_email');
+            $user = User::find($liquidacion->iduser);
             $liquidacion->usuario = 'Usuario No Disponible';
             $liquidacion->email = 'Correo no disponible';
             if (!empty($user)) {
@@ -421,7 +421,7 @@ class LiquidationController extends Controller
                     ['iduser', '=', $inversion->iduser],
                     ['idinversion', '=', $inversion->id],
                 ])->get()->sum('debito');
-                $user = User::find($inversion->iduser)->only('display_name', 'user_email');
+                $user = User::find($inversion->iduser);
                 $fecha_vencimiento = new Carbon($inversion->fecha_fin);
                 $estado = ($fecha_vencimiento > $fechaActual) ? 'Activa' : 'Vencidad';
                 $arrayInversiones [] = [
