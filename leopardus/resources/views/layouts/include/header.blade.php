@@ -31,7 +31,9 @@
             </li>
             @if ($title != 'Balance General')
             <li class="nav-item">
-              <h2 class="text-small3 text-white" style="padding: 1.4rem 0.5rem 1.35rem;">{{$title}}</h2>
+              <h3 class="text-small3 text-white" style="padding: 1.4rem 0.5rem 1.35rem;">
+                <strong>{{$title}}</strong>
+              </h3>
             </li>
             @endif
           </ul>

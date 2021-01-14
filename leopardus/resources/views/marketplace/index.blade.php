@@ -32,9 +32,10 @@
 {{-- alertas --}}
 @include('dashboard.componentView.alert')
 
-<div class="row menu-color text-white">
-
+<div class="col-12">
+    <div class="row text-white">
         @include('marketplace.component.tienda')
+    </div>
 </div>
 
 

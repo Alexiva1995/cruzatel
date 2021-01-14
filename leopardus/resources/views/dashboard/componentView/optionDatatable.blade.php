@@ -1,9 +1,10 @@
 @push('vendor_css')
-<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
-
+{{-- <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}"> --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.23/r-2.2.7/datatables.min.css"/>
+ 
 <style>
 	label {
-		color: #ffffff !important;
+		color: #706262 !important;
 	}
 	.btn-succeess2{
 		background: #287233 !important;
@@ -33,18 +34,24 @@
 	.pagination .page-item.active .page-link{
 		background: #5CBDEB !important;
 	}
+
+	.bg-blue-dark{
+		background: #ffffff !important;
+	}
+
 </style>
 @endpush
 
 @push('page_vendor_js')
-<script src="{{asset('app-assets/vendors/js/tables/datatable/pdfmake.min.js')}}"></script>
+{{-- <script src="{{asset('app-assets/vendors/js/tables/datatable/pdfmake.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/vfs_fonts.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/datatables.buttons.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/buttons.html5.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/buttons.print.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js')}}"></script>
-<script src="{{asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script> --}}
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.23/r-2.2.7/datatables.min.js"></script>
 @endpush
 
 

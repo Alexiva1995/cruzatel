@@ -72,8 +72,12 @@
                                 {{$bank->numero_cuenta}}
                             </td>
                             <td>
-                                <a class="btn btn-info" onclick="editProduct({{json_encode($bank)}})"> Editar</a>
-                                <a class="btn btn-danger" href="{{route('banks.delete', [$bank->id])}}"> Borrar</a>
+                                <a class="btn btn-info" onclick="editProduct({{json_encode($bank)}})">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" href="{{route('banks.delete', [$bank->id])}}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                         @endforeach

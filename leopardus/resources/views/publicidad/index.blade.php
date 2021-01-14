@@ -53,8 +53,12 @@
                                 {{$publicidad->descripcion}}
                             </td>
                             <td>
-                                <a class="btn btn-info" onclick="editProduct({{json_encode($publicidad)}})"> Editar</a>
-                                <a class="btn btn-danger" href="{{route('delete.publicidad', [$publicidad->id])}}"> Borrar</a>
+                                <a class="btn btn-info" onclick="editProduct({{json_encode($publicidad)}})">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" href="{{route('delete.publicidad', [$publicidad->id])}}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                         @endforeach

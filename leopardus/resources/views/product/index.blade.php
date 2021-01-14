@@ -13,7 +13,7 @@
 
 {{-- option datatable --}}
 @include('dashboard.componentView.optionDatatable')
-<div class="card bg-blue-dark text-white">
+<div class="card text-white">
     <div class="card-content">
         <div class="card-body">
             <div class="table-responsive">
@@ -78,8 +78,12 @@
                             </td>
                             <td>
                                 @if ($product->tipo != 'membresia')
-                                <a class="btn btn-info" onclick="editProduct({{json_encode($product)}})"> Editar</a>
-                                <a class="btn btn-danger" href="{{route('save.delete', [$product->ID])}}"> Borrar</a>
+                                <a class="btn btn-info" onclick="editProduct({{json_encode($product)}})"> 
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" href="{{route('save.delete', [$product->ID])}}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
                                 @endif
                             </td>
                         </tr>
